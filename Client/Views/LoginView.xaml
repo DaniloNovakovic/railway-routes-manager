@@ -3,8 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:local="clr-namespace:Client.Views"
              xmlns:viewModel="clr-namespace:Client.ViewModel"
+             xmlns:rules="clr-namespace:Client.ValidationRules"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800">
@@ -13,9 +13,36 @@
         <viewModel:LoginViewModel />
     </UserControl.DataContext>
 
+    <UserControl.Resources>
+        <Style TargetType="TextBox" x:Key="ValidationTextBox" BasedOn="{StaticResource MaterialDesignFloatingHintTextBox}">
+            <Setter Property="Margin" Value="0,0,0,20" />
+        </Style>
+        <Style TargetType="PasswordBox"  x:Key="ValidationPasswordBox" BasedOn="{StaticResource MaterialDesignFloatingHintPasswordBox}">
+            <Setter Property="Margin" Value="0,0,0,20" />
+        </Style>
+    </UserControl.Resources>
+
     <Grid>
         <materialDesign:Card Padding="32" Margin="16" MaxWidth="500">
-            <TextBlock Style="{DynamicResource MaterialDesignTitleTextBlock}">Hello from Login</TextBlock>
+            <StackPanel>
+                <TextBox x:Name="UsernameTextBox" materialDesign:HintAssist.Hint="Username"  MaxLength="20"
+                         Style="{StaticResource ValidationTextBox}">
+                    <TextBox.Text>
+                        <Binding Path="Username" UpdateSourceTrigger="PropertyChanged">
+                            <Binding.ValidationRules>
+                                <rules:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
+                                <rules:UsernameValidationRule ValidatesOnTargetUpdated="True" />
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
+                <PasswordBox x:Name="textBoxPassword" materialDesign:HintAssist.Hint="Password" />
+                <TextBlock Text="{Binding PasswordErrors, Mode=TwoWay}" Foreground="Red" />
+
+                <Button x:Name="buttonLogin" Content="Login"
+                        Command="{Binding PasswordCommand}"
+                        CommandParameter="{Binding ElementName=textBoxPassword}" />
+            </StackPanel>
         </materialDesign:Card>
     </Grid>
 </UserControl>
