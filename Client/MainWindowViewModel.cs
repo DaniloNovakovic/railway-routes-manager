@@ -6,15 +6,15 @@ namespace Client
     {
         private BindableBase currentViewModel;
 
-        public BindableBase CurrentViewModel
-        {
-            get => this.currentViewModel;
-            set => SetProperty(ref currentViewModel, value);
-        }
-
         public MainWindowViewModel()
         {
             CurrentViewModel = new LoginViewModel();
+        }
+
+        public BindableBase CurrentViewModel
+        {
+            get => currentViewModel;
+            set => SetProperty(ref currentViewModel, value);
         }
     }
 }

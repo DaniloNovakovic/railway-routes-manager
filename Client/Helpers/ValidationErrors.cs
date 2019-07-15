@@ -21,6 +21,11 @@ namespace Client.Helpers
             set => SetError(fieldName, value);
         }
 
+        public void Clear()
+        {
+            _validationErrors.Clear();
+        }
+
         public string GetError(string fieldName)
         {
             return _validationErrors.ContainsKey(fieldName) ?
@@ -48,11 +53,6 @@ namespace Client.Helpers
                 }
             }
             OnPropertyChanged(nameof(IsValid));
-        }
-
-        public void Clear()
-        {
-            _validationErrors.Clear();
         }
     }
 }

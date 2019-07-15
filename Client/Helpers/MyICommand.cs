@@ -5,8 +5,8 @@ namespace Client.Helpers
 {
     public class MyICommand : ICommand
     {
-        private readonly Action _TargetExecuteMethod;
         private readonly Func<bool> _TargetCanExecuteMethod;
+        private readonly Action _TargetExecuteMethod;
 
         public MyICommand(Action executeMethod)
         {
@@ -19,10 +19,7 @@ namespace Client.Helpers
             _TargetCanExecuteMethod = canExecuteMethod;
         }
 
-        public void RaiseCanExecuteChanged()
-        {
-            CanExecuteChanged(this, EventArgs.Empty);
-        }
+        public event EventHandler CanExecuteChanged = delegate { };
 
         bool ICommand.CanExecute(object parameter)
         {
@@ -34,18 +31,21 @@ namespace Client.Helpers
             return _TargetExecuteMethod != null;
         }
 
-        public event EventHandler CanExecuteChanged = delegate { };
-
         void ICommand.Execute(object parameter)
         {
             _TargetExecuteMethod?.Invoke();
+        }
+
+        public void RaiseCanExecuteChanged()
+        {
+            CanExecuteChanged(this, EventArgs.Empty);
         }
     }
 
     public class MyICommand<T> : ICommand
     {
-        private readonly Action<T> _TargetExecuteMethod;
         private readonly Func<T, bool> _TargetCanExecuteMethod;
+        private readonly Action<T> _TargetExecuteMethod;
 
         public MyICommand(Action<T> executeMethod)
         {
@@ -65,6 +65,8 @@ namespace Client.Helpers
 
         #region ICommand Members
 
+        public event EventHandler CanExecuteChanged = delegate { };
+
         bool ICommand.CanExecute(object parameter)
         {
             if (_TargetCanExecuteMethod != null)
@@ -75,8 +77,6 @@ namespace Client.Helpers
 
             return _TargetExecuteMethod != null;
         }
-
-        public event EventHandler CanExecuteChanged = delegate { };
 
         void ICommand.Execute(object parameter)
         {

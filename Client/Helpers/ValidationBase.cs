@@ -6,14 +6,18 @@ namespace Client.Helpers
 {
     public class ValidationBase : BindableBase
     {
-        public ValidationErrors ValidationErrors { get; set; }
-
         [XmlIgnore]
         public bool IsValid { get; private set; }
 
-        protected ValidationBase()
+        public ValidationErrors ValidationErrors { get; set; } = new ValidationErrors();
+
+        public void Validate()
         {
-            ValidationErrors = new ValidationErrors();
+            ValidationErrors.Clear();
+            ValidateSelf();
+            IsValid = ValidationErrors.IsValid;
+            OnPropertyChanged(nameof(IsValid));
+            OnPropertyChanged(nameof(ValidationErrors));
         }
 
         protected virtual void ValidateSelf()
@@ -33,15 +37,6 @@ namespace Client.Helpers
                     }
                 }
             }
-        }
-
-        public void Validate()
-        {
-            ValidationErrors.Clear();
-            ValidateSelf();
-            IsValid = ValidationErrors.IsValid;
-            OnPropertyChanged(nameof(IsValid));
-            OnPropertyChanged(nameof(ValidationErrors));
         }
     }
 }
