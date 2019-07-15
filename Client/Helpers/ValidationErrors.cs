@@ -16,34 +16,38 @@ namespace Client.Helpers
 
         public string this[string fieldName]
         {
-            get
-            {
-                return _validationErrors.ContainsKey(fieldName) ?
-                    _validationErrors[fieldName] : string.Empty;
-            }
+            get => GetError(fieldName);
 
-            set
+            set => SetError(fieldName, value);
+        }
+
+        public string GetError(string fieldName)
+        {
+            return _validationErrors.ContainsKey(fieldName) ?
+                    _validationErrors[fieldName] : string.Empty;
+        }
+
+        public void SetError(string fieldName, string value)
+        {
+            if (_validationErrors.ContainsKey(fieldName))
             {
-                if (_validationErrors.ContainsKey(fieldName))
+                if (string.IsNullOrWhiteSpace(value))
                 {
-                    if (string.IsNullOrWhiteSpace(value))
-                    {
-                        _validationErrors.Remove(fieldName);
-                    }
-                    else
-                    {
-                        _validationErrors[fieldName] = value;
-                    }
+                    _validationErrors.Remove(fieldName);
                 }
                 else
                 {
-                    if (!string.IsNullOrWhiteSpace(value))
-                    {
-                        _validationErrors.Add(fieldName, value);
-                    }
+                    _validationErrors[fieldName] = value;
                 }
-                OnPropertyChanged(nameof(IsValid));
             }
+            else
+            {
+                if (!string.IsNullOrWhiteSpace(value))
+                {
+                    _validationErrors.Add(fieldName, value);
+                }
+            }
+            OnPropertyChanged(nameof(IsValid));
         }
 
         public void Clear()

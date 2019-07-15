@@ -14,11 +14,9 @@
     </UserControl.DataContext>
 
     <UserControl.Resources>
-        <Style TargetType="TextBox" x:Key="ValidationTextBox" BasedOn="{StaticResource MaterialDesignFloatingHintTextBox}">
-            <Setter Property="Margin" Value="0,0,0,20" />
-        </Style>
-        <Style TargetType="PasswordBox"  x:Key="ValidationPasswordBox" BasedOn="{StaticResource MaterialDesignFloatingHintPasswordBox}">
-            <Setter Property="Margin" Value="0,0,0,20" />
+        <Style TargetType="TextBlock" x:Key="ValidationTextBlock" BasedOn="{StaticResource MaterialDesignCaptionTextBlock}">
+            <Setter Property="Margin" Value="0,0,0,15" />
+            <Setter Property="Foreground" Value="Red" />
         </Style>
     </UserControl.Resources>
 
@@ -26,18 +24,11 @@
         <materialDesign:Card Padding="32" Margin="16" MaxWidth="500">
             <StackPanel>
                 <TextBox x:Name="UsernameTextBox" materialDesign:HintAssist.Hint="Username"  MaxLength="20"
-                         Style="{StaticResource ValidationTextBox}">
-                    <TextBox.Text>
-                        <Binding Path="Username" UpdateSourceTrigger="PropertyChanged">
-                            <Binding.ValidationRules>
-                                <rules:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
-                                <rules:UsernameValidationRule ValidatesOnTargetUpdated="True" />
-                            </Binding.ValidationRules>
-                        </Binding>
-                    </TextBox.Text>
-                </TextBox>
-                <PasswordBox x:Name="textBoxPassword" materialDesign:HintAssist.Hint="Password" />
-                <TextBlock Text="{Binding PasswordErrors, Mode=TwoWay}" Foreground="Red" />
+                         Text="{Binding LoginModel.Username, Mode=TwoWay}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                <TextBlock Text="{Binding LoginModel.ValidationErrors[Username]}" Style="{StaticResource ValidationTextBlock}" />
+
+                <PasswordBox x:Name="textBoxPassword" materialDesign:HintAssist.Hint="Password" Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" />
+                <TextBlock Text="{Binding LoginModel.ValidationErrors[Password]}" Style="{StaticResource ValidationTextBlock}" />
 
                 <Button x:Name="buttonLogin" Content="Login"
                         Command="{Binding PasswordCommand}"
