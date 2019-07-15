@@ -28,7 +28,7 @@
         </DataTemplate>
     </Window.Resources>
 
-    <Grid>
+    <Grid VerticalAlignment="Center">
         <ContentControl Content="{Binding CurrentViewModel}" />
     </Grid>
 </Window>

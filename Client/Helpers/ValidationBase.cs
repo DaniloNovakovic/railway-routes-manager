@@ -21,7 +21,7 @@ namespace Client.Helpers
             var context = new ValidationContext(this);
             var results = new List<ValidationResult>();
 
-            bool isValid = Validator.TryValidateObject(this, context, results);
+            bool isValid = Validator.TryValidateObject(this, context, results, true);
 
             if (!isValid)
             {
