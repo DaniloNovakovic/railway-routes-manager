@@ -5,9 +5,10 @@ using Client.Model;
 
 namespace Client.ViewModel
 {
-    public class LoginViewModel : BindableBase
+    public class LoginViewModel : ViewModelBase
     {
         private ICommand _passwordCommand;
+
         public LoginModel LoginModel { get; set; } = new LoginModel();
 
         public ICommand PasswordCommand

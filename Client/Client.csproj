@@ -65,14 +65,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Helpers\INavigable.cs" />
+    <Compile Include="Helpers\IViewModel.cs" />
     <Compile Include="Helpers\MyICommand.cs" />
     <Compile Include="Helpers\ValidationBase.cs" />
     <Compile Include="Helpers\ValidationErrors.cs" />
+    <Compile Include="Helpers\ViewModelBase.cs" />
     <Compile Include="Model\LoginModel.cs" />
-    <Compile Include="ValidationRules\NotEmptyValidationRule.cs" />
-    <Compile Include="ValidationRules\NoWhiteSpaceValidationRule.cs" />
-    <Compile Include="ValidationRules\PasswordValidationRule.cs" />
-    <Compile Include="ValidationRules\UsernameValidationRule.cs" />
+    <Compile Include="Services\AuthenticationService.cs" />
+    <Compile Include="Services\IAuthenticationService.cs" />
     <Compile Include="ViewModel\LoginViewModel.cs" />
     <Compile Include="Views\LoginView.xaml.cs">
       <DependentUpon>LoginView.xaml</DependentUpon>
