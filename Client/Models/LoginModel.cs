@@ -1,24 +1,19 @@
-﻿using System.ComponentModel.DataAnnotations;
-using Client.Helpers;
+﻿using Prism.Mvvm;
 
-namespace Client.Model
+namespace Client.Models
 {
-    public class LoginModel : ValidationBase
+    public class LoginModel : BindableBase
     {
         private string _password;
 
         private string _username;
 
-        [Required]
-        [StringLength(maximumLength: 20, MinimumLength = 4)]
         public string Password
         {
             get => _password;
             set => SetProperty(ref _password, value);
         }
 
-        [Required]
-        [StringLength(maximumLength: 12, MinimumLength = 4)]
         public string Username
         {
             get => _username;

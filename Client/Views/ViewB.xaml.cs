@@ -3,11 +3,11 @@
 namespace Client.Views
 {
     /// <summary>
-    /// Interaction logic for ViewA
+    /// Interaction logic for ViewB
     /// </summary>
-    public partial class LoginView : UserControl
+    public partial class ViewB : UserControl
     {
-        public LoginView()
+        public ViewB()
         {
             InitializeComponent();
         }
