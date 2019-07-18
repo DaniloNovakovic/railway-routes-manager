@@ -7,22 +7,22 @@ namespace Client.ViewModels
 {
     public class MainWindowViewModel : BindableBase
     {
-        private string _title = "School Project - Main Window";
         private readonly IRegionManager _regionManager;
-
-        public string Title
-        {
-            get { return _title; }
-            set { SetProperty(ref _title, value); }
-        }
-
-        public ICommand NavigateCommand { get; }
+        private string _title = "School Project - Main Window";
 
         public MainWindowViewModel(IRegionManager regionManager)
         {
             _regionManager = regionManager;
 
             NavigateCommand = new DelegateCommand<string>(Navigate);
+        }
+
+        public ICommand NavigateCommand { get; }
+
+        public string Title
+        {
+            get { return _title; }
+            set { SetProperty(ref _title, value); }
         }
 
         private void Navigate(string navigatePath)
