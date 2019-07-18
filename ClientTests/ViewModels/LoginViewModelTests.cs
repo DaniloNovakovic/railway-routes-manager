@@ -29,6 +29,10 @@ namespace Client.ViewModels.Tests
 
         [Theory]
         [InlineData("", "")]
+        [InlineData("djura28", "")]
+        [InlineData("djura28", "1")]
+        [InlineData("", "nikolica123")]
+        [InlineData("1", "nikolica123")]
         public void Login_WhenLoginModelIsInvalid_DoNotCallAuthService(string username, string password)
         {
             _sut.LoginModel.Username = username;

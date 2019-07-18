@@ -7,17 +7,21 @@
 
     <Grid>
         <materialDesign:Card Padding="32" Margin="16" MinHeight="230" MinWidth="320"  MaxWidth="500">
-            <StackPanel>
-                <TextBox x:Name="UsernameTextBox" materialDesign:HintAssist.Hint="Username"  MaxLength="20"
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <StackPanel CanVerticallyScroll="True">
+                    <TextBox x:Name="UsernameTextBox" materialDesign:HintAssist.Hint="Username"  MaxLength="20"
                          Text="{Binding Path=LoginModel.Username,Mode=TwoWay,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}"
                          materialDesign:ValidationAssist.OnlyShowOnFocus="True" />
 
-                <PasswordBox x:Name="textBoxPassword" materialDesign:HintAssist.Hint="Password" />
+                    <PasswordBox x:Name="textBoxPassword" materialDesign:HintAssist.Hint="Password" />
 
-                <Button x:Name="buttonLogin" Content="Login"
+                    <Button x:Name="buttonLogin" Content="Login"
                         Command="{Binding LoginCommand}"
-                        CommandParameter="{Binding ElementName=textBoxPassword}" />
-            </StackPanel>
+                        CommandParameter="{Binding ElementName=textBoxPassword}"
+                        Margin="0,15" />
+                    <ItemsControl ItemsSource="{Binding Errors, Mode=TwoWay}" ItemTemplate="{StaticResource ValidationErrors}" Margin="0,15,0,15" />
+                </StackPanel>
+            </ScrollViewer>
         </materialDesign:Card>
     </Grid>
 </UserControl>
