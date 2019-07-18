@@ -1,4 +1,5 @@
-﻿using Prism.Commands;
+﻿using System.Windows.Input;
+using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Regions;
 
@@ -15,7 +16,7 @@ namespace Client.ViewModels
             set { SetProperty(ref _title, value); }
         }
 
-        public DelegateCommand<string> NavigateCommand { get; private set; }
+        public ICommand NavigateCommand { get; }
 
         public MainWindowViewModel(IRegionManager regionManager)
         {

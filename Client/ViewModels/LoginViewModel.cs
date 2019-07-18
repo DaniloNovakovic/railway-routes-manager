@@ -1,5 +1,7 @@
 ﻿using System.Windows.Controls;
+using System.Windows.Input;
 using Client.Models;
+using Client.Services;
 using Prism.Commands;
 using Prism.Mvvm;
 
@@ -7,25 +9,30 @@ namespace Client.ViewModels
 {
     public class LoginViewModel : BindableBase
     {
-        public LoginModel LoginModel { get; set; } = new LoginModel();
-        public DelegateCommand<object> LoginCommand { get; private set; }
+        private readonly IAuthenticationService _authService;
 
-        public LoginViewModel()
+        public LoginViewModel(IAuthenticationService authService)
         {
             LoginCommand = new DelegateCommand<object>(LoginClick);
+            _authService = authService;
         }
+
+        public ICommand LoginCommand { get; }
+        public LoginModel LoginModel { get; set; } = new LoginModel();
 
         private void LoginClick(object p)
         {
-            var passwordBox = p as PasswordBox;
-            LoginModel.Password = passwordBox?.Password ?? "";
-            //LoginModel.Validate();
-            //if (!LoginModel.IsValid)
-            //{
-            //    return;
-            //}
+            if (p is PasswordBox passwordBox)
+            {
+                LoginModel.Password = passwordBox.Password ?? "";
+            }
 
-            // Todo: LOGIN
+            if (!LoginModel.ValidateProperties())
+            {
+                return;
+            }
+
+            _authService.Login(LoginModel.Username, LoginModel.Password);
         }
     }
 }

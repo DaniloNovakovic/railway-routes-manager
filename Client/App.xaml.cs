@@ -1,7 +1,7 @@
-﻿using Client.Views;
+﻿using System.Windows;
+using Client.Services;
+using Client.Views;
 using Prism.Ioc;
-using Prism.Modularity;
-using System.Windows;
 
 namespace Client
 {
@@ -17,6 +17,7 @@ namespace Client
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
+            containerRegistry.RegisterSingleton<IAuthenticationService, AuthenticationService>();
             containerRegistry.RegisterForNavigation<LoginView>();
             containerRegistry.RegisterForNavigation<ViewB>();
         }

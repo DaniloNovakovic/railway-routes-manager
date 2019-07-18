@@ -5,23 +5,14 @@
              xmlns:prism="http://prismlibrary.com/"
              prism:ViewModelLocator.AutoWireViewModel="True">
 
-    <UserControl.Resources>
-        <Style TargetType="TextBlock" x:Key="ValidationTextBlock" BasedOn="{StaticResource MaterialDesignCaptionTextBlock}">
-            <Setter Property="Margin" Value="0,0,0,15" />
-            <Setter Property="Foreground" Value="Red" />
-            <Setter Property="TextWrapping" Value="Wrap" />
-        </Style>
-    </UserControl.Resources>
-
     <Grid>
         <materialDesign:Card Padding="32" Margin="16" MinHeight="230" MinWidth="320"  MaxWidth="500">
             <StackPanel>
                 <TextBox x:Name="UsernameTextBox" materialDesign:HintAssist.Hint="Username"  MaxLength="20"
-                         Text="{Binding LoginModel.Username, Mode=TwoWay}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
-                <TextBlock Text="{Binding LoginModel.ValidationErrors[Username]}" Style="{StaticResource ValidationTextBlock}" />
+                         Text="{Binding Path=LoginModel.Username,Mode=TwoWay,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}"
+                         materialDesign:ValidationAssist.OnlyShowOnFocus="True" />
 
-                <PasswordBox x:Name="textBoxPassword" materialDesign:HintAssist.Hint="Password" Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" />
-                <TextBlock Text="{Binding LoginModel.ValidationErrors[Username]}" Style="{StaticResource ValidationTextBlock}" />
+                <PasswordBox x:Name="textBoxPassword" materialDesign:HintAssist.Hint="Password" />
 
                 <Button x:Name="buttonLogin" Content="Login"
                         Command="{Binding LoginCommand}"
