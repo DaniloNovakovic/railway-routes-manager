@@ -56,6 +56,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Constants\NavigationSources.cs" />
+    <Compile Include="Constants\RegionNames.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Services\AuthenticationService.cs" />
     <Compile Include="Services\IAuthenticationService.cs" />

@@ -28,7 +28,7 @@ namespace Client.ViewModels
         private void Navigate(string navigatePath)
         {
             if (navigatePath != null)
-                _regionManager.RequestNavigate("ContentRegion", navigatePath);
+                _regionManager.RequestNavigate(RegionNames.ContentRegion, navigatePath);
         }
     }
 }

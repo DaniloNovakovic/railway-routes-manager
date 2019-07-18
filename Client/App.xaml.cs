@@ -18,8 +18,8 @@ namespace Client
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
             containerRegistry.RegisterSingleton<IAuthenticationService, AuthenticationService>();
-            containerRegistry.RegisterForNavigation<LoginView>();
-            containerRegistry.RegisterForNavigation<ViewB>();
+            containerRegistry.RegisterForNavigation<LoginView>(NavigationSources.LoginSource);
+            containerRegistry.RegisterForNavigation<ViewB>(NavigationSources.RegisterSource);
         }
     }
 }
