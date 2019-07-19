@@ -90,6 +90,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Client.Core\Client.Core.csproj">
+      <Project>{0BA526B9-3CFC-44A2-8515-89F686437915}</Project>
+      <Name>Client.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Client\Client.csproj">
       <Project>{8B4124E1-B04E-4D44-BF16-A45FD06DFEEE}</Project>
       <Name>Client</Name>

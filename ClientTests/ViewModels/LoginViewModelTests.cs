@@ -1,4 +1,4 @@
-﻿using Client.Services;
+﻿using Client.Core;
 using Moq;
 using Xunit;
 

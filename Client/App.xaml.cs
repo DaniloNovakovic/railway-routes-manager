@@ -1,5 +1,5 @@
 ﻿using System.Windows;
-using Client.Services;
+using Client.Core;
 using Client.Views;
 using Prism.Ioc;
 

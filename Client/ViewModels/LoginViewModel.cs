@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Windows.Controls;
 using System.Windows.Input;
+using Client.Core;
 using Client.Models;
-using Client.Services;
-using Client.Utils;
 using Prism.Commands;
 using Prism.Mvvm;
 

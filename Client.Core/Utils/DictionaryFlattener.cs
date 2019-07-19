@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Client.Utils
+namespace Client.Core
 {
     public static class DictionaryFlattener
     {

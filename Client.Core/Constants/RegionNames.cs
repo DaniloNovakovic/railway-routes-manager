@@ -1,4 +1,4 @@
-﻿namespace Client
+﻿namespace Client.Core
 {
     public static class RegionNames
     {
