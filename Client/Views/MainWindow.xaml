@@ -15,12 +15,6 @@
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}">
     <Grid>
-        <DockPanel LastChildFill="True">
-            <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" Margin="5">
-                <Button Command="{Binding NavigateCommand}" CommandParameter="{x:Static core:NavigationSources.LoginSource}" Margin="5">Log In</Button>
-                <Button Command="{Binding NavigateCommand}" CommandParameter="{x:Static core:NavigationSources.RegisterSource}" Margin="5">Sign Up</Button>
-            </StackPanel>
-            <ContentControl prism:RegionManager.RegionName="{x:Static core:RegionNames.ContentRegion}" Margin="5" />
-        </DockPanel>
+        <ContentControl prism:RegionManager.RegionName="{x:Static core:RegionNames.ContentRegion}" Margin="5" />
     </Grid>
 </Window>

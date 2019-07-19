@@ -3,25 +3,31 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:prism="http://prismlibrary.com/"
+             xmlns:core="clr-namespace:Client.Core;assembly=Client.Core"
              prism:ViewModelLocator.AutoWireViewModel="True">
 
     <Grid>
-        <materialDesign:Card Padding="32" Margin="16" MinHeight="230" MinWidth="320"  MaxWidth="500">
-            <ScrollViewer VerticalScrollBarVisibility="Auto">
-                <StackPanel CanVerticallyScroll="True">
-                    <TextBox x:Name="UsernameTextBox" materialDesign:HintAssist.Hint="Username"  MaxLength="20"
+        <DockPanel>
+            <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" Margin="5">
+                <Button Command="{Binding NavigateCommand}" CommandParameter="{x:Static core:NavigationSources.RegisterSource}" Margin="5">Sign Up</Button>
+            </StackPanel>
+            <materialDesign:Card Padding="32" Margin="10" MinHeight="230" MinWidth="320"  MaxWidth="500">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <StackPanel CanVerticallyScroll="True">
+                        <TextBox x:Name="UsernameTextBox" materialDesign:HintAssist.Hint="Username"  MaxLength="20"
                          Text="{Binding Path=LoginModel.Username,Mode=TwoWay,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}"
                          materialDesign:ValidationAssist.OnlyShowOnFocus="True" />
 
-                    <PasswordBox x:Name="textBoxPassword" materialDesign:HintAssist.Hint="Password" />
+                        <PasswordBox x:Name="textBoxPassword" materialDesign:HintAssist.Hint="Password" />
 
-                    <Button x:Name="buttonLogin" Content="Login"
+                        <Button x:Name="buttonLogin" Content="Login"
                         Command="{Binding LoginCommand}"
                         CommandParameter="{Binding ElementName=textBoxPassword}"
                         Margin="0,15" />
-                    <ItemsControl ItemsSource="{Binding Errors, Mode=TwoWay}" ItemTemplate="{StaticResource ValidationErrors}" Margin="0,15,0,15" />
-                </StackPanel>
-            </ScrollViewer>
-        </materialDesign:Card>
+                        <ItemsControl ItemsSource="{Binding Errors, Mode=TwoWay}" ItemTemplate="{StaticResource ValidationErrors}" Margin="0,15,0,15" />
+                    </StackPanel>
+                </ScrollViewer>
+            </materialDesign:Card>
+        </DockPanel>
     </Grid>
 </UserControl>

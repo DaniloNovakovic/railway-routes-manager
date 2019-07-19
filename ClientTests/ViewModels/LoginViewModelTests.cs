@@ -12,7 +12,7 @@ namespace Client.ViewModels.Tests
         public LoginViewModelTests()
         {
             _authServiceMock = new Mock<IAuthenticationService>();
-            _sut = new LoginViewModel(_authServiceMock.Object);
+            _sut = new LoginViewModel(_authServiceMock.Object, null);
         }
 
         [Theory]

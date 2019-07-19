@@ -5,6 +5,7 @@ using Client.Core;
 using Client.Models;
 using Prism.Commands;
 using Prism.Mvvm;
+using Prism.Regions;
 
 namespace Client.ViewModels
 {
@@ -12,13 +13,17 @@ namespace Client.ViewModels
     {
         private readonly IAuthenticationService _authService;
 
+        private readonly IRegionManager _regionManager;
         private ICollection<string> _errors;
 
-        public LoginViewModel(IAuthenticationService authService)
+        public LoginViewModel(IAuthenticationService authService, IRegionManager regionManager)
         {
             _authService = authService;
-            LoginCommand = new DelegateCommand<object>(LoginClick);
+            _regionManager = regionManager;
+
             LoginModel.ErrorsChanged += (s, e) => Errors = DictionaryFlattener.Flatten(LoginModel.GetAllErrors());
+            LoginCommand = new DelegateCommand<object>(LoginClick);
+            NavigateCommand = new DelegateCommand<string>(Navigate);
         }
 
         public ICollection<string> Errors
@@ -28,8 +33,8 @@ namespace Client.ViewModels
         }
 
         public ICommand LoginCommand { get; }
-
         public LoginModel LoginModel { get; set; } = new LoginModel();
+        public ICommand NavigateCommand { get; }
 
         private void LoginClick(object p)
         {
@@ -44,6 +49,12 @@ namespace Client.ViewModels
             }
 
             _authService.Login(LoginModel.Username, LoginModel.Password);
+        }
+
+        private void Navigate(string navigatePath)
+        {
+            if (navigatePath != null)
+                _regionManager.RequestNavigate(RegionNames.ContentRegion, navigatePath);
         }
     }
 }

@@ -5,9 +5,9 @@ namespace Client.Views
     /// <summary>
     /// Interaction logic for ViewB
     /// </summary>
-    public partial class ViewB : UserControl
+    public partial class RegisterView : UserControl
     {
-        public ViewB()
+        public RegisterView()
         {
             InitializeComponent();
         }

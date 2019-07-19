@@ -1,6 +1,5 @@
-﻿using System.Windows.Input;
-using Client.Core;
-using Prism.Commands;
+﻿using Client.Core;
+using Client.Views;
 using Prism.Mvvm;
 using Prism.Regions;
 
@@ -8,28 +7,17 @@ namespace Client.ViewModels
 {
     public class MainWindowViewModel : BindableBase
     {
-        private readonly IRegionManager _regionManager;
         private string _title = "School Project - Main Window";
 
         public MainWindowViewModel(IRegionManager regionManager)
         {
-            _regionManager = regionManager;
-
-            NavigateCommand = new DelegateCommand<string>(Navigate);
+            regionManager.RegisterViewWithRegion(RegionNames.ContentRegion, typeof(LoginView));
         }
-
-        public ICommand NavigateCommand { get; }
 
         public string Title
         {
             get { return _title; }
             set { SetProperty(ref _title, value); }
-        }
-
-        private void Navigate(string navigatePath)
-        {
-            if (navigatePath != null)
-                _regionManager.RequestNavigate(RegionNames.ContentRegion, navigatePath);
         }
     }
 }

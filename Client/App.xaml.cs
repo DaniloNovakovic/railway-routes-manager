@@ -19,7 +19,7 @@ namespace Client
         {
             containerRegistry.RegisterSingleton<IAuthenticationService, AuthenticationService>();
             containerRegistry.RegisterForNavigation<LoginView>(NavigationSources.LoginSource);
-            containerRegistry.RegisterForNavigation<ViewB>(NavigationSources.RegisterSource);
+            containerRegistry.RegisterForNavigation<RegisterView>(NavigationSources.RegisterSource);
         }
     }
 }
