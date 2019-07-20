@@ -1,5 +1,5 @@
 ﻿using System.Windows;
-using Client.Core;
+using Client.Extensions;
 using Client.Views;
 using Prism.DryIoc;
 using Prism.Ioc;
@@ -18,9 +18,8 @@ namespace Client
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            containerRegistry.RegisterSingleton<IAuthenticationService, AuthenticationService>();
-            containerRegistry.RegisterForNavigation<LoginView>(NavigationPaths.LoginPath);
-            containerRegistry.RegisterForNavigation<RegisterView>(NavigationPaths.RegisterPath);
+            containerRegistry.RegisterServices();
+            containerRegistry.RegisterViewsForNavigation();
         }
     }
 }

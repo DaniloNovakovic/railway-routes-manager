@@ -71,21 +71,22 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Extensions\ContainerRegistryExtensions.cs" />
     <Compile Include="Helpers\NavViewModelBase.cs" />
     <Compile Include="Models\LoginModel.cs" />
-    <Compile Include="ViewModels\AdminNavViewModel.cs" />
-    <Compile Include="ViewModels\AdminViewModel.cs" />
+    <Compile Include="ViewModels\Navs\AdminNavViewModel.cs" />
+    <Compile Include="ViewModels\Layout\AdminViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\ProfileViewModel.cs" />
     <Compile Include="ViewModels\RailwayListViewModel.cs" />
     <Compile Include="ViewModels\RegisterViewModel.cs" />
-    <Compile Include="ViewModels\RegularUserNavViewModel.cs" />
-    <Compile Include="ViewModels\RegularUserViewModel.cs" />
+    <Compile Include="ViewModels\Navs\RegularUserNavViewModel.cs" />
+    <Compile Include="ViewModels\Layout\RegularUserViewModel.cs" />
     <Compile Include="ViewModels\UserListViewModel.cs" />
-    <Compile Include="Views\AdminNavView.xaml.cs">
+    <Compile Include="Views\Navs\AdminNavView.xaml.cs">
       <DependentUpon>AdminNavView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\AdminView.xaml.cs">
+    <Compile Include="Views\Layout\AdminView.xaml.cs">
       <DependentUpon>AdminView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\LoginView.xaml.cs">
@@ -100,10 +101,10 @@
     <Compile Include="Views\RegisterView.xaml.cs">
       <DependentUpon>RegisterView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\RegularUserNavView.xaml.cs">
+    <Compile Include="Views\Navs\RegularUserNavView.xaml.cs">
       <DependentUpon>RegularUserNavView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\RegularUserView.xaml.cs">
+    <Compile Include="Views\Layout\RegularUserView.xaml.cs">
       <DependentUpon>RegularUserView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\UserListView.xaml.cs">
@@ -117,15 +118,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\AdminNavView.xaml">
+    <Page Include="Views\Navs\AdminNavView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\AdminView.xaml">
+    <Page Include="Views\Layout\AdminView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\MainWindow.xaml">
+    <Page Include="Views\Layout\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -133,8 +134,8 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ViewModels\MainWindowViewModel.cs" />
-    <Compile Include="Views\MainWindow.xaml.cs">
+    <Compile Include="ViewModels\Layout\MainWindowViewModel.cs" />
+    <Compile Include="Views\Layout\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
@@ -154,11 +155,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\RegularUserNavView.xaml">
+    <Page Include="Views\Navs\RegularUserNavView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\RegularUserView.xaml">
+    <Page Include="Views\Layout\RegularUserView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

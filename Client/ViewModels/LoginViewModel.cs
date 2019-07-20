@@ -53,7 +53,9 @@ namespace Client.ViewModels
             try
             {
                 _authService.Login(LoginModel.Username, LoginModel.Password);
-                Navigate(NavigationPaths.RegisterPath);
+
+                // TODO: Change this to navigate to either Admin or RegularUser based on user's role name
+                Navigate(NavigationPaths.AdminPath);
             }
             catch (Exception ex)
             {

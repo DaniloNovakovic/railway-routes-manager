@@ -1,0 +1,13 @@
+﻿<UserControl x:Class="Client.Views.AdminView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:core="clr-namespace:Client.Core;assembly=Client.Core"
+             xmlns:prism="http://prismlibrary.com/"
+             prism:ViewModelLocator.AutoWireViewModel="True">
+    <Grid>
+        <DockPanel LastChildFill="True">
+            <ContentControl prism:RegionManager.RegionName="{x:Static core:RegionNames.NavRegion}" DockPanel.Dock="Top" Margin="5" />
+            <ContentControl prism:RegionManager.RegionName="{x:Static core:RegionNames.AuthContentRegion}"  Margin="5" />
+        </DockPanel>
+    </Grid>
+</UserControl>
