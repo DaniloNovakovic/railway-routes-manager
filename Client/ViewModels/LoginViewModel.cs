@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Client.Core;
@@ -14,7 +16,7 @@ namespace Client.ViewModels
         private readonly IAuthenticationService _authService;
 
         private readonly IRegionManager _regionManager;
-        private ICollection<string> _errors;
+        private ICollection<string> _errors = new List<string>();
 
         public LoginViewModel(IAuthenticationService authService, IRegionManager regionManager)
         {
@@ -48,13 +50,22 @@ namespace Client.ViewModels
                 return;
             }
 
-            _authService.Login(LoginModel.Username, LoginModel.Password);
+            try
+            {
+                _authService.Login(LoginModel.Username, LoginModel.Password);
+                Navigate(NavigationPaths.RegisterPath);
+            }
+            catch (Exception ex)
+            {
+                Errors = new List<string>() { ex.Message };
+                Trace.TraceError(ex.Message);
+            }
         }
 
         private void Navigate(string navigatePath)
         {
             if (navigatePath != null)
-                _regionManager.RequestNavigate(RegionNames.ContentRegion, navigatePath);
+                _regionManager.RequestNavigate(RegionNames.WindowRegion, navigatePath);
         }
     }
 }

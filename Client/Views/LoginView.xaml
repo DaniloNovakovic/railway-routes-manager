@@ -9,7 +9,7 @@
     <Grid>
         <DockPanel>
             <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" Margin="5">
-                <Button Command="{Binding NavigateCommand}" CommandParameter="{x:Static core:NavigationSources.RegisterSource}" Margin="5">Sign Up</Button>
+                <Button Command="{Binding NavigateCommand}" CommandParameter="{x:Static core:NavigationPaths.RegisterPath}" Margin="5">Sign Up</Button>
             </StackPanel>
             <materialDesign:Card Padding="32" Margin="10" MinHeight="230" MinWidth="320"  MaxWidth="500">
                 <ScrollViewer VerticalScrollBarVisibility="Auto">

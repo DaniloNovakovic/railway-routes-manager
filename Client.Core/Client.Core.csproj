@@ -41,7 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Constants\NavigationSources.cs" />
+    <Compile Include="Constants\NavigationPaths.cs" />
     <Compile Include="Constants\RegionNames.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\AuthenticationService.cs" />

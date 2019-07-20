@@ -11,6 +11,11 @@ namespace Client.Core
 
         public void Login(string username, string password)
         {
+            if (username != "admin" && password != "admin")
+            {
+                throw new ArgumentException("User not found!");
+            }
+
             Console.WriteLine($"Login: {username} {password}");
         }
 

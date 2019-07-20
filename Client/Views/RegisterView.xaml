@@ -7,7 +7,7 @@
     <Grid>
         <DockPanel>
             <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" Margin="5">
-                <Button Command="{Binding NavigateCommand}" CommandParameter="{x:Static core:NavigationSources.LoginSource}" Margin="5">Log In</Button>
+                <Button Command="{Binding NavigateCommand}" CommandParameter="{x:Static core:NavigationPaths.LoginPath}" Margin="5">Log In</Button>
             </StackPanel>
             <TextBlock Text="In Progress..." FontSize="48" HorizontalAlignment="Center" VerticalAlignment="Center" />
         </DockPanel>

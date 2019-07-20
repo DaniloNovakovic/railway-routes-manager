@@ -2,6 +2,8 @@
 {
     public static class RegionNames
     {
-        public const string ContentRegion = "ContentRegion";
+        public const string WindowRegion = "WindowRegion";
+        public const string NavRegion = "NavRegion";
+        public const string AuthContentRegion = "AuthContentRegion";
     }
 }

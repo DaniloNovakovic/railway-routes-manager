@@ -4,7 +4,6 @@
         xmlns:prism="http://prismlibrary.com/"
         xmlns:core="clr-namespace:Client.Core;assembly=Client.Core"
         prism:ViewModelLocator.AutoWireViewModel="True"
-        Title="{Binding Title}"
         MinHeight="400" MinWidth="500" Height="600" Width="800"
         WindowStartupLocation="CenterScreen"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -15,6 +14,6 @@
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}">
     <Grid>
-        <ContentControl prism:RegionManager.RegionName="{x:Static core:RegionNames.ContentRegion}" Margin="5" />
+        <ContentControl prism:RegionManager.RegionName="{x:Static core:RegionNames.WindowRegion}" Margin="5" />
     </Grid>
 </Window>

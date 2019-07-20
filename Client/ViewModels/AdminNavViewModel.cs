@@ -6,23 +6,23 @@ using Prism.Regions;
 
 namespace Client.ViewModels
 {
-    public class RegisterViewModel : BindableBase
+    public class AdminNavViewModel : BindableBase
     {
+        public ICommand NavigateCommand { get; }
+
         private readonly IRegionManager _regionManager;
 
-        public RegisterViewModel(IRegionManager regionManager)
+        public AdminNavViewModel(IRegionManager regionManager)
         {
             _regionManager = regionManager;
 
             NavigateCommand = new DelegateCommand<string>(Navigate);
         }
 
-        public ICommand NavigateCommand { get; }
-
         private void Navigate(string navigatePath)
         {
             if (navigatePath != null)
-                _regionManager.RequestNavigate(RegionNames.WindowRegion, navigatePath);
+                _regionManager.RequestNavigate(RegionNames.AuthContentRegion, navigatePath);
         }
     }
 }
