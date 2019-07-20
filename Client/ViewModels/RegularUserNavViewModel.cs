@@ -1,15 +1,14 @@
-﻿using Prism.Commands;
-using Prism.Mvvm;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using Client.Core;
+using Client.Helpers;
+using Prism.Regions;
 
 namespace Client.ViewModels
 {
-    public class RegularUserNavViewModel : BindableBase
+    public class RegularUserNavViewModel : NavViewModelBase
     {
-        public RegularUserNavViewModel()
+        public RegularUserNavViewModel(IRegionManager regionManager) : base(regionManager)
         {
+            RegionName = RegionNames.AuthContentRegion;
         }
     }
 }

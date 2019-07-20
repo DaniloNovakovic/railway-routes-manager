@@ -1,9 +1,11 @@
 ﻿<UserControl x:Class="Client.Views.RegularUserNavView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:prism="http://prismlibrary.com/"             
+             xmlns:core="clr-namespace:Client.Core;assembly=Client.Core"
+             xmlns:prism="http://prismlibrary.com/"
              prism:ViewModelLocator.AutoWireViewModel="True">
-    <Grid>
-            
-    </Grid>
+    <StackPanel Orientation="Horizontal"  Margin="5">
+        <Button Command="{Binding NavigateCommand}" CommandParameter="{x:Static core:NavigationPaths.RailwayListPath}" Margin="5">Railways</Button>
+        <Button Command="{Binding NavigateCommand}" CommandParameter="{x:Static core:NavigationPaths.ProfilePath}" Margin="5">Profile</Button>
+    </StackPanel>
 </UserControl>
