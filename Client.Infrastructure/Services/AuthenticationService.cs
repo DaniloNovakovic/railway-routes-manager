@@ -1,6 +1,7 @@
 ﻿using System;
+using Client.Core;
 
-namespace Client.Core
+namespace Client.Infrastructure
 {
     public class AuthenticationService : IAuthenticationService
     {

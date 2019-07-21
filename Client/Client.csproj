@@ -73,7 +73,6 @@
     </ApplicationDefinition>
     <Compile Include="Extensions\ContainerRegistryExtensions.cs" />
     <Compile Include="Helpers\NavViewModelBase.cs" />
-    <Compile Include="Models\LoginModel.cs" />
     <Compile Include="ViewModels\Navs\AdminNavViewModel.cs" />
     <Compile Include="ViewModels\Layout\AdminViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
@@ -207,6 +206,10 @@
     <ProjectReference Include="..\Client.Core\Client.Core.csproj">
       <Project>{0ba526b9-3cfc-44a2-8515-89f686437915}</Project>
       <Name>Client.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Client.Infrastructure\Client.Infrastructure.csproj">
+      <Project>{AFBA7633-3E2F-4923-94F1-897589CDEFF1}</Project>
+      <Name>Client.Infrastructure</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -4,7 +4,6 @@ using System.Diagnostics;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Client.Core;
-using Client.Models;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Regions;

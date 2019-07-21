@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Prism.Validation;
 
-namespace Client.Models
+namespace Client.Core
 {
     public class LoginModel : ValidatableBindableBase
     {

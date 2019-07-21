@@ -1,4 +1,5 @@
 ﻿using Client.Core;
+using Client.Infrastructure;
 using Client.Views;
 using Prism.Ioc;
 
