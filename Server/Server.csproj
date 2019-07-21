@@ -50,6 +50,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Migrations\201907211003167_InitialModel.cs" />
+    <Compile Include="Migrations\201907211003167_InitialModel.Designer.cs">
+      <DependentUpon>201907211003167_InitialModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Persistance\ApplicationDbContext.cs" />
     <Compile Include="Persistance\Repositories\Repository.cs" />
     <Compile Include="Persistance\UnitOfWork.cs" />
@@ -60,7 +65,11 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201907211003167_InitialModel.resx">
+      <DependentUpon>201907211003167_InitialModel.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Server.Core\Server.Core.csproj">
       <Project>{1F153ED6-1CC0-4584-9065-D9EF29AA478B}</Project>
