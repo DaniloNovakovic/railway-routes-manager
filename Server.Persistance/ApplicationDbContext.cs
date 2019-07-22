@@ -10,5 +10,6 @@ namespace Server.Persistance
         public DbSet<RailwayPlatform> RailwayPlatforms { get; set; }
         public DbSet<RailwayStation> RailwayStations { get; set; }
         public DbSet<Route> Routes { get; set; }
+        public DbSet<User> Users { get; set; }
     }
 }

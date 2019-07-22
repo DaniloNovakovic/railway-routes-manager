@@ -15,6 +15,7 @@ namespace Server.Persistance
             RailwayPlatforms = new Repository<RailwayPlatform>(context);
             RailwayStations = new Repository<RailwayStation>(context);
             Routes = new Repository<Route>(context);
+            Users = new Repository<User>(context);
         }
 
         public IRepository<Country> Countries { get; }
@@ -22,6 +23,7 @@ namespace Server.Persistance
         public IRepository<RailwayPlatform> RailwayPlatforms { get; }
         public IRepository<RailwayStation> RailwayStations { get; }
         public IRepository<Route> Routes { get; }
+        public IRepository<User> Users { get; set; }
 
         public void Dispose()
         {

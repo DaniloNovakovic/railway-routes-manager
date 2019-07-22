@@ -1,9 +1,9 @@
-namespace Server.Migrations
+namespace Server.Persistance.Migrations
 {
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class InitialModel : DbMigration
+    public partial class InitialMigration : DbMigration
     {
         public override void Up()
         {
@@ -67,6 +67,16 @@ namespace Server.Migrations
                 .PrimaryKey(t => t.Id);
             
             CreateTable(
+                "dbo.Users",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Password = c.String(),
+                        Username = c.String(),
+                    })
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
                 "dbo.RouteRailwayStations",
                 c => new
                     {
@@ -94,6 +104,7 @@ namespace Server.Migrations
             DropIndex("dbo.RailwayPlatforms", new[] { "RailwayStationId" });
             DropIndex("dbo.Locations", new[] { "CountryId" });
             DropTable("dbo.RouteRailwayStations");
+            DropTable("dbo.Users");
             DropTable("dbo.Routes");
             DropTable("dbo.RailwayStations");
             DropTable("dbo.RailwayPlatforms");

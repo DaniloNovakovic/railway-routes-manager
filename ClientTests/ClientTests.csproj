@@ -104,9 +104,9 @@
       <Project>{0BA526B9-3CFC-44A2-8515-89F686437915}</Project>
       <Name>Client.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Client\Client.csproj">
+    <ProjectReference Include="..\Client\Client.DesktopUI.csproj">
       <Project>{8B4124E1-B04E-4D44-BF16-A45FD06DFEEE}</Project>
-      <Name>Client</Name>
+      <Name>Client.DesktopUI</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>
