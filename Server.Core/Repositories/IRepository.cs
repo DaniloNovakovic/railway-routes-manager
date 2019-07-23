@@ -10,11 +10,9 @@ namespace Server.Core
 
         void AddRange(IEnumerable<TEntity> entities);
 
-        IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate);
-
         TEntity Get(params object[] keyValues);
 
-        IEnumerable<TEntity> GetAll();
+        IEnumerable<TEntity> GetAll(Expression<Func<TEntity, bool>> filter = null);
 
         void Remove(TEntity entity);
 

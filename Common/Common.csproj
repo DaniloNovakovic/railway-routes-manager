@@ -33,6 +33,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -41,7 +42,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Dtos\CountryDto.cs" />
+    <Compile Include="Dtos\LocationDto.cs" />
+    <Compile Include="Dtos\RailwayPlatformDto.cs" />
+    <Compile Include="Dtos\RailwayStationDto.cs" />
+    <Compile Include="Dtos\RouteDto.cs" />
+    <Compile Include="Dtos\UserDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServiceContracts\ICountryService.cs" />
+    <Compile Include="ServiceContracts\IServiceBase.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

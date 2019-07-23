@@ -26,19 +26,21 @@ namespace Server.Persistance
             Context.Set<TEntity>().AddRange(entities);
         }
 
-        public IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate)
-        {
-            return Context.Set<TEntity>().Where(predicate).ToList();
-        }
-
         public TEntity Get(params object[] keyValues)
         {
             return Context.Set<TEntity>().Find(keyValues);
         }
 
-        public IEnumerable<TEntity> GetAll()
+        public IEnumerable<TEntity> GetAll(Expression<Func<TEntity, bool>> filter = null)
         {
-            return Context.Set<TEntity>().ToList();
+            var query = Context.Set<TEntity>().AsQueryable();
+
+            if (filter != null)
+            {
+                query = query.Where(filter);
+            }
+
+            return query.ToList();
         }
 
         public void Remove(TEntity entity)
