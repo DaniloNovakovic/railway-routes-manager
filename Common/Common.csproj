@@ -50,7 +50,12 @@
     <Compile Include="Dtos\UserDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServiceContracts\ICountryService.cs" />
+    <Compile Include="ServiceContracts\ILocationService.cs" />
+    <Compile Include="ServiceContracts\IRailwayPlatformService.cs" />
+    <Compile Include="ServiceContracts\IRailwayStationService.cs" />
+    <Compile Include="ServiceContracts\IRouteService.cs" />
     <Compile Include="ServiceContracts\IServiceBase.cs" />
+    <Compile Include="ServiceContracts\IUserService.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
