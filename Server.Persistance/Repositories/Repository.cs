@@ -31,6 +31,11 @@ namespace Server.Persistance
             return Context.Set<TEntity>().Find(keyValues);
         }
 
+        public TEntity Get(Expression<Func<TEntity, bool>> filter)
+        {
+            return Context.Set<TEntity>().FirstOrDefault(filter);
+        }
+
         public IEnumerable<TEntity> GetAll(Expression<Func<TEntity, bool>> filter = null)
         {
             var query = Context.Set<TEntity>().AsQueryable();

@@ -33,6 +33,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -42,13 +43,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Constants\Ports.cs" />
     <Compile Include="Dtos\CountryDto.cs" />
     <Compile Include="Dtos\LocationDto.cs" />
     <Compile Include="Dtos\RailwayPlatformDto.cs" />
     <Compile Include="Dtos\RailwayStationDto.cs" />
     <Compile Include="Dtos\RouteDto.cs" />
     <Compile Include="Dtos\UserDto.cs" />
+    <Compile Include="Exceptions\InvalidPasswordException.cs" />
+    <Compile Include="Exceptions\NotFoundException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServiceContracts\IAuthService.cs" />
     <Compile Include="ServiceContracts\ICountryService.cs" />
     <Compile Include="ServiceContracts\ILocationService.cs" />
     <Compile Include="ServiceContracts\IRailwayPlatformService.cs" />

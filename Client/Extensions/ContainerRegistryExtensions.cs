@@ -1,5 +1,6 @@
 ﻿using Client.Core;
 using Client.Infrastructure;
+using Client.Infrastructure.Helpers;
 using Client.Views;
 using Prism.Ioc;
 
@@ -9,6 +10,7 @@ namespace Client.Extensions
     {
         public static void RegisterServices(this IContainerRegistry containerRegistry)
         {
+            containerRegistry.RegisterSingleton<IAuthChannelFactory, AuthChannelFactory>();
             containerRegistry.RegisterSingleton<IAuthenticationService, AuthenticationService>();
         }
 

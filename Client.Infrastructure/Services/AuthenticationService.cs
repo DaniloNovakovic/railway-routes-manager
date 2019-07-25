@@ -1,10 +1,19 @@
 ﻿using System;
 using Client.Core;
+using Client.Infrastructure.Helpers;
+using Common;
 
 namespace Client.Infrastructure
 {
     public class AuthenticationService : IAuthenticationService
     {
+        private readonly IAuthChannelFactory _factory;
+
+        public AuthenticationService(IAuthChannelFactory factory)
+        {
+            _factory = factory;
+        }
+
         public bool IsLoggedIn(string username)
         {
             return false;
@@ -12,12 +21,12 @@ namespace Client.Infrastructure
 
         public void Login(string username, string password)
         {
-            if (username != "admin" && password != "admin")
-            {
-                throw new ArgumentException("User not found!");
-            }
+            _factory.Username = username;
+            _factory.Password = password;
+            var channelFactory = _factory.GetChannelFactory<IUserService>(Ports.UserServicePort);
+            var proxy = channelFactory.CreateChannel();
 
-            Console.WriteLine($"Login: {username} {password}");
+            proxy.Login(username, password);
         }
 
         public void Logout(string username)

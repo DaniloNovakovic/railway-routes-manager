@@ -12,6 +12,8 @@ namespace Server.Core
 
         TEntity Get(params object[] keyValues);
 
+        TEntity Get(Expression<Func<TEntity, bool>> filter);
+
         IEnumerable<TEntity> GetAll(Expression<Func<TEntity, bool>> filter = null);
 
         void Remove(TEntity entity);

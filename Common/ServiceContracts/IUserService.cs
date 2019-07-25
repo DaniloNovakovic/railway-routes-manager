@@ -3,7 +3,7 @@
 namespace Common
 {
     [ServiceContract]
-    public interface IUserService : IServiceBase<int, UserDto>
+    public interface IUserService : IServiceBase<int, UserDto>, IAuthService
     {
     }
 }

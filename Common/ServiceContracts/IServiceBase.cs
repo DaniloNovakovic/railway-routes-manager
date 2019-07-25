@@ -15,7 +15,7 @@ namespace Common
         TEntity Get(TKey key);
 
         [OperationContract]
-        IEnumerable<TEntity> GetAll(Expression<Func<TEntity, bool>> filter = null);
+        IEnumerable<TEntity> GetAll();
 
         [OperationContract]
         void Remove(TKey key);

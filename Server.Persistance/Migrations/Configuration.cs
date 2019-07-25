@@ -1,9 +1,7 @@
 namespace Server.Persistance.Migrations
 {
-    using System;
-    using System.Data.Entity;
     using System.Data.Entity.Migrations;
-    using System.Linq;
+    using Server.Core;
 
     internal sealed class Configuration : DbMigrationsConfiguration<ApplicationDbContext>
     {
@@ -18,6 +16,15 @@ namespace Server.Persistance.Migrations
 
             // You can use the DbSet<T>.AddOrUpdate() helper extension method to avoid creating
             // duplicate seed data.
+
+            context.Users.AddOrUpdate(new User
+            {
+                Id = 1,
+                Username = "admin",
+                Password = "admin",
+                FirstName = "Danilo",
+                LastName = "Novakovic"
+            });
         }
     }
 }
