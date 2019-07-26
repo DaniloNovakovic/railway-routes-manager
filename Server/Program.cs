@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Common;
+using Server.Core;
 using Server.Persistance;
 
 namespace Server
@@ -17,10 +18,9 @@ namespace Server
                 var validator = new CustomUserNamePasswordValidator(unitOfWork);
                 var hostFactory = new AuthServiceHostFactory(validator);
 
-                var userService = new UserService(unitOfWork);
-                var authService = new AuthService(unitOfWork);
-                var userServiceHost = hostFactory.GetServiceHost<IUserService>(Ports.UserServicePort, userService);
-                var authServiceHost = hostFactory.GetServiceHost<IAuthService>(Ports.AuthServicePort, authService);
+                var provider = RegisterServices(unitOfWork);
+                var userServiceHost = hostFactory.GetServiceHost<IUserService>(Ports.UserServicePort, provider.Resolve<IUserService>());
+                var authServiceHost = hostFactory.GetServiceHost<IAuthService>(Ports.AuthServicePort, provider.Resolve<IAuthService>());
 
                 Task.Run(() => userServiceHost.Open());
                 Task.Run(() => authServiceHost.Open());
@@ -31,6 +31,14 @@ namespace Server
                 Task.Run(() => userServiceHost.Close());
                 Task.Run(() => authServiceHost.Close());
             }
+        }
+
+        private static IServiceProvider RegisterServices(IUnitOfWork unitOfWork)
+        {
+            var provider = new ServiceProvider();
+            provider.Register<IUserService>(new UserService(unitOfWork));
+            provider.Register<IAuthService>(new AuthService(unitOfWork));
+            return provider;
         }
     }
 }

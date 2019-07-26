@@ -1,5 +1,4 @@
-﻿using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using Client.Core;
 using Client.Infrastructure.Helpers;
 using Common;
@@ -17,7 +16,8 @@ namespace Client.Infrastructure
 
         public bool IsLoggedIn(string username)
         {
-            return false;
+            var proxy = _factory.GetChannelFactory<IAuthService>(Ports.AuthServicePort).CreateChannel();
+            return proxy.IsLoggedIn(username);
         }
 
         public void Login(string username, string password)
@@ -33,7 +33,8 @@ namespace Client.Infrastructure
 
         public void Logout(string username)
         {
-            Console.WriteLine($"Logout: {username}");
+            var proxy = _factory.GetChannelFactory<IAuthService>(Ports.AuthServicePort).CreateChannel();
+            proxy.Logout(username);
         }
     }
 }

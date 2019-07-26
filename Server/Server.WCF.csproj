@@ -56,6 +56,8 @@
     <Compile Include="Helpers\AuthServiceHostFactory.cs" />
     <Compile Include="Helpers\CustomUserNamePasswordValidator.cs" />
     <Compile Include="Helpers\IAuthServiceHostFactory.cs" />
+    <Compile Include="Helpers\IServiceProvider.cs" />
+    <Compile Include="Helpers\ServiceProvider.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\AuthService.cs" />
