@@ -57,6 +57,10 @@
     <Compile Include="Migrations\201907220850504_AddFirstAndLastNameColumnsToUsersTable.Designer.cs">
       <DependentUpon>201907220850504_AddFirstAndLastNameColumnsToUsersTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201907260830446_AddRoleNameColumnToUsersTable.cs" />
+    <Compile Include="Migrations\201907260830446_AddRoleNameColumnToUsersTable.Designer.cs">
+      <DependentUpon>201907260830446_AddRoleNameColumnToUsersTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\Repository.cs" />
@@ -67,6 +71,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{844846D4-52B6-4A6B-9D28-4887438DF295}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Server.Core\Server.Core.csproj">
       <Project>{1f153ed6-1cc0-4584-9065-d9ef29aa478b}</Project>
       <Name>Server.Core</Name>
@@ -78,6 +86,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201907220850504_AddFirstAndLastNameColumnsToUsersTable.resx">
       <DependentUpon>201907220850504_AddFirstAndLastNameColumnsToUsersTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201907260830446_AddRoleNameColumnToUsersTable.resx">
+      <DependentUpon>201907260830446_AddRoleNameColumnToUsersTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

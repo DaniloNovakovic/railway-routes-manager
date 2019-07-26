@@ -1,6 +1,7 @@
 namespace Server.Persistance.Migrations
 {
     using System.Data.Entity.Migrations;
+    using Common;
     using Server.Core;
 
     internal sealed class Configuration : DbMigrationsConfiguration<ApplicationDbContext>
@@ -23,7 +24,8 @@ namespace Server.Persistance.Migrations
                 Username = "admin",
                 Password = "admin",
                 FirstName = "Danilo",
-                LastName = "Novakovic"
+                LastName = "Novakovic",
+                RoleName = RoleNames.Admin
             });
         }
     }

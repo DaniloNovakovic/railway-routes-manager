@@ -8,5 +8,6 @@
         public const ushort RailwayStationServicePort = 10100;
         public const ushort RouteServicePort = 10100;
         public const ushort UserServicePort = 10100;
+        public const ushort AuthServicePort = 10100;
     }
 }

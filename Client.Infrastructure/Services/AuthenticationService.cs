@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using Client.Core;
 using Client.Infrastructure.Helpers;
 using Common;
@@ -23,10 +24,11 @@ namespace Client.Infrastructure
         {
             _factory.Username = username;
             _factory.Password = password;
-            var channelFactory = _factory.GetChannelFactory<IUserService>(Ports.UserServicePort);
+            var channelFactory = _factory.GetChannelFactory<IAuthService>(Ports.AuthServicePort);
             var proxy = channelFactory.CreateChannel();
 
-            proxy.Login(username, password);
+            string roleName = proxy.Login(username, password);
+            Trace.TraceInformation($"{username}'s role: {roleName}");
         }
 
         public void Logout(string username)

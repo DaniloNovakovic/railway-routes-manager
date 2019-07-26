@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants\Ports.cs" />
+    <Compile Include="Constants\Roles.cs" />
     <Compile Include="Dtos\CountryDto.cs" />
     <Compile Include="Dtos\LocationDto.cs" />
     <Compile Include="Dtos\RailwayPlatformDto.cs" />
