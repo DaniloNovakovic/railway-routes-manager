@@ -54,6 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Helpers\AuthServiceHostFactory.cs" />
+    <Compile Include="Startup.cs" />
     <Compile Include="Helpers\CustomUserNamePasswordValidator.cs" />
     <Compile Include="Helpers\IAuthServiceHostFactory.cs" />
     <Compile Include="Helpers\IServiceProvider.cs" />

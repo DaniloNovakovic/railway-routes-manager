@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ServiceModel;
 using System.Threading.Tasks;
-using Common;
-using Server.Core;
 using Server.Persistance;
 
 namespace Server
@@ -18,8 +14,8 @@ namespace Server
 
             using (var unitOfWork = new UnitOfWork(dbContext))
             {
-                var provider = RegisterServices(unitOfWork);
-                var hosts = GetHosts(provider);
+                var provider = Startup.RegisterServices(unitOfWork);
+                var hosts = Startup.GetHosts(provider);
 
                 foreach (var host in hosts)
                 {
@@ -34,30 +30,6 @@ namespace Server
                     Task.Run(() => host.Close());
                 }
             }
-        }
-
-        private static IEnumerable<ICommunicationObject> GetHosts(IServiceProvider provider)
-        {
-            var hostFactory = provider.Resolve<IAuthServiceHostFactory>();
-
-            return new List<ICommunicationObject>
-            {
-                hostFactory.GetServiceHost<IUserService>(Ports.UserServicePort, provider.Resolve<IUserService>()),
-                hostFactory.GetServiceHost<IAuthService>(Ports.AuthServicePort, provider.Resolve<IAuthService>())
-            };
-        }
-
-        private static IServiceProvider RegisterServices(IUnitOfWork unitOfWork)
-        {
-            var provider = new ServiceProvider();
-
-            var validator = new CustomUserNamePasswordValidator(unitOfWork);
-
-            provider.Register<IAuthServiceHostFactory>(new AuthServiceHostFactory(validator));
-            provider.Register<IUserService>(new UserService(unitOfWork));
-            provider.Register<IAuthService>(new AuthService(unitOfWork));
-
-            return provider;
         }
     }
 }
