@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.ServiceModel;
 using System.Threading.Tasks;
 using Common;
 using Server.Core;
@@ -6,38 +8,55 @@ using Server.Persistance;
 
 namespace Server
 {
-    internal static class Program
+    public static class Program
     {
         private const string DefaultConnectionName = "DefaultConnection";
 
-        private static void Main()
+        public static void Main()
         {
             var dbContext = new ApplicationDbContext(DefaultConnectionName);
+
             using (var unitOfWork = new UnitOfWork(dbContext))
             {
-                var validator = new CustomUserNamePasswordValidator(unitOfWork);
-                var hostFactory = new AuthServiceHostFactory(validator);
-
                 var provider = RegisterServices(unitOfWork);
-                var userServiceHost = hostFactory.GetServiceHost<IUserService>(Ports.UserServicePort, provider.Resolve<IUserService>());
-                var authServiceHost = hostFactory.GetServiceHost<IAuthService>(Ports.AuthServicePort, provider.Resolve<IAuthService>());
+                var hosts = GetHosts(provider);
 
-                Task.Run(() => userServiceHost.Open());
-                Task.Run(() => authServiceHost.Open());
+                foreach (var host in hosts)
+                {
+                    Task.Run(() => host.Open());
+                }
 
                 Console.WriteLine("Press ENTER to close server...");
                 Console.ReadLine();
 
-                Task.Run(() => userServiceHost.Close());
-                Task.Run(() => authServiceHost.Close());
+                foreach (var host in hosts)
+                {
+                    Task.Run(() => host.Close());
+                }
             }
+        }
+
+        private static IEnumerable<ICommunicationObject> GetHosts(IServiceProvider provider)
+        {
+            var hostFactory = provider.Resolve<IAuthServiceHostFactory>();
+
+            return new List<ICommunicationObject>
+            {
+                hostFactory.GetServiceHost<IUserService>(Ports.UserServicePort, provider.Resolve<IUserService>()),
+                hostFactory.GetServiceHost<IAuthService>(Ports.AuthServicePort, provider.Resolve<IAuthService>())
+            };
         }
 
         private static IServiceProvider RegisterServices(IUnitOfWork unitOfWork)
         {
             var provider = new ServiceProvider();
+
+            var validator = new CustomUserNamePasswordValidator(unitOfWork);
+
+            provider.Register<IAuthServiceHostFactory>(new AuthServiceHostFactory(validator));
             provider.Register<IUserService>(new UserService(unitOfWork));
             provider.Register<IAuthService>(new AuthService(unitOfWork));
+
             return provider;
         }
     }
