@@ -20,7 +20,7 @@ namespace Client.Infrastructure
             return proxy.IsLoggedIn(username);
         }
 
-        public void Login(string username, string password)
+        public string Login(string username, string password)
         {
             _factory.Username = username;
             _factory.Password = password;
@@ -29,6 +29,8 @@ namespace Client.Infrastructure
 
             string roleName = proxy.Login(username, password);
             Trace.TraceInformation($"{username}'s role: {roleName}");
+
+            return roleName;
         }
 
         public void Logout(string username)

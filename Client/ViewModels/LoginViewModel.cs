@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Client.Core;
+using Common;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Regions;
@@ -51,10 +52,16 @@ namespace Client.ViewModels
 
             try
             {
-                _authService.Login(LoginModel.Username, LoginModel.Password);
+                string roleName = _authService.Login(LoginModel.Username, LoginModel.Password);
 
-                // TODO: Change this to navigate to either Admin or RegularUser based on user's role name
-                Navigate(NavigationPaths.AdminPath);
+                if (roleName == RoleNames.Admin)
+                {
+                    Navigate(NavigationPaths.AdminPath);
+                }
+                else
+                {
+                    Navigate(NavigationPaths.RegularUserPath);
+                }
             }
             catch (Exception ex)
             {

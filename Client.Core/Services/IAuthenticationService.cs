@@ -4,7 +4,7 @@
     {
         bool IsLoggedIn(string username);
 
-        void Login(string username, string password);
+        string Login(string username, string password);
 
         void Logout(string username);
     }

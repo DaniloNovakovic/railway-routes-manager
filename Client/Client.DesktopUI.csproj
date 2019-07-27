@@ -211,6 +211,10 @@
       <Project>{AFBA7633-3E2F-4923-94F1-897589CDEFF1}</Project>
       <Name>Client.Infrastructure</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{844846D4-52B6-4A6B-9D28-4887438DF295}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
