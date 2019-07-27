@@ -1,5 +1,6 @@
 ﻿using System.Data.Entity;
 using Server.Core;
+using Server.Persistance.Configurations;
 
 namespace Server.Persistance
 {
@@ -98,5 +99,12 @@ namespace Server.Persistance
         public DbSet<RailwayStation> RailwayStations { get; set; }
         public DbSet<Route> Routes { get; set; }
         public DbSet<User> Users { get; set; }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Configurations.AddFromAssembly(typeof(UserConfiguration).Assembly);
+
+            base.OnModelCreating(modelBuilder);
+        }
     }
 }

@@ -49,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationDbContext.cs" />
+    <Compile Include="Configurations\UserConfiguration.cs" />
     <Compile Include="Migrations\201907220846476_InitialMigration.cs" />
     <Compile Include="Migrations\201907220846476_InitialMigration.Designer.cs">
       <DependentUpon>201907220846476_InitialMigration.cs</DependentUpon>
@@ -60,6 +61,10 @@
     <Compile Include="Migrations\201907260830446_AddRoleNameColumnToUsersTable.cs" />
     <Compile Include="Migrations\201907260830446_AddRoleNameColumnToUsersTable.Designer.cs">
       <DependentUpon>201907260830446_AddRoleNameColumnToUsersTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201907271107584_AddUniqueUsernameAndRequiredPasswordConstraints.cs" />
+    <Compile Include="Migrations\201907271107584_AddUniqueUsernameAndRequiredPasswordConstraints.Designer.cs">
+      <DependentUpon>201907271107584_AddUniqueUsernameAndRequiredPasswordConstraints.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -89,6 +94,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201907260830446_AddRoleNameColumnToUsersTable.resx">
       <DependentUpon>201907260830446_AddRoleNameColumnToUsersTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201907271107584_AddUniqueUsernameAndRequiredPasswordConstraints.resx">
+      <DependentUpon>201907271107584_AddUniqueUsernameAndRequiredPasswordConstraints.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
