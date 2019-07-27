@@ -14,7 +14,7 @@ namespace Server
 
             using (var unitOfWork = new UnitOfWork(dbContext))
             {
-                var provider = Startup.RegisterServices(unitOfWork);
+                var provider = Startup.GetServiceProvider(unitOfWork);
                 var hosts = Startup.GetHosts(provider);
 
                 foreach (var host in hosts)
