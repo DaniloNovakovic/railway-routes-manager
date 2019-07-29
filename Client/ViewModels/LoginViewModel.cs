@@ -88,8 +88,8 @@ namespace Client.ViewModels
             }
             catch (Exception ex)
             {
-                Errors = new List<string>() { ex.Message };
-                Trace.TraceError(ex.Message);
+                Errors = new List<string>() { ex.InnerException?.Message ?? ex.Message };
+                Trace.TraceError(ex.ToString());
             }
             finally
             {

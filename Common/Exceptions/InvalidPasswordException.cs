@@ -1,24 +1,44 @@
 ﻿using System;
-using System.Runtime.Serialization;
+using System.ServiceModel;
 
 namespace Common
 {
     [Serializable]
-    public class InvalidPasswordException : Exception
+    public class InvalidPasswordException : FaultException
     {
-        public InvalidPasswordException() : this("Invalid password!")
+        public InvalidPasswordException() : base("Invalid password!")
         {
         }
 
-        public InvalidPasswordException(string message) : base(message)
+        public InvalidPasswordException(string reason) : base(reason)
         {
         }
 
-        public InvalidPasswordException(string message, Exception innerException) : base(message, innerException)
+        public InvalidPasswordException(FaultReason reason) : base(reason)
         {
         }
 
-        protected InvalidPasswordException(SerializationInfo info, StreamingContext context) : base(info, context)
+        public InvalidPasswordException(string reason, FaultCode code) : base(reason, code)
+        {
+        }
+
+        public InvalidPasswordException(FaultReason reason, FaultCode code) : base(reason, code)
+        {
+        }
+
+        public InvalidPasswordException(string reason, FaultCode code, string action) : base(reason, code, action)
+        {
+        }
+
+        public InvalidPasswordException(FaultReason reason, FaultCode code, string action) : base(reason, code, action)
+        {
+        }
+
+        public InvalidPasswordException(System.ServiceModel.Channels.MessageFault fault) : base(fault)
+        {
+        }
+
+        public InvalidPasswordException(System.ServiceModel.Channels.MessageFault fault, string action) : base(fault, action)
         {
         }
     }

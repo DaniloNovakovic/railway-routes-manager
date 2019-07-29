@@ -1,24 +1,44 @@
 ﻿using System;
-using System.Runtime.Serialization;
+using System.ServiceModel;
 
 namespace Common
 {
     [Serializable]
-    public class NotFoundException : Exception
+    public class NotFoundException : FaultException
     {
-        public NotFoundException() : this("Requested resource could not be found!")
+        public NotFoundException() : base("Requested resource could not be found!")
         {
         }
 
-        public NotFoundException(string message) : base(message)
+        public NotFoundException(string reason) : base(reason)
         {
         }
 
-        public NotFoundException(string message, Exception innerException) : base(message, innerException)
+        public NotFoundException(FaultReason reason) : base(reason)
         {
         }
 
-        protected NotFoundException(SerializationInfo info, StreamingContext context) : base(info, context)
+        public NotFoundException(string reason, FaultCode code) : base(reason, code)
+        {
+        }
+
+        public NotFoundException(FaultReason reason, FaultCode code) : base(reason, code)
+        {
+        }
+
+        public NotFoundException(string reason, FaultCode code, string action) : base(reason, code, action)
+        {
+        }
+
+        public NotFoundException(FaultReason reason, FaultCode code, string action) : base(reason, code, action)
+        {
+        }
+
+        public NotFoundException(System.ServiceModel.Channels.MessageFault fault) : base(fault)
+        {
+        }
+
+        public NotFoundException(System.ServiceModel.Channels.MessageFault fault, string action) : base(fault, action)
         {
         }
     }
