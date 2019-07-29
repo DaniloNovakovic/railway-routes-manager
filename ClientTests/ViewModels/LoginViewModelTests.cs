@@ -1,4 +1,5 @@
-﻿using Client.Core;
+﻿using System.Threading.Tasks;
+using Client.Core;
 using Moq;
 using Xunit;
 
@@ -17,12 +18,12 @@ namespace Client.ViewModels.Tests
 
         [Theory]
         [InlineData("admin", "admin")]
-        public void Login_WhenLoginModelIsValid_CallAuthService(string username, string password)
+        public async Task Login_WhenLoginModelIsValid_CallAuthService(string username, string password)
         {
             _sut.LoginModel.Username = username;
             _sut.LoginModel.Password = password;
 
-            _sut.LoginCommand.Execute(null);
+            await _sut.LoginClick(null).ConfigureAwait(false);
 
             _authServiceMock.Verify(m => m.Login(It.IsAny<string>(), It.IsAny<string>()), Times.Once);
         }
@@ -33,12 +34,12 @@ namespace Client.ViewModels.Tests
         [InlineData("djura28", "1")]
         [InlineData("", "nikolica123")]
         [InlineData("1", "nikolica123")]
-        public void Login_WhenLoginModelIsInvalid_DoNotCallAuthService(string username, string password)
+        public async Task Login_WhenLoginModelIsInvalid_DoNotCallAuthService(string username, string password)
         {
             _sut.LoginModel.Username = username;
             _sut.LoginModel.Password = password;
 
-            _sut.LoginCommand.Execute(null);
+            await _sut.LoginClick(null).ConfigureAwait(false);
 
             _authServiceMock.Verify(m => m.Login(It.IsAny<string>(), It.IsAny<string>()), Times.Never);
         }

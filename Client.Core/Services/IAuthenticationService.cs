@@ -1,11 +1,13 @@
-﻿namespace Client.Core
+﻿using System.Threading.Tasks;
+
+namespace Client.Core
 {
     public interface IAuthenticationService
     {
-        bool IsLoggedIn(string username);
+        Task<bool> IsLoggedIn(string username);
 
-        string Login(string username, string password);
+        Task<string> Login(string username, string password);
 
-        void Logout(string username);
+        Task Logout(string username);
     }
 }

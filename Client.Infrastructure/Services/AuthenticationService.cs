@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Threading.Tasks;
 using Client.Core;
 using Client.Infrastructure.Helpers;
 using Common;
@@ -14,29 +15,37 @@ namespace Client.Infrastructure
             _factory = factory;
         }
 
-        public bool IsLoggedIn(string username)
+        public Task<bool> IsLoggedIn(string username)
         {
-            var proxy = _factory.GetChannelFactory<IAuthService>(Ports.AuthServicePort).CreateChannel();
-            return proxy.IsLoggedIn(username);
+            return Task.Run(() =>
+            {
+                var proxy = _factory.GetChannelFactory<IAuthService>(Ports.AuthServicePort).CreateChannel();
+                return proxy.IsLoggedIn(username);
+            });
         }
 
-        public string Login(string username, string password)
+        public Task<string> Login(string username, string password)
         {
             _factory.Username = username;
             _factory.Password = password;
-            var channelFactory = _factory.GetChannelFactory<IAuthService>(Ports.AuthServicePort);
-            var proxy = channelFactory.CreateChannel();
+            return Task.Run(() =>
+            {
+                var channelFactory = _factory.GetChannelFactory<IAuthService>(Ports.AuthServicePort);
+                var proxy = channelFactory.CreateChannel();
 
-            string roleName = proxy.Login(username, password);
-            Trace.TraceInformation($"{username}'s role: {roleName}");
-
-            return roleName;
+                string roleName = proxy.Login(username, password);
+                Trace.TraceInformation($"{username}'s role: {roleName}");
+                return roleName;
+            });
         }
 
-        public void Logout(string username)
+        public Task Logout(string username)
         {
-            var proxy = _factory.GetChannelFactory<IAuthService>(Ports.AuthServicePort).CreateChannel();
-            proxy.Logout(username);
+            return Task.Run(() =>
+            {
+                var proxy = _factory.GetChannelFactory<IAuthService>(Ports.AuthServicePort).CreateChannel();
+                proxy.Logout(username);
+            });
         }
     }
 }

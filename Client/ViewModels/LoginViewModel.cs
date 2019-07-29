@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Client.Core;
@@ -16,6 +17,7 @@ namespace Client.ViewModels
         private readonly IAuthenticationService _authService;
 
         private readonly IRegionManager _regionManager;
+        private bool _canLogIn = true;
         private ICollection<string> _errors = new List<string>();
 
         public LoginViewModel(IAuthenticationService authService, IRegionManager regionManager)
@@ -24,8 +26,14 @@ namespace Client.ViewModels
             _regionManager = regionManager;
 
             LoginModel.ErrorsChanged += (s, e) => Errors = DictionaryFlattener.Flatten(LoginModel.GetAllErrors());
-            LoginCommand = new DelegateCommand<object>(LoginClick);
+            LoginCommand = new DelegateCommand<object>(async (obj) => await LoginClick(obj));
             NavigateCommand = new DelegateCommand<string>(Navigate);
+        }
+
+        public bool CanLogIn
+        {
+            get { return _canLogIn; }
+            set { SetProperty(ref _canLogIn, value); }
         }
 
         public ICollection<string> Errors
@@ -38,7 +46,7 @@ namespace Client.ViewModels
         public LoginModel LoginModel { get; set; } = new LoginModel();
         public ICommand NavigateCommand { get; }
 
-        private void LoginClick(object p)
+        public async Task LoginClick(object p)
         {
             if (p is PasswordBox passwordBox)
             {
@@ -50,30 +58,43 @@ namespace Client.ViewModels
                 return;
             }
 
-            try
-            {
-                string roleName = _authService.Login(LoginModel.Username, LoginModel.Password);
+            await SafeExecute(async () =>
+             {
+                 string roleName = await _authService.Login(LoginModel.Username, LoginModel.Password);
 
-                if (roleName == RoleNames.Admin)
-                {
-                    Navigate(NavigationPaths.AdminPath);
-                }
-                else
-                {
-                    Navigate(NavigationPaths.RegularUserPath);
-                }
-            }
-            catch (Exception ex)
-            {
-                Errors = new List<string>() { ex.Message };
-                Trace.TraceError(ex.Message);
-            }
+                 if (roleName == RoleNames.Admin)
+                 {
+                     Navigate(NavigationPaths.AdminPath);
+                 }
+                 else
+                 {
+                     Navigate(NavigationPaths.RegularUserPath);
+                 }
+             });
         }
 
         private void Navigate(string navigatePath)
         {
             if (navigatePath != null)
                 _regionManager.RequestNavigate(RegionNames.WindowRegion, navigatePath);
+        }
+
+        private async Task SafeExecute(Func<Task> callback)
+        {
+            try
+            {
+                CanLogIn = false;
+                await callback?.Invoke();
+            }
+            catch (Exception ex)
+            {
+                Errors = new List<string>() { ex.Message };
+                Trace.TraceError(ex.Message);
+            }
+            finally
+            {
+                CanLogIn = true;
+            }
         }
     }
 }

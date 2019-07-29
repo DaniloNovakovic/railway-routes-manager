@@ -21,9 +21,10 @@
                         <PasswordBox x:Name="textBoxPassword" materialDesign:HintAssist.Hint="Password" />
 
                         <Button x:Name="buttonLogin" Content="Login"
-                        Command="{Binding LoginCommand}"
-                        CommandParameter="{Binding ElementName=textBoxPassword}"
-                        Margin="0,15" />
+                                Command="{Binding LoginCommand}"
+                                CommandParameter="{Binding ElementName=textBoxPassword}"
+                                IsEnabled="{Binding CanLogIn}"
+                                Margin="0,15" />
                         <ItemsControl ItemsSource="{Binding Errors, Mode=TwoWay}" ItemTemplate="{StaticResource ValidationErrors}" Margin="0,15,0,15" />
                     </StackPanel>
                 </ScrollViewer>
