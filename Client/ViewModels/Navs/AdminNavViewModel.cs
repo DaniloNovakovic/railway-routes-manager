@@ -4,9 +4,9 @@ using Prism.Regions;
 
 namespace Client.ViewModels
 {
-    public class AdminNavViewModel : NavViewModelBase
+    public class AdminNavViewModel : AuthNavViewModelBase
     {
-        public AdminNavViewModel(IRegionManager regionManager) : base(regionManager)
+        public AdminNavViewModel(IRegionManager regionManager, IAuthenticationService authService) : base(regionManager, authService)
         {
             RegionName = RegionNames.AuthContentRegion;
         }

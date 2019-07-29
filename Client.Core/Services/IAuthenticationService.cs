@@ -8,6 +8,6 @@ namespace Client.Core
 
         Task<string> Login(string username, string password);
 
-        Task Logout(string username);
+        Task Logout();
     }
 }

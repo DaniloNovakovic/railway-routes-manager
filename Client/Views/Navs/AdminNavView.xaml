@@ -9,5 +9,6 @@
         <Button Command="{Binding NavigateCommand}" CommandParameter="{x:Static core:NavigationPaths.RailwayListPath}" Margin="5">Railways</Button>
         <Button Command="{Binding NavigateCommand}" CommandParameter="{x:Static core:NavigationPaths.UserListPath}" Margin="5">Users</Button>
         <Button Command="{Binding NavigateCommand}" CommandParameter="{x:Static core:NavigationPaths.ProfilePath}" Margin="5">Profile</Button>
+        <Button Command="{Binding LogoutCommand}"  Margin="5">Log Out</Button>
     </StackPanel>
 </UserControl>

@@ -73,6 +73,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Extensions\ContainerRegistryExtensions.cs" />
+    <Compile Include="Helpers\AuthNavViewModelBase.cs" />
     <Compile Include="Helpers\NavViewModelBase.cs" />
     <Compile Include="ViewModels\Navs\AdminNavViewModel.cs" />
     <Compile Include="ViewModels\Layout\AdminViewModel.cs" />

@@ -39,12 +39,14 @@ namespace Client.Infrastructure
             });
         }
 
-        public Task Logout(string username)
+        public Task Logout()
         {
             return Task.Run(() =>
             {
                 var proxy = _factory.GetChannelFactory<IAuthService>(Ports.AuthServicePort).CreateChannel();
-                proxy.Logout(username);
+                proxy.Logout(_factory.Username);
+                _factory.Username = "";
+                _factory.Password = "";
             });
         }
     }
