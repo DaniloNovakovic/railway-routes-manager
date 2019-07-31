@@ -4,10 +4,10 @@
         <Setter Property="Foreground" Value="Red" />
         <Setter Property="TextWrapping" Value="Wrap" />
     </Style>
-    <Style TargetType="TextBox" BasedOn="{StaticResource MaterialDesignFloatingHintTextBox}">
+    <Style TargetType="TextBox" x:Key="ValidationTextBox" BasedOn="{StaticResource MaterialDesignFloatingHintTextBox}">
         <Setter Property="Margin" Value="0,0,0,20" />
     </Style>
-    <Style TargetType="PasswordBox" BasedOn="{StaticResource MaterialDesignFloatingHintPasswordBox}">
+    <Style TargetType="PasswordBox" x:Key="ValidationPasswordBox" BasedOn="{StaticResource MaterialDesignFloatingHintPasswordBox}">
         <Setter Property="Margin" Value="0,0,0,20" />
     </Style>
 </ResourceDictionary>

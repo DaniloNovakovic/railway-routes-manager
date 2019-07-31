@@ -15,10 +15,12 @@
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
                     <StackPanel CanVerticallyScroll="True">
                         <TextBox x:Name="UsernameTextBox" materialDesign:HintAssist.Hint="Username"  MaxLength="20"
-                         Text="{Binding Path=LoginModel.Username,Mode=TwoWay,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}"
-                         materialDesign:ValidationAssist.OnlyShowOnFocus="True" />
+                                 Text="{Binding Path=LoginModel.Username,Mode=TwoWay,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}"
+                                 materialDesign:ValidationAssist.OnlyShowOnFocus="True"
+                                 Style="{StaticResource ValidationTextBox}" />
 
-                        <PasswordBox x:Name="textBoxPassword" materialDesign:HintAssist.Hint="Password" />
+                        <PasswordBox x:Name="textBoxPassword" materialDesign:HintAssist.Hint="Password"
+                                     Style="{StaticResource ValidationPasswordBox}" />
 
                         <Button x:Name="buttonLogin" Content="Login"
                                 Command="{Binding LoginCommand}"

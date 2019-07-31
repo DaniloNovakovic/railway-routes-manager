@@ -11,8 +11,8 @@ namespace Client.Extensions
         {
             var config = new MapperConfiguration(cfg =>
             {
-                cfg.CreateMap<UserModel, UserDto>();
-                cfg.CreateMap<UserDto, UserModel>();
+                cfg.CreateMap<UserModel, UserDto>(MemberList.Destination);
+                cfg.CreateMap<UserDto, UserModel>(MemberList.Source);
             });
 
             config.AssertConfigurationIsValid();
