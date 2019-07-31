@@ -9,7 +9,7 @@ namespace Client.Core
 
         Task<IEnumerable<UserModel>> GetAllUsersAsync();
 
-        Task UpdateUserAsync(int id);
+        Task UpdateUserAsync(UserModel user);
 
         Task DeleteUserAsync(int id);
     }

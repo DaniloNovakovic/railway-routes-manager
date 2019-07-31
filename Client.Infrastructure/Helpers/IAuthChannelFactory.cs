@@ -1,6 +1,6 @@
 ﻿using System.ServiceModel;
 
-namespace Client.Infrastructure.Helpers
+namespace Client.Infrastructure
 {
     public interface IAuthChannelFactory
     {

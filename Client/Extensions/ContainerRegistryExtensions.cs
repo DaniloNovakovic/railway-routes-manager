@@ -1,6 +1,5 @@
 ﻿using Client.Core;
 using Client.Infrastructure;
-using Client.Infrastructure.Helpers;
 using Client.Views;
 using Prism.Ioc;
 
@@ -10,8 +9,10 @@ namespace Client.Extensions
     {
         public static void RegisterServices(this IContainerRegistry containerRegistry)
         {
+            containerRegistry.RegisterAutoMapper();
             containerRegistry.RegisterSingleton<IAuthChannelFactory, AuthChannelFactory>();
-            containerRegistry.RegisterSingleton<IAuthenticationService, AuthenticationService>();
+            containerRegistry.Register<IAuthenticationService, AuthenticationService>();
+            containerRegistry.Register<IUserService, UserService>();
         }
 
         public static void RegisterViewsForNavigation(this IContainerRegistry containerRegistry)

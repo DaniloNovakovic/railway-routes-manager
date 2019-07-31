@@ -30,9 +30,7 @@ namespace Server
         public UserDto Get(int key)
         {
             var user = _unitOfWork.Users.Get(key);
-            var dto = _mapper.Map<UserDto>(user);
-            dto.Password = "";
-            return dto;
+            return _mapper.Map<UserDto>(user);
         }
 
         public IEnumerable<UserDto> GetAll()
@@ -44,6 +42,12 @@ namespace Server
                 dto.Password = "";
                 return dto;
             }).ToList();
+        }
+
+        public UserDto GetByUsername(string username)
+        {
+            var user = _unitOfWork.Users.Get(u => u.Username == username);
+            return _mapper.Map<UserDto>(user);
         }
 
         public void Remove(int key)

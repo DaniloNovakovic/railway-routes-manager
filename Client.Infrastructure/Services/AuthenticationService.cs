@@ -1,7 +1,6 @@
 ﻿using System.Diagnostics;
 using System.Threading.Tasks;
 using Client.Core;
-using Client.Infrastructure.Helpers;
 using Common;
 
 namespace Client.Infrastructure
