@@ -4,7 +4,14 @@
              xmlns:prism="http://prismlibrary.com/"
              prism:ViewModelLocator.AutoWireViewModel="True"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              MinWidth="320" MinHeight="320">
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding OnLoadedCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
 
     <UserControl.Resources>
         <Style TargetType="TextBlock">
@@ -15,6 +22,7 @@
             <Setter Property="VerticalAlignment" Value="Center" />
         </Style>
     </UserControl.Resources>
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*" />
@@ -42,17 +50,18 @@
                     </Grid.RowDefinitions>
 
                     <TextBlock Grid.Row="0" Grid.Column="0">Username:</TextBlock>
-                    <TextBlock Grid.Row="0" Grid.Column="1" Text="admin" TextAlignment="Left" />
+                    <TextBlock Grid.Row="0" Grid.Column="1" TextAlignment="Left"
+                               Text="{Binding Path=UserModel.Username}" />
 
                     <TextBlock Grid.Row="1" Grid.Column="0">First Name:</TextBlock>
                     <TextBox Grid.Row="1" Grid.Column="1"
-                 materialDesign:HintAssist.Hint="First Name"
-                 materialDesign:ValidationAssist.OnlyShowOnFocus="True" />
+                             Text="{Binding Path=UserModel.FirstName,Mode=TwoWay,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}"
+                             materialDesign:HintAssist.Hint="First Name" materialDesign:ValidationAssist.OnlyShowOnFocus="True" />
 
                     <TextBlock Grid.Row="2" Grid.Column="0" >Last Name:</TextBlock>
                     <TextBox Grid.Row="2" Grid.Column="1"
-                 materialDesign:HintAssist.Hint="Last Name"
-                 materialDesign:ValidationAssist.OnlyShowOnFocus="True" />
+                             Text="{Binding Path=UserModel.LastName,Mode=TwoWay,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}"
+                             materialDesign:HintAssist.Hint="Last Name" materialDesign:ValidationAssist.OnlyShowOnFocus="True" />
                 </Grid>
             </ScrollViewer>
         </materialDesign:Card>
