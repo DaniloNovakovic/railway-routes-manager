@@ -26,7 +26,7 @@ namespace Client.ViewModels
             _regionManager = regionManager;
 
             LoginModel.ErrorsChanged += (s, e) => Errors = DictionaryFlattener.Flatten(LoginModel.GetAllErrors());
-            LoginCommand = new DelegateCommand<object>(async (obj) => await LoginClick(obj));
+            LoginCommand = new DelegateCommand<object>(async (obj) => await LoginClickAsync(obj));
             NavigateCommand = new DelegateCommand<string>(Navigate);
         }
 
@@ -46,7 +46,7 @@ namespace Client.ViewModels
         public LoginModel LoginModel { get; set; } = new LoginModel();
         public ICommand NavigateCommand { get; }
 
-        public async Task LoginClick(object p)
+        public async Task LoginClickAsync(object p)
         {
             if (p is PasswordBox passwordBox)
             {
@@ -58,9 +58,9 @@ namespace Client.ViewModels
                 return;
             }
 
-            await SafeExecute(async () =>
+            await SafeExecuteAsync(async () =>
              {
-                 string roleName = await _authService.Login(LoginModel.Username, LoginModel.Password);
+                 string roleName = await _authService.LoginAsync(LoginModel.Username, LoginModel.Password);
 
                  if (roleName == RoleNames.Admin)
                  {
@@ -79,7 +79,7 @@ namespace Client.ViewModels
                 _regionManager.RequestNavigate(RegionNames.WindowRegion, navigatePath);
         }
 
-        private async Task SafeExecute(Func<Task> callback)
+        private async Task SafeExecuteAsync(Func<Task> callback)
         {
             try
             {

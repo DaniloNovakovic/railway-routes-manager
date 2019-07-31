@@ -15,7 +15,7 @@ namespace Client.Infrastructure
             _factory = factory;
         }
 
-        public Task<bool> IsLoggedIn(string username)
+        public Task<bool> IsLoggedInAsync(string username)
         {
             return Task.Run(() =>
             {
@@ -24,7 +24,7 @@ namespace Client.Infrastructure
             });
         }
 
-        public Task<string> Login(string username, string password)
+        public Task<string> LoginAsync(string username, string password)
         {
             _factory.Username = username;
             _factory.Password = password;
@@ -39,7 +39,7 @@ namespace Client.Infrastructure
             });
         }
 
-        public Task Logout()
+        public Task LogoutAsync()
         {
             return Task.Run(() =>
             {

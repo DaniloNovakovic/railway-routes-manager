@@ -37,7 +37,7 @@ namespace Client.Helpers
             try
             {
                 CanLogOut = false;
-                await _authService?.Logout();
+                await _authService?.LogoutAsync();
                 _regionManager?.RequestNavigate(RegionNames.WindowRegion, NavigationPaths.LoginPath);
             }
             catch (Exception ex)

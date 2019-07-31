@@ -23,9 +23,9 @@ namespace Client.ViewModels.Tests
             _sut.LoginModel.Username = username;
             _sut.LoginModel.Password = password;
 
-            await _sut.LoginClick(null).ConfigureAwait(false);
+            await _sut.LoginClickAsync(null).ConfigureAwait(false);
 
-            _authServiceMock.Verify(m => m.Login(It.IsAny<string>(), It.IsAny<string>()), Times.Once);
+            _authServiceMock.Verify(m => m.LoginAsync(It.IsAny<string>(), It.IsAny<string>()), Times.Once);
         }
 
         [Theory]
@@ -39,9 +39,9 @@ namespace Client.ViewModels.Tests
             _sut.LoginModel.Username = username;
             _sut.LoginModel.Password = password;
 
-            await _sut.LoginClick(null).ConfigureAwait(false);
+            await _sut.LoginClickAsync(null).ConfigureAwait(false);
 
-            _authServiceMock.Verify(m => m.Login(It.IsAny<string>(), It.IsAny<string>()), Times.Never);
+            _authServiceMock.Verify(m => m.LoginAsync(It.IsAny<string>(), It.IsAny<string>()), Times.Never);
         }
     }
 }

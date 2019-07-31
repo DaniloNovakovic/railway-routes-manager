@@ -4,10 +4,10 @@ namespace Client.Core
 {
     public interface IAuthenticationService
     {
-        Task<bool> IsLoggedIn(string username);
+        Task<bool> IsLoggedInAsync(string username);
 
-        Task<string> Login(string username, string password);
+        Task<string> LoginAsync(string username, string password);
 
-        Task Logout();
+        Task LogoutAsync();
     }
 }
