@@ -67,6 +67,6 @@
         </materialDesign:Card>
 
         <Button Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="1" MaxWidth="200"
-                Command="{Binding Path=SaveChangesCommand}">Save Changes</Button>
+                Command="{Binding Path=SaveChangesCommand}" IsEnabled="{Binding Path=CanSaveChanges}">Save Changes</Button>
     </Grid>
 </UserControl>

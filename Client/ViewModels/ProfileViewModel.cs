@@ -11,6 +11,7 @@ namespace Client.ViewModels
     public class ProfileViewModel : BindableBase
     {
         private readonly IUserService _userService;
+        private bool _canSaveChanges = true;
         private UserModel _userModel;
 
         public ProfileViewModel(IUserService userService)
@@ -18,6 +19,12 @@ namespace Client.ViewModels
             _userService = userService;
             SaveChangesCommand = new DelegateCommand(async () => await SaveChangesAsync());
             OnLoadedCommand = new DelegateCommand(async () => await OnLoadedAsync());
+        }
+
+        public bool CanSaveChanges
+        {
+            get { return _canSaveChanges; }
+            set { SetProperty(ref _canSaveChanges, value); }
         }
 
         public ICommand OnLoadedCommand { get; }
@@ -42,11 +49,16 @@ namespace Client.ViewModels
         {
             try
             {
+                CanSaveChanges = false;
                 await callback?.Invoke();
             }
             catch (Exception ex)
             {
                 Trace.TraceError(ex.InnerException?.Message ?? ex.Message);
+            }
+            finally
+            {
+                CanSaveChanges = true;
             }
         }
 
