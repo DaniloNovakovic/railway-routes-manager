@@ -66,6 +66,7 @@
             </ScrollViewer>
         </materialDesign:Card>
 
-        <Button Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="1" MaxWidth="200">Save Changes</Button>
+        <Button Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="1" MaxWidth="200"
+                Command="{Binding Path=SaveChangesCommand}">Save Changes</Button>
     </Grid>
 </UserControl>

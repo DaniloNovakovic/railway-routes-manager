@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.ServiceModel;
-using AutoMapper;
 using Common;
 using Server.Core;
 
@@ -21,7 +20,7 @@ namespace Server
 
         public static IServiceProvider GetServiceProvider(IUnitOfWork unitOfWork)
         {
-            var mapper = GetAutoMapper();
+            var mapper = AutoMapperFactory.GetAutoMapper();
             var validator = new CustomUserNamePasswordValidator(unitOfWork);
             var provider = new ServiceProvider();
 
@@ -30,19 +29,6 @@ namespace Server
             provider.Register<IAuthService>(new AuthService(unitOfWork));
 
             return provider;
-        }
-
-        private static IMapper GetAutoMapper()
-        {
-            var config = new MapperConfiguration(cfg =>
-            {
-                cfg.CreateMap<User, UserDto>();
-                cfg.CreateMap<UserDto, User>();
-            });
-
-            config.AssertConfigurationIsValid();
-
-            return config.CreateMapper();
         }
     }
 }
