@@ -64,7 +64,18 @@ namespace Client.ViewModels
 
         public Task SaveChangesAsync()
         {
+            if (UserModel.HasErrors)
+            {
+                HandleUserModelErrors();
+                return Task.CompletedTask;
+            }
             return SafeExecuteAsync(() => _userService.UpdateUserAsync(UserModel));
+        }
+
+        private void HandleUserModelErrors()
+        {
+            var list = DictionaryFlattener.Flatten(UserModel.GetAllErrors());
+            Trace.TraceWarning(string.Join(Environment.NewLine, list));
         }
     }
 }
