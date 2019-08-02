@@ -1,6 +1,4 @@
-﻿using System;
-using System.Diagnostics;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 using Client.Core;
 using Prism.Commands;
 using Prism.Mvvm;

@@ -6,7 +6,7 @@ using Prism.Regions;
 
 namespace Client.ViewModels
 {
-    public class RegularUserViewModel : BindableBase
+    public class RegularUserViewModel : BindableBase, IRegionMemberLifetime
     {
         private readonly IRegionManager _regionManager;
 
@@ -16,6 +16,7 @@ namespace Client.ViewModels
             OnLoadedCommand = new DelegateCommand(OnLoaded);
         }
 
+        public bool KeepAlive => false;
         public ICommand OnLoadedCommand { get; }
 
         public void OnLoaded()
