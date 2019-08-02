@@ -76,6 +76,7 @@
     <Compile Include="Extensions\ContainerRegistryExtensions.cs" />
     <Compile Include="Helpers\AuthNavViewModelBase.cs" />
     <Compile Include="Helpers\NavViewModelBase.cs" />
+    <Compile Include="Helpers\ViewModelBase.cs" />
     <Compile Include="ViewModels\Navs\AdminNavViewModel.cs" />
     <Compile Include="ViewModels\Layout\AdminViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />

@@ -3,12 +3,12 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Client.Core;
+using Client.Helpers;
 using Prism.Commands;
-using Prism.Mvvm;
 
 namespace Client.ViewModels
 {
-    public class ProfileViewModel : BindableBase
+    public class ProfileViewModel : ViewModelBase
     {
         private readonly IUserService _userService;
         private bool _canSaveChanges = true;
@@ -18,7 +18,6 @@ namespace Client.ViewModels
         {
             _userService = userService;
             SaveChangesCommand = new DelegateCommand(async () => await SaveChangesAsync());
-            OnLoadedCommand = new DelegateCommand(async () => await OnLoadedAsync());
         }
 
         public bool CanSaveChanges
@@ -26,8 +25,6 @@ namespace Client.ViewModels
             get { return _canSaveChanges; }
             set { SetProperty(ref _canSaveChanges, value); }
         }
-
-        public ICommand OnLoadedCommand { get; }
 
         public ICommand SaveChangesCommand { get; }
 
@@ -37,7 +34,7 @@ namespace Client.ViewModels
             set { SetProperty(ref _userModel, value); }
         }
 
-        public Task OnLoadedAsync()
+        public override Task OnLoadedAsync()
         {
             return SafeExecuteAsync(async () =>
             {

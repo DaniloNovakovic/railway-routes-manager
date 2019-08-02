@@ -1,26 +1,23 @@
-﻿using System.Windows.Input;
+﻿using System.Threading.Tasks;
 using Client.Core;
-using Prism.Commands;
-using Prism.Mvvm;
+using Client.Helpers;
 using Prism.Regions;
 
 namespace Client.ViewModels
 {
-    public class MainWindowViewModel : BindableBase
+    public class MainWindowViewModel : ViewModelBase
     {
         private readonly IRegionManager _regionManager;
 
         public MainWindowViewModel(IRegionManager regionManager)
         {
             _regionManager = regionManager;
-            OnLoadedCommand = new DelegateCommand(OnLoaded);
         }
 
-        public ICommand OnLoadedCommand { get; }
-
-        public void OnLoaded()
+        public override Task OnLoadedAsync()
         {
             _regionManager.RequestNavigate(RegionNames.WindowRegion, NavigationPaths.LoginPath);
+            return Task.CompletedTask;
         }
     }
 }

@@ -1,20 +1,28 @@
-﻿using Prism.Mvvm;
+﻿using System.Collections.ObjectModel;
+using Client.Core;
+using Client.Helpers;
 
 namespace Client.ViewModels
 {
-    public class UserListViewModel : BindableBase
+    public class UserListViewModel : ViewModelBase
     {
-        private string _text;
-
         public UserListViewModel()
         {
-            Text = "These are my users...";
+            UserList = new ObservableCollection<UserModel>()
+            {
+                new UserModel()
+                {
+                    Username = "admin",
+                    Password = "admin",
+                    FirstName = "Danilo",
+                    LastName = "Novakovic",
+                    RoleName = "Administrator",
+                    Id = 1
+                }
+            };
         }
 
-        public string Text
-        {
-            get { return _text; }
-            set { SetProperty(ref _text, value); }
-        }
+        public UserModel SelectedUser { get; set; }
+        public ObservableCollection<UserModel> UserList { get; }
     }
 }
