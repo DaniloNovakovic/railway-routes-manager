@@ -3,10 +3,19 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:core="clr-namespace:Client.Core;assembly=Client.Core"
              xmlns:prism="http://prismlibrary.com/"
+             xmlns:views="clr-namespace:Client.Views"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              prism:ViewModelLocator.AutoWireViewModel="True">
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding OnLoadedCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
     <Grid>
         <DockPanel LastChildFill="True">
-            <ContentControl prism:RegionManager.RegionName="{x:Static core:RegionNames.NavRegion}" DockPanel.Dock="Top" Margin="5" />
+            <views:AdminNavView DockPanel.Dock="Top" Margin="5" />
             <ContentControl prism:RegionManager.RegionName="{x:Static core:RegionNames.AuthContentRegion}"  Margin="5" />
         </DockPanel>
     </Grid>

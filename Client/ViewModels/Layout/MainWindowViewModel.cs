@@ -1,4 +1,8 @@
-﻿using Client.Core;
+﻿using System;
+using System.Diagnostics;
+using System.Windows.Input;
+using Client.Core;
+using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Regions;
 
@@ -6,9 +10,19 @@ namespace Client.ViewModels
 {
     public class MainWindowViewModel : BindableBase
     {
+        private readonly IRegionManager _regionManager;
+
         public MainWindowViewModel(IRegionManager regionManager)
         {
-            regionManager.RegisterViewWithRegion(RegionNames.WindowRegion, typeof(Views.LoginView));
+            _regionManager = regionManager;
+            OnLoadedCommand = new DelegateCommand(OnLoaded);
+        }
+
+        public ICommand OnLoadedCommand { get; }
+
+        public void OnLoaded()
+        {
+            _regionManager.RequestNavigate(RegionNames.WindowRegion, NavigationPaths.LoginPath);
         }
     }
 }

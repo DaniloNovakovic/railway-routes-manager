@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:prism="http://prismlibrary.com/"
         xmlns:core="clr-namespace:Client.Core;assembly=Client.Core"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         prism:ViewModelLocator.AutoWireViewModel="True"
         MinHeight="400" MinWidth="500" Height="600" Width="800"
         WindowStartupLocation="CenterScreen"
@@ -13,6 +14,13 @@
         TextOptions.TextRenderingMode="Auto"
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}">
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding OnLoadedCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
     <Grid>
         <ContentControl prism:RegionManager.RegionName="{x:Static core:RegionNames.WindowRegion}" Margin="5" />
     </Grid>
