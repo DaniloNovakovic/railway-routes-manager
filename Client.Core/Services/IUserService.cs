@@ -12,5 +12,7 @@ namespace Client.Core
         Task UpdateUserAsync(UserModel user);
 
         Task DeleteUserAsync(int id);
+
+        Task AddUserAsync(UserModel user);
     }
 }

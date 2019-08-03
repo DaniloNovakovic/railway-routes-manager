@@ -13,20 +13,34 @@ namespace Client.ViewModels
 
         public UserListViewModel(IUserService userService)
         {
-            UserList = new ObservableCollection<UserModel>();
             _userService = userService;
+
+            UserList = new ObservableCollection<UserModel>();
         }
 
         public UserModel SelectedUser { get; set; }
         public ObservableCollection<UserModel> UserList { get; }
 
-        public override async Task OnLoadedAsync()
+        public override Task OnLoadedAsync()
         {
-            try
+            return RefreshUserListAsync();
+        }
+
+        private Task RefreshUserListAsync()
+        {
+            return SafeExecuteAsync(async () =>
             {
                 var users = await _userService.GetAllUsersAsync();
                 UserList.Clear();
                 UserList.AddRange(users);
+            });
+        }
+
+        private async Task SafeExecuteAsync(Func<Task> callback)
+        {
+            try
+            {
+                await callback?.Invoke();
             }
             catch (Exception ex)
             {

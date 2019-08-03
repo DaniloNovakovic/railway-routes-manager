@@ -18,6 +18,16 @@ namespace Client.Infrastructure
             _mapper = mapper;
         }
 
+        public Task AddUserAsync(UserModel user)
+        {
+            return Task.Run(() =>
+            {
+                var proxy = _factory.GetChannelFactory<Common.IUserService>(port).CreateChannel();
+                var userDto = _mapper.Map<Common.UserDto>(user);
+                proxy.Add(userDto);
+            });
+        }
+
         public Task DeleteUserAsync(int id)
         {
             return Task.Run(() =>
