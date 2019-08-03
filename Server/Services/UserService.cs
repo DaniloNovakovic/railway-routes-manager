@@ -23,6 +23,11 @@ namespace Server
         {
             var user = _mapper.Map<User>(entity);
 
+            if (string.IsNullOrWhiteSpace(user.RoleName))
+            {
+                user.RoleName = RoleNames.RegularUser;
+            }
+
             _unitOfWork.Users.Add(user);
             _unitOfWork.SaveChanges();
         }

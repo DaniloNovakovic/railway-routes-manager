@@ -2,8 +2,10 @@
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using Client.Core;
 using Client.Helpers;
+using Prism.Commands;
 
 namespace Client.ViewModels
 {
@@ -16,8 +18,10 @@ namespace Client.ViewModels
             _userService = userService;
 
             UserList = new ObservableCollection<UserModel>();
+            RefreshListCommand = new DelegateCommand(async () => await RefreshUserListAsync());
         }
 
+        public ICommand RefreshListCommand { get; set; }
         public UserModel SelectedUser { get; set; }
         public ObservableCollection<UserModel> UserList { get; }
 
