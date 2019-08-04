@@ -11,15 +11,21 @@ namespace Client.ViewModels
 {
     public class AddUserFormViewModel : BindableBase
     {
+        private readonly Func<Task> _onUserAddedAsync;
         private readonly IUserService _userService;
         private UserModel _userModel;
 
-        public AddUserFormViewModel(IUserService userService)
+        public AddUserFormViewModel(IUserService userService) : this(userService, null)
+        {
+        }
+
+        public AddUserFormViewModel(IUserService userService, Func<Task> OnUserAddedAsync)
         {
             _userService = userService;
             UserModel = new UserModel();
             AddUserCommand = new DelegateCommand(async () => await AddUserAsync());
             UserModel.ErrorsChanged += UserModel_ErrorsChanged;
+            _onUserAddedAsync = OnUserAddedAsync;
         }
 
         public ICommand AddUserCommand { get; set; }
@@ -39,7 +45,11 @@ namespace Client.ViewModels
                 return Task.CompletedTask;
             }
 
-            return SafeExecuteAsync(() => _userService.AddUserAsync(UserModel));
+            return SafeExecuteAsync(async () =>
+            {
+                await _userService.AddUserAsync(UserModel);
+                await _onUserAddedAsync?.Invoke();
+            });
         }
 
         private async Task SafeExecuteAsync(Func<Task> callback)
