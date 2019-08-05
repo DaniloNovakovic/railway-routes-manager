@@ -6,7 +6,7 @@ using System.Windows.Input;
 using Client.Core;
 using Client.Helpers;
 using Prism.Commands;
-using Prism.Mvvm;
+using Prism.Events;
 
 namespace Client.ViewModels
 {
@@ -14,23 +14,18 @@ namespace Client.ViewModels
     {
         private readonly IUserService _userService;
 
-        private BindableBase _formViewModel;
-
         private bool _isDialogOpen = false;
 
-        public UserListViewModel(IUserService userService)
+        public UserListViewModel(IUserService userService, IEventAggregator eventAggregator)
         {
             _userService = userService;
 
             UserList = new ObservableCollection<UserModel>();
             RefreshListCommand = new DelegateCommand(async () => await RefreshUserListAsync());
             ShowDialogCommand = new DelegateCommand(ShowDialog);
-        }
 
-        public BindableBase FormViewModel
-        {
-            get { return _formViewModel; }
-            set { SetProperty(ref _formViewModel, value); }
+            eventAggregator.GetEvent<UserAddedEvent>()
+                .Subscribe(async _ => await OnUserAddedAsync(), ThreadOption.UIThread);
         }
 
         public bool IsDialogOpen
@@ -82,7 +77,6 @@ namespace Client.ViewModels
 
         private void ShowDialog()
         {
-            FormViewModel = new AddUserFormViewModel(_userService, OnUserAddedAsync);
             IsDialogOpen = true;
         }
     }

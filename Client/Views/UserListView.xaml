@@ -8,12 +8,6 @@
              xmlns:viewModel="clr-namespace:Client.ViewModels"
              prism:ViewModelLocator.AutoWireViewModel="True">
 
-    <UserControl.Resources>
-        <DataTemplate DataType="{x:Type viewModel:AddUserFormViewModel}">
-            <views:AddUserForm />
-        </DataTemplate>
-    </UserControl.Resources>
-
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
             <i:InvokeCommandAction Command="{Binding OnLoadedCommand}" />
@@ -22,7 +16,7 @@
 
     <materialDesign:DialogHost CloseOnClickAway="True" IsOpen="{Binding IsDialogOpen}">
         <materialDesign:DialogHost.DialogContent>
-            <ContentControl Content="{Binding FormViewModel}" />
+            <views:AddUserForm />
         </materialDesign:DialogHost.DialogContent>
 
         <Grid>
