@@ -17,11 +17,5 @@ namespace Common
 
         [DataMember]
         public int NumberOfPlatforms { get; set; }
-
-        [DataMember]
-        public List<RailwayPlatformDto> RailwayPlatforms { get; set; }
-
-        [DataMember]
-        public List<RouteDto> Routes { get; set; }
     }
 }

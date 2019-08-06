@@ -18,6 +18,6 @@ namespace Common
         public string Name { get; set; }
 
         [DataMember]
-        public RailwayStationDto RailwayStation { get; set; }
+        public int? RailwayStationId { get; set; }
     }
 }
