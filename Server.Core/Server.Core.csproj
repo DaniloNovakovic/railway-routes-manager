@@ -47,11 +47,15 @@
     <Compile Include="Entities\RailwayStation.cs" />
     <Compile Include="Entities\Route.cs" />
     <Compile Include="Entities\User.cs" />
-    <Compile Include="Enums\EntranceType.cs" />
     <Compile Include="IUnitOfWork.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\IRepository.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{844846D4-52B6-4A6B-9D28-4887438DF295}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

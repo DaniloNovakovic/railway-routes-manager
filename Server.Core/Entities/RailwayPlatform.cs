@@ -1,4 +1,6 @@
-﻿namespace Server.Core
+﻿using Common;
+
+namespace Server.Core
 {
     public class RailwayPlatform
     {

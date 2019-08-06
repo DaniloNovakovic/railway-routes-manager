@@ -1,4 +1,4 @@
-﻿namespace Server.Core
+﻿namespace Common
 {
     public enum EntranceType
     {

@@ -1,9 +1,21 @@
-﻿using System.Runtime.Serialization;
+﻿using System.Collections.Generic;
+using System.Runtime.Serialization;
 
 namespace Common
 {
     [DataContract]
     public class RouteDto
     {
+        [DataMember]
+        public int Id { get; set; }
+
+        [DataMember]
+        public string Mark { get; set; }
+
+        [DataMember]
+        public string Name { get; set; }
+
+        [DataMember]
+        public List<RailwayStationDto> RailwayStations { get; set; }
     }
 }

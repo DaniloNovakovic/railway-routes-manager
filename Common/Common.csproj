@@ -51,6 +51,7 @@
     <Compile Include="Dtos\RailwayStationDto.cs" />
     <Compile Include="Dtos\RouteDto.cs" />
     <Compile Include="Dtos\UserDto.cs" />
+    <Compile Include="Enums\EntranceType.cs" />
     <Compile Include="Exceptions\InvalidPasswordException.cs" />
     <Compile Include="Exceptions\NotFoundException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
