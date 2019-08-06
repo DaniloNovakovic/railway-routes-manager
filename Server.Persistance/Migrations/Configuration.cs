@@ -57,6 +57,72 @@ namespace Server.Persistance.Migrations
                 new Location(){Id = 13, CountryId = 5, Name = "Budimpesta"},
                 new Location(){Id = 14, CountryId = 5, Name = "Debrecen"},
             });
+
+            // Seed Stations
+            var stations = new[]
+            {
+                new RailwayStation
+                {
+                    Id = 1,
+                    LocationId = 4,
+                    Name = "Stanica Vrbas",
+                    NumberOfPlatforms = 1
+                },
+                new RailwayStation
+                {
+                    Id = 2,
+                    LocationId = 5,
+                    Name = "Stanica Novi Sad",
+                    NumberOfPlatforms = 2
+                }
+            };
+
+            context.RailwayStations.AddOrUpdate(stations);
+
+            // Seed Platforms
+            var platforms = new[]
+            {
+                new RailwayPlatform
+                {
+                    Id = 1,
+                    RailwayStationId = 1,
+                    EntranceType = EntranceType.Left,
+                    Name = "Kolosek I",
+                    Mark = "1"
+                },
+                new RailwayPlatform
+                {
+                    Id = 2,
+                    RailwayStationId = 2,
+                    EntranceType = EntranceType.Left,
+                    Name = "Kolosek I",
+                    Mark = "1"
+                },
+                new RailwayPlatform
+                {
+                    Id = 3,
+                    RailwayStationId = 2,
+                    EntranceType = EntranceType.Right,
+                    Name = "Kolosek II",
+                    Mark = "2"
+                }
+            };
+
+            context.RailwayPlatforms.AddOrUpdate(platforms);
+
+            // Seed Routes
+            var routes = new[]
+            {
+                new Route
+                {
+                    Id = 1,
+                    Mark = "Ruta 345",
+                    Name = "Ruta Kralja Petra Velikog",
+                    RailwayStations = stations
+                }
+            };
+
+            context.Routes.AddOrUpdate(routes);
         }
     }
 }
