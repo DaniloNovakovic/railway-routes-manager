@@ -6,7 +6,6 @@ namespace Client.Core
     public class LoginModel : ValidatableBindableBase
     {
         private string _password;
-
         private string _username;
 
         [Required]

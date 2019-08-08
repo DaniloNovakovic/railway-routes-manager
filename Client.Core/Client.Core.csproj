@@ -184,10 +184,15 @@
     <Compile Include="Constants\NavigationPaths.cs" />
     <Compile Include="Constants\RegionNames.cs" />
     <Compile Include="Events\UserAddedEvent.cs" />
+    <Compile Include="Models\CountryModel.cs" />
+    <Compile Include="Models\LocationModel.cs" />
     <Compile Include="Models\LoginModel.cs" />
+    <Compile Include="Models\RailwayStationModel.cs" />
+    <Compile Include="Models\RouteModel.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\IAuthenticationService.cs" />
+    <Compile Include="Services\IRouteService.cs" />
     <Compile Include="Services\IUserService.cs" />
     <Compile Include="Utils\DictionaryFlattener.cs" />
   </ItemGroup>
