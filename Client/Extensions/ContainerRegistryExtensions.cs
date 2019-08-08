@@ -13,6 +13,7 @@ namespace Client.Extensions
             containerRegistry.RegisterSingleton<IAuthChannelFactory, AuthChannelFactory>();
             containerRegistry.Register<IAuthenticationService, AuthenticationService>();
             containerRegistry.Register<IUserService, UserService>();
+            containerRegistry.Register<IRouteService, RouteService>();
         }
 
         public static void RegisterViewsForNavigation(this IContainerRegistry containerRegistry)

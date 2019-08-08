@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Client.Core;
 
-namespace Client.Infrastructure.Services
+namespace Client.Infrastructure
 {
     public class RouteService : IRouteService
     {
