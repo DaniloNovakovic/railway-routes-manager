@@ -4,6 +4,24 @@
              xmlns:prism="http://prismlibrary.com/"
              prism:ViewModelLocator.AutoWireViewModel="True">
     <Grid>
-        <TextBlock Text="{Binding Text}" />
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="1*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="2*" />
+        </Grid.ColumnDefinitions>
+        <Button Grid.Row="0" Grid.Column="0" >Add Route</Button>
+        <DataGrid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
+                  ItemsSource="{Binding Routes}"
+                  AutoGenerateColumns="False" IsReadOnly="True" BorderThickness="2"
+                  BorderBrush="LightGray" Margin="0,0,0,10">
+            <DataGrid.Columns>
+                <DataGridTextColumn Width="*" Header="Id"  Binding="{Binding Id}" />
+                <DataGridTextColumn Width="*" Header="Name"  Binding="{Binding Name}" />
+                <DataGridTextColumn Width="*" Header="Mark" Binding="{Binding Mark}" />
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </UserControl>
