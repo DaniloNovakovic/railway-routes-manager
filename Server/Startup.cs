@@ -13,8 +13,9 @@ namespace Server
 
             return new List<ICommunicationObject>
             {
+                hostFactory.GetServiceHost<IAuthService>(Ports.AuthServicePort, provider.Resolve<IAuthService>()),
+                hostFactory.GetServiceHost<IRouteService>(Ports.RouteServicePort, provider.Resolve<IRouteService>()),
                 hostFactory.GetServiceHost<IUserService>(Ports.UserServicePort, provider.Resolve<IUserService>()),
-                hostFactory.GetServiceHost<IAuthService>(Ports.AuthServicePort, provider.Resolve<IAuthService>())
             };
         }
 
@@ -25,8 +26,9 @@ namespace Server
             var provider = new ServiceProvider();
 
             provider.Register<IAuthServiceHostFactory>(new AuthServiceHostFactory(validator));
-            provider.Register<IUserService>(new UserService(unitOfWork, mapper));
             provider.Register<IAuthService>(new AuthService(unitOfWork));
+            provider.Register<IRouteService>(new RouteService(unitOfWork, mapper));
+            provider.Register<IUserService>(new UserService(unitOfWork, mapper));
 
             return provider;
         }
