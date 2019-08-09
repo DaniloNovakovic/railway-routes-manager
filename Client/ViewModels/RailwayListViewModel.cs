@@ -18,10 +18,14 @@ namespace Client.ViewModels
             _routeService = routeService;
 
             Routes = new ObservableCollection<RouteModel>();
+            AddCommand = new DelegateCommand(NavigateToAddForm);
             RefreshCommand = new DelegateCommand(async () => await RefreshRoutesAsync());
         }
 
+        public ICommand AddCommand { get; }
+
         public ICommand RefreshCommand { get; }
+
         public ObservableCollection<RouteModel> Routes { get; set; }
 
         public override Task OnLoadedAsync()
@@ -37,6 +41,11 @@ namespace Client.ViewModels
                 Routes.Clear();
                 Routes.AddRange(routes);
             });
+        }
+
+        private void NavigateToAddForm()
+        {
+            // TODO: Implement
         }
 
         private async Task SafeExecuteAsync(Func<Task> callback)

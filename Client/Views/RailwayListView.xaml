@@ -21,7 +21,7 @@
         </Grid.ColumnDefinitions>
 
         <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal">
-            <Button>Add Route</Button>
+            <Button Command="{Binding AddCommand}">Add Route</Button>
             <Button Command="{Binding RefreshCommand}">Refresh</Button>
         </StackPanel>
         <DataGrid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
