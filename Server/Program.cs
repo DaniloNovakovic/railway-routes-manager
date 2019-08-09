@@ -11,6 +11,7 @@ namespace Server
         public static void Main()
         {
             var dbContext = new ApplicationDbContext(DefaultConnectionName);
+            dbContext.Database.CreateIfNotExists();
 
             using (var unitOfWork = new UnitOfWork(dbContext))
             {

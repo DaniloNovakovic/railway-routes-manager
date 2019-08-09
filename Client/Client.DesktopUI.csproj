@@ -77,6 +77,7 @@
     <Compile Include="Helpers\AuthNavViewModelBase.cs" />
     <Compile Include="Helpers\NavViewModelBase.cs" />
     <Compile Include="Helpers\ViewModelBase.cs" />
+    <Compile Include="ViewModels\Forms\AddRouteFormViewModel.cs" />
     <Compile Include="ViewModels\Forms\AddUserFormViewModel.cs" />
     <Compile Include="ViewModels\Navs\AdminNavViewModel.cs" />
     <Compile Include="ViewModels\Layout\AdminViewModel.cs" />
@@ -87,6 +88,9 @@
     <Compile Include="ViewModels\Navs\RegularUserNavViewModel.cs" />
     <Compile Include="ViewModels\Layout\RegularUserViewModel.cs" />
     <Compile Include="ViewModels\UserListViewModel.cs" />
+    <Compile Include="Views\Forms\AddRouteForm.xaml.cs">
+      <DependentUpon>AddRouteForm.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Forms\AddUserForm.xaml.cs">
       <DependentUpon>AddUserForm.xaml</DependentUpon>
     </Compile>
@@ -122,6 +126,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Skins\DefaultSkin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Forms\AddRouteForm.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

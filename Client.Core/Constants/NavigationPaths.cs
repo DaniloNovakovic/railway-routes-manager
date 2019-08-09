@@ -11,5 +11,6 @@
         public const string RegularUserNavPath = "RegularUserNavPath";
         public const string RegularUserPath = "RegularUserPath";
         public const string UserListPath = "UserListPath";
+        public const string AddRouteFormPath = "AddRouteFormPath";
     }
 }

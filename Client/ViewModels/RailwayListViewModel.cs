@@ -6,16 +6,19 @@ using System.Windows.Input;
 using Client.Core;
 using Client.Helpers;
 using Prism.Commands;
+using Prism.Regions;
 
 namespace Client.ViewModels
 {
     public class RailwayListViewModel : ViewModelBase
     {
+        private readonly IRegionManager _regionManager;
         private readonly IRouteService _routeService;
 
-        public RailwayListViewModel(IRouteService routeService)
+        public RailwayListViewModel(IRouteService routeService, IRegionManager regionManager)
         {
             _routeService = routeService;
+            _regionManager = regionManager;
 
             Routes = new ObservableCollection<RouteModel>();
             AddCommand = new DelegateCommand(NavigateToAddForm);
@@ -45,7 +48,7 @@ namespace Client.ViewModels
 
         private void NavigateToAddForm()
         {
-            // TODO: Implement
+            _regionManager.RequestNavigate(RegionNames.AuthContentRegion, NavigationPaths.AddRouteFormPath);
         }
 
         private async Task SafeExecuteAsync(Func<Task> callback)
