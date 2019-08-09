@@ -22,12 +22,15 @@ namespace Server
 
         public void Add(RouteDto entity)
         {
-            throw new NotImplementedException();
+            var route = _mapper.Map<Route>(entity);
+            _unitOfWork.Routes.Add(route);
+            _unitOfWork.SaveChanges();
         }
 
         public RouteDto Get(int key)
         {
-            throw new NotImplementedException();
+            var route = _unitOfWork.Routes.Get(key);
+            return _mapper.Map<RouteDto>(route);
         }
 
         public IEnumerable<RouteDto> GetAll()
