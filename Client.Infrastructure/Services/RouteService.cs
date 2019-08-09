@@ -18,6 +18,17 @@ namespace Client.Infrastructure
             _mapper = mapper;
         }
 
+        public Task AddRouteAsync(RouteModel route)
+        {
+            var routeDto = _mapper.Map<Common.RouteDto>(route);
+
+            return Task.Run(() =>
+            {
+                var proxy = _factory.GetChannelFactory<Common.IRouteService>(_port).CreateChannel();
+                proxy.Add(routeDto);
+            });
+        }
+
         public Task<IEnumerable<RouteModel>> GetAllRoutesAsync()
         {
             return Task.Run(() =>
