@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
+using System.Text;
 using Prism.Validation;
 
 namespace Client.Core
@@ -36,5 +37,14 @@ namespace Client.Core
         }
 
         public ObservableCollection<RailwayStationModel> RailwayStations { get; set; }
+
+        public override string ToString()
+        {
+            return new StringBuilder()
+                .Append("Id: ").Append(Id)
+                .Append(", Name: ").Append(Name)
+                .Append(", Mark: ").Append(Mark)
+                .ToString();
+        }
     }
 }

@@ -24,15 +24,28 @@
             <Button Command="{Binding AddCommand}">Add Route</Button>
             <Button Command="{Binding RefreshCommand}">Refresh</Button>
         </StackPanel>
-        <DataGrid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
+        <ListView Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
                   ItemsSource="{Binding Routes}"
-                  AutoGenerateColumns="False" IsReadOnly="True" BorderThickness="2"
+                  BorderThickness="2"
                   BorderBrush="LightGray" Margin="0,0,0,10">
-            <DataGrid.Columns>
-                <DataGridTextColumn Width="*" Header="Id"  Binding="{Binding Id}" />
-                <DataGridTextColumn Width="*" Header="Name"  Binding="{Binding Name}" />
-                <DataGridTextColumn Width="*" Header="Mark" Binding="{Binding Mark}" />
-            </DataGrid.Columns>
-        </DataGrid>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Expander HorizontalAlignment="Stretch" Header="{Binding}">
+                        <StackPanel>
+                            <DataGrid ItemsSource="{Binding Path=RailwayStations}"
+                                  AutoGenerateColumns="False" IsReadOnly="True" BorderThickness="2"
+                                  BorderBrush="LightGray" Margin="0,0,0,10">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Width="*" Header="Id"  Binding="{Binding Path=Id}" />
+                                    <DataGridTextColumn Width="*" Header="Name"  Binding="{Binding Path=Name}" />
+                                    <DataGridTextColumn Width="*" Header="Location"  Binding="{Binding Path=Location.Name}" />
+                                    <DataGridTextColumn Width="*" Header="Country"  Binding="{Binding Path=Location.Country.Name}" />
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </StackPanel>
+                    </Expander>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
     </Grid>
 </UserControl>
