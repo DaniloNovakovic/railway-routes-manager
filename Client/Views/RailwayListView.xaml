@@ -10,42 +10,40 @@
         </i:EventTrigger>
     </i:Interaction.Triggers>
 
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="1*" />
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1*" />
-            <ColumnDefinition Width="2*" />
-        </Grid.ColumnDefinitions>
-
-        <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal">
+    <StackPanel>
+        <StackPanel  Orientation="Horizontal" Margin="5">
             <Button Command="{Binding AddCommand}">Add Route</Button>
             <Button Command="{Binding RefreshCommand}">Refresh</Button>
         </StackPanel>
-        <ListView Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
-                  ItemsSource="{Binding Routes}"
-                  BorderThickness="2"
-                  BorderBrush="LightGray" Margin="0,0,0,10">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <Expander HorizontalAlignment="Stretch" Header="{Binding}">
-                        <StackPanel>
-                            <DataGrid ItemsSource="{Binding Path=RailwayStations}"
-                                  AutoGenerateColumns="False" IsReadOnly="True" BorderThickness="2"
-                                  BorderBrush="LightGray" Margin="0,0,0,10">
-                                <DataGrid.Columns>
-                                    <DataGridTextColumn Width="*" Header="Id"  Binding="{Binding Path=Id}" />
-                                    <DataGridTextColumn Width="*" Header="Name"  Binding="{Binding Path=Name}" />
-                                    <DataGridTextColumn Width="*" Header="Location"  Binding="{Binding Path=Location.Name}" />
-                                    <DataGridTextColumn Width="*" Header="Country"  Binding="{Binding Path=Location.Country.Name}" />
-                                </DataGrid.Columns>
-                            </DataGrid>
-                        </StackPanel>
-                    </Expander>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-    </Grid>
+        <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="5">
+            <ItemsControl ItemsSource="{Binding Routes}"
+                      BorderThickness="2"
+                      BorderBrush="LightGray">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Expander HorizontalAlignment="Stretch">
+                            <Expander.Header>
+                                <StackPanel Orientation="Vertical">
+                                    <TextBlock Text="{Binding Path=Name}" Style="{StaticResource MaterialDesignTitleTextBlock}" />
+                                    <TextBlock Text="{Binding Path=Mark}" Style="{StaticResource MaterialDesignSubheadingTextBlock}" />
+                                </StackPanel>
+                            </Expander.Header>
+                            <StackPanel Margin="24,8,24,16">
+                                <DataGrid ItemsSource="{Binding Path=RailwayStations}"
+                                      AutoGenerateColumns="False" IsReadOnly="True" BorderThickness="2"
+                                      BorderBrush="LightGray">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn MinWidth="50" Header="Station Id"  Binding="{Binding Path=Id}" />
+                                        <DataGridTextColumn MinWidth="100" Header="Station Name"  Binding="{Binding Path=Name}" />
+                                        <DataGridTextColumn MinWidth="80" Header="Location"  Binding="{Binding Path=Location.Name}" />
+                                        <DataGridTextColumn MinWidth="80" Header="Country"  Binding="{Binding Path=Location.Country.Name}" />
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </StackPanel>
+                        </Expander>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+    </StackPanel>
 </UserControl>
