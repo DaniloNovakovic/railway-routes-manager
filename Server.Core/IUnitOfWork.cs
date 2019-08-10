@@ -8,7 +8,7 @@ namespace Server.Core
         IRepository<Location> Locations { get; }
         IRepository<RailwayPlatform> RailwayPlatforms { get; }
         IRepository<RailwayStation> RailwayStations { get; }
-        IRepository<Route> Routes { get; }
+        IRouteRepository Routes { get; }
         IRepository<User> Users { get; set; }
 
         int SaveChanges();

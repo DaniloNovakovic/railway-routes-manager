@@ -16,27 +16,27 @@ namespace Server.Persistance
             Context = context;
         }
 
-        public void Add(TEntity entity)
+        public virtual void Add(TEntity entity)
         {
             Context.Set<TEntity>().Add(entity);
         }
 
-        public void AddRange(IEnumerable<TEntity> entities)
+        public virtual void AddRange(IEnumerable<TEntity> entities)
         {
             Context.Set<TEntity>().AddRange(entities);
         }
 
-        public TEntity Get(params object[] keyValues)
+        public virtual TEntity Get(params object[] keyValues)
         {
             return Context.Set<TEntity>().Find(keyValues);
         }
 
-        public TEntity Get(Expression<Func<TEntity, bool>> filter)
+        public virtual TEntity Get(Expression<Func<TEntity, bool>> filter)
         {
             return Context.Set<TEntity>().FirstOrDefault(filter);
         }
 
-        public IEnumerable<TEntity> GetAll(Expression<Func<TEntity, bool>> filter = null)
+        public virtual IEnumerable<TEntity> GetAll(Expression<Func<TEntity, bool>> filter = null)
         {
             var query = Context.Set<TEntity>().AsQueryable();
 
@@ -48,12 +48,12 @@ namespace Server.Persistance
             return query.ToList();
         }
 
-        public void Remove(TEntity entity)
+        public virtual void Remove(TEntity entity)
         {
             Context.Set<TEntity>().Remove(entity);
         }
 
-        public void RemoveRange(IEnumerable<TEntity> entities)
+        public virtual void RemoveRange(IEnumerable<TEntity> entities)
         {
             Context.Set<TEntity>().RemoveRange(entities);
         }

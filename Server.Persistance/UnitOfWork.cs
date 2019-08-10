@@ -1,4 +1,5 @@
 ﻿using Server.Core;
+using Server.Persistance.Repositories;
 
 namespace Server.Persistance
 {
@@ -14,7 +15,7 @@ namespace Server.Persistance
             Locations = new Repository<Location>(context);
             RailwayPlatforms = new Repository<RailwayPlatform>(context);
             RailwayStations = new Repository<RailwayStation>(context);
-            Routes = new Repository<Route>(context);
+            Routes = new RouteRepository(context);
             Users = new Repository<User>(context);
         }
 
@@ -22,7 +23,7 @@ namespace Server.Persistance
         public IRepository<Location> Locations { get; }
         public IRepository<RailwayPlatform> RailwayPlatforms { get; }
         public IRepository<RailwayStation> RailwayStations { get; }
-        public IRepository<Route> Routes { get; }
+        public IRouteRepository Routes { get; }
         public IRepository<User> Users { get; set; }
 
         public void Dispose()
