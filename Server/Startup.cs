@@ -9,28 +9,36 @@ namespace Server
     {
         public static IEnumerable<ICommunicationObject> GetHosts(IServiceProvider provider)
         {
-            var hostFactory = provider.Resolve<IAuthServiceHostFactory>();
+            var factory = GetServiceHostFactory(provider);
 
             return new List<ICommunicationObject>
             {
-                hostFactory.GetServiceHost<IAuthService>(Ports.AuthServicePort, provider.Resolve<IAuthService>()),
-                hostFactory.GetServiceHost<IRouteService>(Ports.RouteServicePort, provider.Resolve<IRouteService>()),
-                hostFactory.GetServiceHost<IUserService>(Ports.UserServicePort, provider.Resolve<IUserService>()),
+                factory.GetServiceHost<IAuthService>(Ports.AuthServicePort),
+                factory.GetServiceHost<IRouteService>(Ports.RouteServicePort),
+                factory.GetServiceHost<IRailwayStationService>(Ports.RailwayStationServicePort),
+                factory.GetServiceHost<IUserService>(Ports.UserServicePort),
             };
         }
 
         public static IServiceProvider GetServiceProvider(IUnitOfWork unitOfWork)
         {
             var mapper = AutoMapperFactory.GetAutoMapper();
-            var validator = new CustomUserNamePasswordValidator(unitOfWork);
             var provider = new ServiceProvider();
 
-            provider.Register<IAuthServiceHostFactory>(new AuthServiceHostFactory(validator));
+            provider.Register<IUnitOfWork>(unitOfWork);
             provider.Register<IAuthService>(new AuthService(unitOfWork));
             provider.Register<IRouteService>(new RouteService(unitOfWork, mapper));
+            provider.Register<IRailwayStationService>(new RailwayStationService(unitOfWork, mapper));
             provider.Register<IUserService>(new UserService(unitOfWork, mapper));
 
             return provider;
+        }
+
+        private static IAuthServiceHostFactoryFacade GetServiceHostFactory(IServiceProvider provider)
+        {
+            var unitOfWork = provider.Resolve<IUnitOfWork>();
+            var validator = new CustomUserNamePasswordValidator(unitOfWork);
+            return new AuthServiceHostFactoryFacade(new AuthServiceHostFactory(validator), provider);
         }
     }
 }
