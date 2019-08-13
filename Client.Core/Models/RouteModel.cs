@@ -41,9 +41,9 @@ namespace Client.Core
         public override string ToString()
         {
             return new StringBuilder()
-                .Append("Id: ").Append(Id)
-                .Append(", Name: ").Append(Name)
-                .Append(", Mark: ").Append(Mark)
+                .Append(nameof(Id)).Append(": ").Append(Id)
+                .Append(", ").Append(nameof(Name)).Append(": ").Append(Name)
+                .Append(", ").Append(nameof(Mark)).Append(": ").Append(Mark)
                 .ToString();
         }
     }

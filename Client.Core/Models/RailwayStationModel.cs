@@ -35,5 +35,10 @@ namespace Client.Core
             get { return _numberOfPlatforms; }
             set { SetProperty(ref _numberOfPlatforms, value); }
         }
+
+        public override string ToString()
+        {
+            return $"[{Id}] {Name}";
+        }
     }
 }
