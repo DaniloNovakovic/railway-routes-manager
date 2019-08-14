@@ -7,9 +7,9 @@ using Prism.Mvvm;
 
 namespace Client.Helpers
 {
-    public class ViewModelBase : BindableBase
+    public abstract class ViewModelBase : BindableBase
     {
-        public ViewModelBase()
+        protected ViewModelBase()
         {
             OnLoadedCommand = new DelegateCommand(async () => await OnLoadedAsync());
         }

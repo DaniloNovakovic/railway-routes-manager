@@ -79,6 +79,7 @@
     <Compile Include="Helpers\ViewModelBase.cs" />
     <Compile Include="ViewModels\Forms\AddRouteFormViewModel.cs" />
     <Compile Include="ViewModels\Forms\AddUserFormViewModel.cs" />
+    <Compile Include="ViewModels\Forms\EditRouteFormViewModel.cs" />
     <Compile Include="ViewModels\Navs\AdminNavViewModel.cs" />
     <Compile Include="ViewModels\Layout\AdminViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
@@ -87,12 +88,16 @@
     <Compile Include="ViewModels\RegisterViewModel.cs" />
     <Compile Include="ViewModels\Navs\RegularUserNavViewModel.cs" />
     <Compile Include="ViewModels\Layout\RegularUserViewModel.cs" />
+    <Compile Include="Helpers\RouteFormViewModel.cs" />
     <Compile Include="ViewModels\UserListViewModel.cs" />
     <Compile Include="Views\Forms\AddRouteForm.xaml.cs">
       <DependentUpon>AddRouteForm.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Forms\AddUserForm.xaml.cs">
       <DependentUpon>AddUserForm.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Forms\RouteForm.xaml.cs">
+      <DependentUpon>RouteForm.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Navs\AdminNavView.xaml.cs">
       <DependentUpon>AdminNavView.xaml</DependentUpon>
@@ -134,6 +139,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Forms\AddUserForm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Forms\RouteForm.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

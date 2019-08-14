@@ -1,11 +1,12 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 using Prism.Validation;
 
 namespace Client.Core
 {
-    public class RouteModel : ValidatableBindableBase
+    public class RouteModel : ValidatableBindableBase, ICloneable
     {
         private int _id;
         private string _mark;
@@ -39,6 +40,18 @@ namespace Client.Core
         }
 
         public ObservableCollection<RailwayStationModel> RailwayStations { get; set; }
+
+        public object Clone()
+        {
+            var route = new RouteModel()
+            {
+                Id = Id,
+                Mark = Mark,
+                Name = Name
+            };
+            route.RailwayStations = new ObservableCollection<RailwayStationModel>(RailwayStations);
+            return route;
+        }
 
         public override string ToString()
         {

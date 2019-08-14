@@ -183,6 +183,7 @@
   <ItemGroup>
     <Compile Include="Constants\NavigationPaths.cs" />
     <Compile Include="Constants\RegionNames.cs" />
+    <Compile Include="Events\RouteUpdatedEvent.cs" />
     <Compile Include="Events\UserAddedEvent.cs" />
     <Compile Include="Models\CountryModel.cs" />
     <Compile Include="Models\LocationModel.cs" />
