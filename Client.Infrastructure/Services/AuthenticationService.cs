@@ -18,7 +18,7 @@ namespace Client.Infrastructure
         {
             return Task.Run(() =>
             {
-                var proxy = _factory.GetChannelFactory<IAuthService>(Ports.AuthServicePort).CreateChannel();
+                var proxy = GetProxy();
                 return proxy.IsLoggedIn(username);
             });
         }
@@ -27,11 +27,10 @@ namespace Client.Infrastructure
         {
             _factory.Username = username;
             _factory.Password = password;
+
             return Task.Run(() =>
             {
-                var channelFactory = _factory.GetChannelFactory<IAuthService>(Ports.AuthServicePort);
-                var proxy = channelFactory.CreateChannel();
-
+                var proxy = GetProxy();
                 string roleName = proxy.Login(username, password);
                 Trace.TraceInformation($"{username}'s role: {roleName}");
                 return roleName;
@@ -42,11 +41,16 @@ namespace Client.Infrastructure
         {
             return Task.Run(() =>
             {
-                var proxy = _factory.GetChannelFactory<IAuthService>(Ports.AuthServicePort).CreateChannel();
+                var proxy = GetProxy();
                 proxy.Logout(_factory.Username);
                 _factory.Username = "";
                 _factory.Password = "";
             });
+        }
+
+        private IAuthService GetProxy()
+        {
+            return _factory.GetChannelFactory<IAuthService>(Ports.AuthServicePort).CreateChannel();
         }
     }
 }

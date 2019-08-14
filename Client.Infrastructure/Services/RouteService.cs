@@ -24,7 +24,7 @@ namespace Client.Infrastructure
 
             return Task.Run(() =>
             {
-                var proxy = _factory.GetChannelFactory<Common.IRouteService>(_port).CreateChannel();
+                var proxy = GetProxy();
                 proxy.Add(routeDto);
             });
         }
@@ -33,10 +33,24 @@ namespace Client.Infrastructure
         {
             return Task.Run(() =>
             {
-                var proxy = _factory.GetChannelFactory<Common.IRouteService>(_port).CreateChannel();
+                var proxy = GetProxy();
                 var routeDtos = proxy.GetAll();
                 return routeDtos.Select(routeDto => _mapper.Map<RouteModel>(routeDto));
             });
+        }
+
+        public Task RemoveRouteAsync(int key)
+        {
+            return Task.Run(() =>
+            {
+                var proxy = GetProxy();
+                proxy.Remove(key);
+            });
+        }
+
+        private Common.IRouteService GetProxy()
+        {
+            return _factory.GetChannelFactory<Common.IRouteService>(_port).CreateChannel();
         }
     }
 }

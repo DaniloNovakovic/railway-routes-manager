@@ -22,10 +22,15 @@ namespace Client.Infrastructure
         {
             return Task.Run(() =>
             {
-                var proxy = _factory.GetChannelFactory<Common.IRailwayStationService>(_port).CreateChannel();
+                var proxy = GetProxy();
                 var stationDtos = proxy.GetAll();
                 return stationDtos.Select(dto => _mapper.Map<RailwayStationModel>(dto));
             });
+        }
+
+        private Common.IRailwayStationService GetProxy()
+        {
+            return _factory.GetChannelFactory<Common.IRailwayStationService>(_port).CreateChannel();
         }
     }
 }

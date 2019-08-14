@@ -22,7 +22,7 @@ namespace Client.Infrastructure
         {
             return Task.Run(() =>
             {
-                var proxy = _factory.GetChannelFactory<Common.IUserService>(port).CreateChannel();
+                var proxy = GetProxy();
                 var userDto = _mapper.Map<Common.UserDto>(user);
                 proxy.Add(userDto);
             });
@@ -32,7 +32,7 @@ namespace Client.Infrastructure
         {
             return Task.Run(() =>
             {
-                var proxy = _factory.GetChannelFactory<Common.IUserService>(port).CreateChannel();
+                var proxy = GetProxy();
                 proxy.Remove(id);
             });
         }
@@ -41,7 +41,7 @@ namespace Client.Infrastructure
         {
             return Task.Run(() =>
             {
-                var proxy = _factory.GetChannelFactory<Common.IUserService>(port).CreateChannel();
+                var proxy = GetProxy();
                 var userDtos = proxy.GetAll();
                 return userDtos.Select(dto => _mapper.Map<UserModel>(dto));
             });
@@ -51,7 +51,7 @@ namespace Client.Infrastructure
         {
             return Task.Run(() =>
             {
-                var proxy = _factory.GetChannelFactory<Common.IUserService>(port).CreateChannel();
+                var proxy = GetProxy();
                 var userDto = proxy.GetByUsername(_factory.Username);
                 return _mapper.Map<UserModel>(userDto);
             });
@@ -61,10 +61,15 @@ namespace Client.Infrastructure
         {
             return Task.Run(() =>
             {
-                var proxy = _factory.GetChannelFactory<Common.IUserService>(port).CreateChannel();
+                var proxy = GetProxy();
                 var userDto = _mapper.Map<Common.UserDto>(user);
                 proxy.Update(user.Id, userDto);
             });
+        }
+
+        private Common.IUserService GetProxy()
+        {
+            return _factory.GetChannelFactory<Common.IUserService>(port).CreateChannel();
         }
     }
 }
