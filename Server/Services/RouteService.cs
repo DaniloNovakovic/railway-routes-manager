@@ -22,7 +22,12 @@ namespace Server
 
         public void Add(RouteDto entity)
         {
+            int[] ids = entity.RailwayStations.Select(s => s.Id).ToArray();
+            var stations = _unitOfWork.RailwayStations.GetAll(station => ids.Contains(station.Id)).ToList();
+
             var route = _mapper.Map<Route>(entity);
+            route.RailwayStations = stations;
+
             _unitOfWork.Routes.Add(route);
             _unitOfWork.SaveChanges();
         }
