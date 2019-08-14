@@ -10,40 +10,46 @@
         </i:EventTrigger>
     </i:Interaction.Triggers>
 
-    <StackPanel>
-        <StackPanel  Orientation="Horizontal" Margin="5">
-            <Button Command="{Binding AddCommand}">Add Route</Button>
-            <Button Command="{Binding RefreshCommand}">Refresh</Button>
-        </StackPanel>
-        <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="5">
-            <ItemsControl ItemsSource="{Binding Routes}"
-                      BorderThickness="2"
-                      BorderBrush="LightGray">
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="5">
+        <StackPanel>
+            <StackPanel  Orientation="Horizontal" Margin="5">
+                <Button Command="{Binding AddCommand}">Add Route</Button>
+                <Button Command="{Binding RefreshCommand}">Refresh</Button>
+            </StackPanel>
+            <ItemsControl ItemsSource="{Binding Routes}" Margin="5">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Expander HorizontalAlignment="Stretch">
-                            <Expander.Header>
-                                <StackPanel Orientation="Vertical">
-                                    <TextBlock Text="{Binding Path=Name}" Style="{StaticResource MaterialDesignTitleTextBlock}" />
-                                    <TextBlock Text="{Binding Path=Mark}" Style="{StaticResource MaterialDesignSubheadingTextBlock}" />
-                                </StackPanel>
-                            </Expander.Header>
-                            <StackPanel Margin="24,8,24,16">
-                                <DataGrid ItemsSource="{Binding Path=RailwayStations}"
+                        <Border BorderBrush="LightGray" BorderThickness="2">
+                            <Expander HorizontalAlignment="Stretch">
+                                <Expander.Header>
+                                    <StackPanel Orientation="Vertical">
+                                        <TextBlock Text="{Binding Path=Name}" Style="{StaticResource MaterialDesignTitleTextBlock}" />
+                                        <TextBlock Text="{Binding Path=Mark}" Style="{StaticResource MaterialDesignSubheadingTextBlock}" />
+                                        <Button Command="{Binding RelativeSource={RelativeSource AncestorType=UserControl}, Path=DataContext.RemoveRouteCommand}" 
+                                            CommandParameter="{Binding Path=Id}"
+                                            HorizontalAlignment="Left"
+                                            Margin="0,15,0,0"
+                                            Width="100">Remove</Button>
+                                    </StackPanel>
+                                </Expander.Header>
+                                <StackPanel Margin="24,8,24,16">
+                                    <DataGrid ItemsSource="{Binding Path=RailwayStations}"
                                       AutoGenerateColumns="False" IsReadOnly="True" BorderThickness="2"
                                       BorderBrush="LightGray">
-                                    <DataGrid.Columns>
-                                        <DataGridTextColumn MinWidth="50" Header="Station Id"  Binding="{Binding Path=Id}" />
-                                        <DataGridTextColumn MinWidth="100" Header="Station Name"  Binding="{Binding Path=Name}" />
-                                        <DataGridTextColumn MinWidth="80" Header="Location"  Binding="{Binding Path=Location.Name}" />
-                                        <DataGridTextColumn MinWidth="80" Header="Country"  Binding="{Binding Path=Location.Country.Name}" />
-                                    </DataGrid.Columns>
-                                </DataGrid>
-                            </StackPanel>
-                        </Expander>
+                                        <DataGrid.Columns>
+                                            <DataGridTextColumn MinWidth="50" Header="Station Id"  Binding="{Binding Path=Id}" />
+                                            <DataGridTextColumn MinWidth="100" Header="Station Name"  Binding="{Binding Path=Name}" />
+                                            <DataGridTextColumn MinWidth="80" Header="Location"  Binding="{Binding Path=Location.Name}" />
+                                            <DataGridTextColumn MinWidth="80" Header="Country"  Binding="{Binding Path=Location.Country.Name}" />
+                                        </DataGrid.Columns>
+                                    </DataGrid>
+                                </StackPanel>
+                            </Expander>
+                        </Border>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
-        </ScrollViewer>
-    </StackPanel>
+        </StackPanel>
+    </ScrollViewer>
 </UserControl>

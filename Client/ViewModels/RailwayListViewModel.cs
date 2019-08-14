@@ -21,12 +21,13 @@ namespace Client.ViewModels
             Routes = new ObservableCollection<RouteModel>();
             AddCommand = new DelegateCommand(NavigateToAddForm);
             RefreshCommand = new DelegateCommand(async () => await RefreshRoutesAsync());
+            RemoveRouteCommand = new DelegateCommand<int?>(async (id) => await RemoveRouteAsync(id));
         }
 
         public ICommand AddCommand { get; }
 
         public ICommand RefreshCommand { get; }
-
+        public ICommand RemoveRouteCommand { get; }
         public ObservableCollection<RouteModel> Routes { get; set; }
 
         public override Task OnLoadedAsync()
@@ -41,6 +42,20 @@ namespace Client.ViewModels
                 var routes = await _routeService.GetAllRoutesAsync();
                 Routes.Clear();
                 Routes.AddRange(routes);
+            });
+        }
+
+        public Task RemoveRouteAsync(int? id)
+        {
+            if (id is null)
+            {
+                return Task.CompletedTask;
+            }
+
+            return SafeExecuteAsync(async () =>
+            {
+                await _routeService.RemoveRouteAsync(id.Value);
+                await RefreshRoutesAsync();
             });
         }
 
