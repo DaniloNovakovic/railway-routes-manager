@@ -1,16 +1,14 @@
-﻿using System;
-using System.ComponentModel;
-using System.Diagnostics;
+﻿using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Client.Core;
+using Client.Helpers;
 using Prism.Commands;
 using Prism.Events;
-using Prism.Mvvm;
 
 namespace Client.ViewModels
 {
-    public class AddUserFormViewModel : BindableBase
+    public class AddUserFormViewModel : ViewModelBase
     {
         private readonly IEventAggregator _eventAggregator;
         private readonly IUserService _userService;
@@ -48,34 +46,20 @@ namespace Client.ViewModels
                 return Task.CompletedTask;
             }
 
-            return SafeExecuteAsync(async () =>
-            {
-                await _userService.AddUserAsync(UserModel);
-                OnUserAdded();
-                UserModel = new UserModel();
-            });
+            return SafeExecuteAsync(
+                @try: async () =>
+                {
+                    CanAddUser = false;
+                    await _userService.AddUserAsync(UserModel);
+                    OnUserAdded();
+                    UserModel = new UserModel();
+                },
+                @finally: () => CanAddUser = !UserModel.HasErrors);
         }
 
         private void OnUserAdded()
         {
             _eventAggregator.GetEvent<UserAddedEvent>().Publish(UserModel.Username);
-        }
-
-        private async Task SafeExecuteAsync(Func<Task> callback)
-        {
-            try
-            {
-                CanAddUser = false;
-                await callback?.Invoke();
-            }
-            catch (Exception ex)
-            {
-                Trace.TraceError(ex.InnerException?.Message ?? ex.Message);
-            }
-            finally
-            {
-                CanAddUser = !UserModel.HasErrors;
-            }
         }
 
         private void UserModel_ErrorsChanged(object sender, DataErrorsChangedEventArgs e)

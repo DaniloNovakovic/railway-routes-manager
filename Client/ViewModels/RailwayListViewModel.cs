@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using System.Diagnostics;
+﻿using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Client.Core;
@@ -49,18 +47,6 @@ namespace Client.ViewModels
         private void NavigateToAddForm()
         {
             _regionManager.RequestNavigate(RegionNames.AuthContentRegion, NavigationPaths.AddRouteFormPath);
-        }
-
-        private async Task SafeExecuteAsync(Func<Task> callback)
-        {
-            try
-            {
-                await callback?.Invoke();
-            }
-            catch (Exception ex)
-            {
-                Trace.TraceError(ex.InnerException?.Message ?? ex.Message);
-            }
         }
     }
 }

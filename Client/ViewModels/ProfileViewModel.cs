@@ -42,23 +42,6 @@ namespace Client.ViewModels
             });
         }
 
-        public async Task SafeExecuteAsync(Func<Task> callback)
-        {
-            try
-            {
-                CanSaveChanges = false;
-                await callback?.Invoke();
-            }
-            catch (Exception ex)
-            {
-                Trace.TraceError(ex.InnerException?.Message ?? ex.Message);
-            }
-            finally
-            {
-                CanSaveChanges = true;
-            }
-        }
-
         public Task SaveChangesAsync()
         {
             if (UserModel.HasErrors)
@@ -66,7 +49,15 @@ namespace Client.ViewModels
                 HandleUserModelErrors();
                 return Task.CompletedTask;
             }
-            return SafeExecuteAsync(() => _userService.UpdateUserAsync(UserModel));
+
+            return SafeExecuteAsync(
+                @try: () =>
+                {
+                    CanSaveChanges = false;
+                    return _userService.UpdateUserAsync(UserModel);
+                },
+                @finally: () => CanSaveChanges = true
+            );
         }
 
         private void HandleUserModelErrors()

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using System.Diagnostics;
+﻿using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using Client.Core;
 using Client.Helpers;
@@ -30,18 +28,6 @@ namespace Client.ViewModels
                 RailwayStations.Clear();
                 RailwayStations.AddRange(stations);
             });
-        }
-
-        private async Task SafeExecuteAsync(Func<Task> callback)
-        {
-            try
-            {
-                await callback?.Invoke();
-            }
-            catch (Exception ex)
-            {
-                Trace.TraceError(ex.InnerException?.Message ?? ex.Message);
-            }
         }
     }
 }
