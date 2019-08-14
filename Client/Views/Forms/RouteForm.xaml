@@ -19,7 +19,7 @@
             <TextBox materialDesign:HintAssist.Hint="Mark"
                          Text="{Binding RouteModel.Mark,Mode=TwoWay,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}"
                          Style="{StaticResource ValidationTextBox}" />
-            <xctk:CheckComboBox ItemsSource="{Binding RailwayStations}" Delimiter="; " Margin="0,15,0,15"
+            <xctk:CheckComboBox ItemsSource="{Binding RailwayStations, Mode=OneWay}" Delimiter="; " Margin="0,15,0,15"
                                     SelectedItemsOverride="{Binding RouteModel.RailwayStations, Mode=TwoWay}" />
             <Button Margin="0,20,0,0" IsEnabled="{Binding CanSubmit}" Command="{Binding SubmitCommand}">Submit</Button>
         </StackPanel>

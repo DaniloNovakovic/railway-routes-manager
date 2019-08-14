@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Client.Core;
@@ -9,6 +10,7 @@ namespace Client.Helpers
     public abstract class RouteFormViewModel : ViewModelBase
     {
         protected readonly IRailwayStationService _stationService;
+        private readonly RouteModel _originalRoute;
         private bool _canSubmit;
         private RouteModel _routeModel;
 
@@ -25,7 +27,8 @@ namespace Client.Helpers
             RailwayStations = new ObservableCollection<RailwayStationModel>();
             SubmitCommand = new DelegateCommand(async () => await OnSubmitAsync());
 
-            RouteModel = route;
+            _originalRoute = route ?? new RouteModel();
+            RouteModel = route.Clone() as RouteModel;
             RouteModel.ErrorsChanged += RouteModel_ErrorsChanged;
         }
 
@@ -56,6 +59,10 @@ namespace Client.Helpers
                 var stations = await _stationService.GetAllStationsAsync();
                 RailwayStations.Clear();
                 RailwayStations.AddRange(stations);
+
+                int[] ids = _originalRoute.RailwayStations.Select(s => s.Id).ToArray();
+                RouteModel.RailwayStations.Clear();
+                RouteModel.RailwayStations.AddRange(RailwayStations.Where(s => ids.Contains(s.Id)));
             });
         }
 
