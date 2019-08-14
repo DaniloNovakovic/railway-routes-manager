@@ -46,7 +46,15 @@ namespace Server
 
         public void Remove(int key)
         {
-            throw new NotImplementedException();
+            var route = _unitOfWork.Routes.Get(key);
+
+            if (route is null)
+            {
+                throw new NotFoundException();
+            }
+
+            _unitOfWork.Routes.Remove(route);
+            _unitOfWork.SaveChanges();
         }
 
         public void Update(int key, RouteDto entity)
