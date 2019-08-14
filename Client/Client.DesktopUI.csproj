@@ -90,9 +90,6 @@
     <Compile Include="ViewModels\Layout\RegularUserViewModel.cs" />
     <Compile Include="Helpers\RouteFormViewModel.cs" />
     <Compile Include="ViewModels\UserListViewModel.cs" />
-    <Compile Include="Views\Forms\AddRouteForm.xaml.cs">
-      <DependentUpon>AddRouteForm.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\Forms\AddUserForm.xaml.cs">
       <DependentUpon>AddUserForm.xaml</DependentUpon>
     </Compile>
@@ -131,10 +128,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Skins\DefaultSkin.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Forms\AddRouteForm.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

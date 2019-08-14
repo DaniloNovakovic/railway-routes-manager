@@ -19,7 +19,6 @@ namespace Client.Extensions
 
         public static void RegisterViewsForNavigation(this IContainerRegistry containerRegistry)
         {
-            containerRegistry.RegisterForNavigation<AddRouteForm>(NavigationPaths.AddRouteFormPath);
             containerRegistry.RegisterForNavigation<AdminNavView>(NavigationPaths.AdminNavPath);
             containerRegistry.RegisterForNavigation<AdminView>(NavigationPaths.AdminPath);
             containerRegistry.RegisterForNavigation<LoginView>(NavigationPaths.LoginPath);

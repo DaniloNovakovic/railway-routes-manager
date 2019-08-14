@@ -5,29 +5,26 @@ using Client.Core;
 using Client.Helpers;
 using Prism.Commands;
 using Prism.Mvvm;
-using Prism.Regions;
 
 namespace Client.ViewModels
 {
     public class RailwayListViewModel : ViewModelBase
     {
-        private readonly IRegionManager _regionManager;
         private readonly IRouteService _routeService;
         private readonly IRailwayStationService _stationService;
         private BindableBase _formViewModel;
         private bool _isDialogOpen;
 
-        public RailwayListViewModel(IRouteService routeService, IRailwayStationService stationService, IRegionManager regionManager)
+        public RailwayListViewModel(IRouteService routeService, IRailwayStationService stationService)
         {
-            _regionManager = regionManager;
             _routeService = routeService;
             _stationService = stationService;
 
             Routes = new ObservableCollection<RouteModel>();
-            AddCommand = new DelegateCommand(NavigateToAddForm);
-            RefreshCommand = new DelegateCommand(async () => await RefreshRoutesAsync());
-            RemoveRouteCommand = new DelegateCommand<int?>(async (id) => await RemoveRouteAsync(id));
+            AddCommand = new DelegateCommand(ShowAddRouteForm);
             EditRouteCommand = new DelegateCommand<RouteModel>(ShowEditRouteForm);
+            RemoveRouteCommand = new DelegateCommand<int?>(async (id) => await RemoveRouteAsync(id));
+            RefreshCommand = new DelegateCommand(async () => await RefreshRoutesAsync());
         }
 
         public ICommand AddCommand { get; }
@@ -81,15 +78,16 @@ namespace Client.ViewModels
             });
         }
 
-        private void NavigateToAddForm()
-        {
-            _regionManager.RequestNavigate(RegionNames.AuthContentRegion, NavigationPaths.AddRouteFormPath);
-        }
-
         private async void OnRouteSubmited()
         {
             IsDialogOpen = false;
             await RefreshRoutesAsync();
+        }
+
+        private void ShowAddRouteForm()
+        {
+            FormViewModel = new AddRouteFormViewModel(_routeService, _stationService, OnRouteSubmited);
+            IsDialogOpen = true;
         }
 
         private void ShowEditRouteForm(RouteModel route)

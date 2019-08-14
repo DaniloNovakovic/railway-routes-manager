@@ -10,7 +10,7 @@
 
     <UserControl.Resources>
         <DataTemplate DataType="{x:Type viewModel:AddRouteFormViewModel}">
-            <views:AddRouteForm />
+            <views:RouteForm />
         </DataTemplate>
         <DataTemplate DataType="{x:Type viewModel:EditRouteFormViewModel}">
             <views:RouteForm />
