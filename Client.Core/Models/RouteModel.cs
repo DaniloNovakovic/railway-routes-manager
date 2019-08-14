@@ -23,6 +23,7 @@ namespace Client.Core
         }
 
         [Required]
+        [StringLength(20, MinimumLength = 2)]
         public string Mark
         {
             get { return _mark; }
@@ -30,6 +31,7 @@ namespace Client.Core
         }
 
         [Required]
+        [StringLength(150, MinimumLength = 4)]
         public string Name
         {
             get { return _name; }
