@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
 using AutoMapper;
@@ -22,11 +21,8 @@ namespace Server
 
         public void Add(RouteDto entity)
         {
-            int[] ids = entity.RailwayStations.Select(s => s.Id).ToArray();
-            var stations = _unitOfWork.RailwayStations.GetAll(station => ids.Contains(station.Id)).ToList();
-
             var route = _mapper.Map<Route>(entity);
-            route.RailwayStations = stations;
+            route.RailwayStations = GetStations(entity);
 
             _unitOfWork.Routes.Add(route);
             _unitOfWork.SaveChanges();
@@ -59,7 +55,22 @@ namespace Server
 
         public void Update(int key, RouteDto entity)
         {
-            throw new NotImplementedException();
+            var route = _unitOfWork.Routes.Get(key);
+            route.Mark = entity.Mark ?? route.Mark;
+            route.Name = entity.Name ?? route.Name;
+
+            if (entity.RailwayStations != null)
+            {
+                route.RailwayStations = GetStations(entity);
+            }
+
+            _unitOfWork.SaveChanges();
+        }
+
+        private List<RailwayStation> GetStations(RouteDto entity)
+        {
+            int[] ids = entity.RailwayStations.Select(s => s.Id).ToArray();
+            return _unitOfWork.RailwayStations.GetAll(station => ids.Contains(station.Id)).ToList();
         }
     }
 }
