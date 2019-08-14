@@ -48,6 +48,17 @@ namespace Client.Infrastructure
             });
         }
 
+        public Task UpdateRouteAsync(RouteModel route)
+        {
+            var routeDto = _mapper.Map<Common.RouteDto>(route);
+
+            return Task.Run(() =>
+            {
+                var proxy = GetProxy();
+                proxy.Update(route.Id, routeDto);
+            });
+        }
+
         private Common.IRouteService GetProxy()
         {
             return _factory.GetChannelFactory<Common.IRouteService>(_port).CreateChannel();

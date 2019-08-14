@@ -10,5 +10,7 @@ namespace Client.Core
         Task<IEnumerable<RouteModel>> GetAllRoutesAsync();
 
         Task RemoveRouteAsync(int key);
+
+        Task UpdateRouteAsync(RouteModel route);
     }
 }
