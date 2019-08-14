@@ -13,7 +13,7 @@ namespace Client.ViewModels
         private readonly IRegionManager _regionManager;
         private readonly IRouteService _routeService;
         private readonly IRailwayStationService _stationService;
-        private bool _canAdd;
+        private bool _canAddRoute;
         private RouteModel _routeModel;
 
         public AddRouteFormViewModel(IRouteService routeService, IRailwayStationService stationService, IRegionManager regionManager)
@@ -24,17 +24,17 @@ namespace Client.ViewModels
 
             RouteModel = new RouteModel();
             RailwayStations = new ObservableCollection<RailwayStationModel>();
-            AddCommand = new DelegateCommand(async () => await AddRouteAsync());
+            AddRouteCommand = new DelegateCommand(async () => await AddRouteAsync());
 
             RouteModel.ErrorsChanged += RouteModel_ErrorsChanged;
         }
 
-        public ICommand AddCommand { get; set; }
+        public ICommand AddRouteCommand { get; set; }
 
-        public bool CanAdd
+        public bool CanAddRoute
         {
-            get { return _canAdd; }
-            set { SetProperty(ref _canAdd, value); }
+            get { return _canAddRoute; }
+            set { SetProperty(ref _canAddRoute, value); }
         }
 
         public ObservableCollection<RailwayStationModel> RailwayStations { get; set; }
@@ -50,11 +50,11 @@ namespace Client.ViewModels
             return SafeExecuteAsync(
                 @try: async () =>
                 {
-                    CanAdd = false;
+                    CanAddRoute = false;
                     await _routeService.AddRouteAsync(RouteModel);
                     OnRouteAdded();
                 },
-                @finally: () => CanAdd = !RouteModel.HasErrors);
+                @finally: () => CanAddRoute = !RouteModel.HasErrors);
         }
 
         public override Task OnLoadedAsync()
@@ -74,7 +74,7 @@ namespace Client.ViewModels
 
         private void RouteModel_ErrorsChanged(object sender, System.ComponentModel.DataErrorsChangedEventArgs e)
         {
-            CanAdd = !RouteModel.HasErrors;
+            CanAddRoute = !RouteModel.HasErrors;
         }
     }
 }
