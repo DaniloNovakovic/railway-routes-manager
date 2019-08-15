@@ -182,7 +182,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommandManager.cs" />
-    <Compile Include="Commands\DuplicateRouteCommand.cs" />
+    <Compile Include="Commands\AddRouteCommand.cs" />
     <Compile Include="Commands\IUndoableCommand.cs" />
     <Compile Include="Commands\RemoveRouteCommand.cs" />
     <Compile Include="Commands\UndoableCommand.cs" />

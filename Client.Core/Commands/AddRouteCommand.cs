@@ -2,12 +2,12 @@
 
 namespace Client.Core
 {
-    public class DuplicateRouteCommand : IUndoableCommand
+    public class AddRouteCommand : IUndoableCommand
     {
         private readonly RouteModel _routeModel;
         private readonly IRouteService _routeService;
 
-        public DuplicateRouteCommand(IRouteService routeService, RouteModel routeModel)
+        public AddRouteCommand(IRouteService routeService, RouteModel routeModel)
         {
             _routeService = routeService;
             _routeModel = routeModel;
