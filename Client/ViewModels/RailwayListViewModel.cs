@@ -10,15 +10,17 @@ namespace Client.ViewModels
 {
     public class RailwayListViewModel : ViewModelBase
     {
+        private readonly ICommandManager _commandManager;
         private readonly IRouteService _routeService;
         private readonly IRailwayStationService _stationService;
         private BindableBase _formViewModel;
         private bool _isDialogOpen;
 
-        public RailwayListViewModel(IRouteService routeService, IRailwayStationService stationService)
+        public RailwayListViewModel(IRouteService routeService, IRailwayStationService stationService, ICommandManager commandManager)
         {
             _routeService = routeService;
             _stationService = stationService;
+            _commandManager = commandManager;
 
             Routes = new ObservableCollection<RouteModel>();
             AddCommand = new DelegateCommand(ShowAddRouteForm);
@@ -56,7 +58,8 @@ namespace Client.ViewModels
         {
             return SafeExecuteAsync(async () =>
             {
-                await _routeService.AddRouteAsync(route);
+                var command = new AddRouteCommand(_routeService, route);
+                await _commandManager.ExecuteAsync(command);
                 await RefreshRoutesAsync();
             });
         }
@@ -85,7 +88,8 @@ namespace Client.ViewModels
 
             return SafeExecuteAsync(async () =>
             {
-                await _routeService.RemoveRouteAsync(id.Value);
+                var command = new RemoveRouteCommand(_routeService, id.Value);
+                await _commandManager.ExecuteAsync(command);
                 await RefreshRoutesAsync();
             });
         }
@@ -98,14 +102,14 @@ namespace Client.ViewModels
 
         private void ShowAddRouteForm()
         {
-            FormViewModel = new AddRouteFormViewModel(_routeService, _stationService, OnRouteSubmited);
+            FormViewModel = new AddRouteFormViewModel(_routeService, _stationService, _commandManager, OnRouteSubmited);
             IsDialogOpen = true;
         }
 
         private void ShowEditRouteForm(RouteModel route)
         {
             var routeCopy = route.Clone() as RouteModel ?? new RouteModel();
-            FormViewModel = new EditRouteFormViewModel(_routeService, _stationService, routeCopy, OnRouteSubmited);
+            FormViewModel = new EditRouteFormViewModel(_routeService, _stationService, _commandManager, routeCopy, OnRouteSubmited);
             IsDialogOpen = true;
         }
     }

@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace Client.Core.Commands
+namespace Client.Core
 {
     public class RemoveRouteCommand : IUndoableCommand
     {

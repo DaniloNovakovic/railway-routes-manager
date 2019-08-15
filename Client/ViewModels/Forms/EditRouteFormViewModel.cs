@@ -7,13 +7,15 @@ namespace Client.ViewModels
 {
     public class EditRouteFormViewModel : RouteFormViewModel
     {
+        private readonly ICommandManager _commandManager;
         private readonly Action _onRouteUpdated;
         private readonly IRouteService _routeService;
 
-        public EditRouteFormViewModel(IRouteService routeService, IRailwayStationService stationService, RouteModel route, Action onRouteUpdated = null) : base(stationService, route)
+        public EditRouteFormViewModel(IRouteService routeService, IRailwayStationService stationService, ICommandManager commandManager, RouteModel route, Action onRouteUpdated = null) : base(stationService, route)
         {
             _routeService = routeService;
             _onRouteUpdated = onRouteUpdated;
+            _commandManager = commandManager;
         }
 
         public override Task OnSubmitAsync()
@@ -22,7 +24,8 @@ namespace Client.ViewModels
                 @try: async () =>
                 {
                     CanSubmit = false;
-                    await _routeService.UpdateRouteAsync(RouteModel);
+                    var command = new EditRouteCommand(_routeService, RouteModel);
+                    await _commandManager.ExecuteAsync(command);
                     OnRouteUpdated();
                 },
                 @finally: UpdateCanSubmit);
