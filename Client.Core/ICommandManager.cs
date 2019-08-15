@@ -1,13 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System.Threading.Tasks;
 
 namespace Client.Core
 {
     public interface ICommandManager
     {
-        void Execute(IUndoableCommand command);
+        Task ExecuteAsync(IUndoableCommand command);
 
-        void Redo();
+        Task RedoAsync();
 
-        void Undo();
+        Task UndoAsync();
     }
 }

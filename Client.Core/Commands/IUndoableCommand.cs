@@ -1,9 +1,11 @@
-﻿namespace Client.Core
+﻿using System.Threading.Tasks;
+
+namespace Client.Core
 {
     public interface IUndoableCommand
     {
-        void Execute();
+        Task ExecuteAsync();
 
-        void UnExecute();
+        Task UnExecuteAsync();
     }
 }

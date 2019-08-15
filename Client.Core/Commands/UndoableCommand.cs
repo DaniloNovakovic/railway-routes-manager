@@ -1,26 +1,27 @@
 ﻿using System;
+using System.Threading.Tasks;
 
 namespace Client.Core
 {
     public class UndoableCommand : IUndoableCommand
     {
-        private readonly Action _executeMethod;
-        private readonly Action _undoMethod;
+        private readonly Func<Task> _executeMethod;
+        private readonly Func<Task> _undoMethod;
 
-        public UndoableCommand(Action executeMethod, Action undoMethod)
+        public UndoableCommand(Func<Task> executeMethod, Func<Task> undoMethod)
         {
             _executeMethod = executeMethod;
             _undoMethod = undoMethod;
         }
 
-        public void Execute()
+        public Task ExecuteAsync()
         {
-            _executeMethod?.Invoke();
+            return _executeMethod?.Invoke();
         }
 
-        public void UnExecute()
+        public Task UnExecuteAsync()
         {
-            _undoMethod?.Invoke();
+            return _undoMethod?.Invoke();
         }
     }
 }

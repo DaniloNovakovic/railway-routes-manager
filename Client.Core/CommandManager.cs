@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Client.Core
 {
@@ -7,23 +8,23 @@ namespace Client.Core
         private readonly Stack<IUndoableCommand> _redoStack = new Stack<IUndoableCommand>();
         private readonly Stack<IUndoableCommand> _undoStack = new Stack<IUndoableCommand>();
 
-        public void Execute(IUndoableCommand command)
+        public async Task ExecuteAsync(IUndoableCommand command)
         {
-            command.Execute();
+            await command.ExecuteAsync();
             _undoStack.Push(command);
         }
 
-        public void Redo()
+        public async Task RedoAsync()
         {
             var command = _redoStack.Pop();
-            command.Execute();
+            await command.ExecuteAsync();
             _undoStack.Push(command);
         }
 
-        public void Undo()
+        public async Task UndoAsync()
         {
             var command = _undoStack.Pop();
-            command.UnExecute();
+            await command.UnExecuteAsync();
             _redoStack.Push(command);
         }
     }
