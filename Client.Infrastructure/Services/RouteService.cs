@@ -39,6 +39,16 @@ namespace Client.Infrastructure
             });
         }
 
+        public Task<RouteModel> GetRouteAsync(int key)
+        {
+            return Task.Run(() =>
+            {
+                var proxy = GetProxy();
+                var dto = proxy.Get(key);
+                return _mapper.Map<RouteModel>(dto);
+            });
+        }
+
         public Task RemoveRouteAsync(int key)
         {
             return Task.Run(() =>
