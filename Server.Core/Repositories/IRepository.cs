@@ -6,7 +6,7 @@ namespace Server.Core
 {
     public interface IRepository<TEntity> where TEntity : class
     {
-        void Add(TEntity entity);
+        TEntity Add(TEntity entity);
 
         void AddRange(IEnumerable<TEntity> entities);
 

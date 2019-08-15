@@ -19,13 +19,15 @@ namespace Server
             _mapper = mapper;
         }
 
-        public void Add(RouteDto entity)
+        public int Add(RouteDto entity)
         {
             var route = _mapper.Map<Route>(entity);
             route.RailwayStations = GetStations(entity);
 
-            _unitOfWork.Routes.Add(route);
+            var addedRoute = _unitOfWork.Routes.Add(route);
             _unitOfWork.SaveChanges();
+
+            return addedRoute.Id;
         }
 
         public RouteDto Get(int key)

@@ -9,7 +9,7 @@ namespace Common
     public interface IServiceBase<TKey, TEntity> where TEntity : class
     {
         [OperationContract]
-        void Add(TEntity entity);
+        TKey Add(TEntity entity);
 
         [OperationContract]
         TEntity Get(TKey key);

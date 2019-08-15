@@ -19,7 +19,7 @@ namespace Server
             _mapper = mapper;
         }
 
-        public void Add(RailwayStationDto entity)
+        public int Add(RailwayStationDto entity)
         {
             throw new System.NotImplementedException();
         }

@@ -19,7 +19,7 @@ namespace Server
             _mapper = mapper;
         }
 
-        public void Add(UserDto entity)
+        public int Add(UserDto entity)
         {
             var user = _mapper.Map<User>(entity);
 
@@ -28,8 +28,10 @@ namespace Server
                 user.RoleName = RoleNames.RegularUser;
             }
 
-            _unitOfWork.Users.Add(user);
+            var addedUser = _unitOfWork.Users.Add(user);
             _unitOfWork.SaveChanges();
+
+            return addedUser.Id;
         }
 
         public UserDto Get(int key)

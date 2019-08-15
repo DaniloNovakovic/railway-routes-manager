@@ -16,9 +16,9 @@ namespace Server.Persistance
             Context = context;
         }
 
-        public virtual void Add(TEntity entity)
+        public virtual TEntity Add(TEntity entity)
         {
-            Context.Set<TEntity>().Add(entity);
+            return Context.Set<TEntity>().Add(entity);
         }
 
         public virtual void AddRange(IEnumerable<TEntity> entities)

@@ -4,23 +4,25 @@ namespace Client.Core.Commands
 {
     public class RemoveRouteCommand : IUndoableCommand
     {
-        private readonly RouteModel _route;
         private readonly IRouteService _routeService;
+        private RouteModel _removedRoute;
+        private int _routeKey;
 
-        public RemoveRouteCommand(IRouteService routeService, RouteModel route)
+        public RemoveRouteCommand(IRouteService routeService, int routeKey)
         {
             _routeService = routeService;
-            _route = route;
+            _routeKey = routeKey;
         }
 
-        public Task ExecuteAsync()
+        public async Task ExecuteAsync()
         {
-            return _routeService.RemoveRouteAsync(_route.Id);
+            _removedRoute = await _routeService.GetRouteAsync(_routeKey);
+            await _routeService.RemoveRouteAsync(_routeKey);
         }
 
-        public Task UnExecuteAsync()
+        public async Task UnExecuteAsync()
         {
-            return _routeService.AddRouteAsync(_route);
+            _routeKey = await _routeService.AddRouteAsync(_removedRoute);
         }
     }
 }

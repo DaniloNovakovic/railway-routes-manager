@@ -5,7 +5,10 @@ namespace Client.Core
 {
     public interface IRouteService
     {
-        Task AddRouteAsync(RouteModel route);
+        /// <summary>
+        /// Returns Key of the added entity
+        /// </summary>
+        Task<int> AddRouteAsync(RouteModel route);
 
         Task<IEnumerable<RouteModel>> GetAllRoutesAsync();
 

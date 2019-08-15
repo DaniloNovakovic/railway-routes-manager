@@ -18,14 +18,14 @@ namespace Client.Infrastructure
             _mapper = mapper;
         }
 
-        public Task AddRouteAsync(RouteModel route)
+        public Task<int> AddRouteAsync(RouteModel route)
         {
             var routeDto = _mapper.Map<Common.RouteDto>(route);
 
             return Task.Run(() =>
             {
                 var proxy = GetProxy();
-                proxy.Add(routeDto);
+                return proxy.Add(routeDto);
             });
         }
 
