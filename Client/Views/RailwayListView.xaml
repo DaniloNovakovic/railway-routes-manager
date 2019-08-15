@@ -28,46 +28,53 @@
             <ContentControl Content="{Binding FormViewModel}" />
         </materialDesign:DialogHost.DialogContent>
 
-        <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="5">
-            <StackPanel>
-                <StackPanel  Orientation="Horizontal" Margin="5">
-                    <Button Command="{Binding AddCommand}">Add Route</Button>
-                    <Button Command="{Binding RefreshCommand}">Refresh</Button>
-                    <Button Command="{Binding UndoCommand}" IsEnabled="{Binding CanUndo}">Undo</Button>
-                    <Button Command="{Binding RedoCommand}" IsEnabled="{Binding CanRedo}">Redo</Button>
-                </StackPanel>
-                <ItemsControl ItemsSource="{Binding Routes}" Margin="5">
+        
+        
+        <Grid Margin="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            
+            <StackPanel  Grid.Column="0" Orientation="Vertical" Margin="5">
+                <Button Command="{Binding AddCommand}">Add Route</Button>
+                <Button Command="{Binding RefreshCommand}">Refresh</Button>
+                <Button Command="{Binding UndoCommand}" IsEnabled="{Binding CanUndo}">Undo</Button>
+                <Button Command="{Binding RedoCommand}" IsEnabled="{Binding CanRedo}">Redo</Button>
+            </StackPanel>
+            <ScrollViewer  Grid.Column="1" Margin="5">
+                <ItemsControl ItemsSource="{Binding Routes}" >
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <Border BorderBrush="LightGray" BorderThickness="2">
-                                <Expander HorizontalAlignment="Stretch">
+                                <Expander HorizontalAlignment="Stretch" MinWidth="500">
                                     <Expander.Header>
                                         <StackPanel Orientation="Vertical">
                                             <TextBlock Text="{Binding Path=Name}" Style="{StaticResource MaterialDesignTitleTextBlock}" />
                                             <TextBlock Text="{Binding Path=Mark}" Style="{StaticResource MaterialDesignSubheadingTextBlock}" />
                                             <StackPanel Orientation="Horizontal">
                                                 <Button Command="{Binding RelativeSource={RelativeSource AncestorType=UserControl}, Path=DataContext.DuplicateRouteCommand}"
-                                                    CommandParameter="{Binding}"
-                                                    HorizontalAlignment="Left"
-                                                    Margin="0,15,0,0"
-                                                    Width="100">Duplicate</Button>
+                                                        CommandParameter="{Binding}"
+                                                        HorizontalAlignment="Left"
+                                                        Margin="0,15,0,0"
+                                                        Width="100">Duplicate</Button>
                                                 <Button Command="{Binding RelativeSource={RelativeSource AncestorType=UserControl}, Path=DataContext.EditRouteCommand}"
-                                                    CommandParameter="{Binding}"
-                                                    HorizontalAlignment="Left"
-                                                    Margin="15,15,0,0"
-                                                    Width="100">Edit</Button>
+                                                        CommandParameter="{Binding}"
+                                                        HorizontalAlignment="Left"
+                                                        Margin="15,15,0,0"
+                                                        Width="100">Edit</Button>
                                                 <Button Command="{Binding RelativeSource={RelativeSource AncestorType=UserControl}, Path=DataContext.RemoveRouteCommand}"
-                                                    CommandParameter="{Binding Path=Id}"
-                                                    HorizontalAlignment="Left"
-                                                    Margin="15,15,0,0"
-                                                    Width="100">Remove</Button>
+                                                        CommandParameter="{Binding Path=Id}"
+                                                        HorizontalAlignment="Left"
+                                                        Margin="15,15,0,0"
+                                                        Width="100">Remove</Button>
                                             </StackPanel>
                                         </StackPanel>
                                     </Expander.Header>
                                     <StackPanel Margin="24,8,24,16">
                                         <DataGrid ItemsSource="{Binding Path=RailwayStations}"
-                                      AutoGenerateColumns="False" IsReadOnly="True" BorderThickness="2"
-                                      BorderBrush="LightGray">
+                                          AutoGenerateColumns="False" IsReadOnly="True" BorderThickness="2"
+                                          BorderBrush="LightGray">
                                             <DataGrid.Columns>
                                                 <DataGridTextColumn MinWidth="50" Header="Station Id"  Binding="{Binding Path=Id}" />
                                                 <DataGridTextColumn MinWidth="100" Header="Station Name"  Binding="{Binding Path=Name}" />
@@ -81,7 +88,7 @@
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
-            </StackPanel>
-        </ScrollViewer>
+            </ScrollViewer>
+        </Grid>
     </materialDesign:DialogHost>
 </UserControl>

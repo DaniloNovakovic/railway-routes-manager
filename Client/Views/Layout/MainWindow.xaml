@@ -5,7 +5,7 @@
         xmlns:core="clr-namespace:Client.Core;assembly=Client.Core"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         prism:ViewModelLocator.AutoWireViewModel="True"
-        MinHeight="400" MinWidth="500" Height="600" Width="800"
+        MinHeight="500" MinWidth="700" Height="600" Width="800"
         WindowStartupLocation="CenterScreen"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
