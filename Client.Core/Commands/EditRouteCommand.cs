@@ -11,7 +11,7 @@ namespace Client.Core
         public EditRouteCommand(IRouteService routeService, RouteModel newRoute)
         {
             _routeService = routeService;
-            _newRoute = newRoute;
+            _newRoute = newRoute.Clone() as RouteModel;
         }
 
         public async Task ExecuteAsync()

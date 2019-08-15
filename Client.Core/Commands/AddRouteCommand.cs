@@ -10,12 +10,12 @@ namespace Client.Core
         public AddRouteCommand(IRouteService routeService, RouteModel routeModel)
         {
             _routeService = routeService;
-            _routeModel = routeModel;
+            _routeModel = routeModel.Clone() as RouteModel;
         }
 
-        public Task ExecuteAsync()
+        public async Task ExecuteAsync()
         {
-            return _routeService.AddRouteAsync(_routeModel);
+            _routeModel.Id = await _routeService.AddRouteAsync(_routeModel);
         }
 
         public Task UnExecuteAsync()

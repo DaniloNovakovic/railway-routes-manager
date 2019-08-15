@@ -33,6 +33,8 @@
                 <StackPanel  Orientation="Horizontal" Margin="5">
                     <Button Command="{Binding AddCommand}">Add Route</Button>
                     <Button Command="{Binding RefreshCommand}">Refresh</Button>
+                    <Button Command="{Binding UndoCommand}" IsEnabled="{Binding CanUndo}">Undo</Button>
+                    <Button Command="{Binding RedoCommand}" IsEnabled="{Binding CanRedo}">Redo</Button>
                 </StackPanel>
                 <ItemsControl ItemsSource="{Binding Routes}" Margin="5">
                     <ItemsControl.ItemTemplate>
