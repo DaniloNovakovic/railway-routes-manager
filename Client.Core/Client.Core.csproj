@@ -183,6 +183,7 @@
   <ItemGroup>
     <Compile Include="CommandManager.cs" />
     <Compile Include="Commands\AddRouteCommand.cs" />
+    <Compile Include="Commands\EditRouteCommand.cs" />
     <Compile Include="Commands\IUndoableCommand.cs" />
     <Compile Include="Commands\RemoveRouteCommand.cs" />
     <Compile Include="Commands\UndoableCommand.cs" />
