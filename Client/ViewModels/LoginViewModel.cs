@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -16,14 +15,16 @@ namespace Client.ViewModels
     {
         private readonly IAuthenticationService _authService;
 
+        private readonly ILogger _logger;
         private readonly IRegionManager _regionManager;
         private bool _canLogIn = true;
         private ICollection<string> _errors = new List<string>();
 
-        public LoginViewModel(IAuthenticationService authService, IRegionManager regionManager)
+        public LoginViewModel(IAuthenticationService authService, IRegionManager regionManager, ILogger logger)
         {
             _authService = authService;
             _regionManager = regionManager;
+            _logger = logger;
 
             LoginModel.ErrorsChanged += (s, e) => Errors = DictionaryFlattener.Flatten(LoginModel.GetAllErrors());
             LoginCommand = new DelegateCommand<object>(async (obj) => await LoginClickAsync(obj));
@@ -89,7 +90,7 @@ namespace Client.ViewModels
             catch (Exception ex)
             {
                 Errors = new List<string>() { ex.InnerException?.Message ?? ex.Message };
-                Trace.TraceError(ex.ToString());
+                _logger.Exception(ex.ToString());
             }
             finally
             {

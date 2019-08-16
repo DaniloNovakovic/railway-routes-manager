@@ -14,7 +14,7 @@ namespace Client.ViewModels
 
         private bool _isDialogOpen = false;
 
-        public UserListViewModel(IUserService userService, IEventAggregator eventAggregator)
+        public UserListViewModel(IUserService userService, IEventAggregator eventAggregator, ILogger logger) : base(logger)
         {
             _userService = userService;
 

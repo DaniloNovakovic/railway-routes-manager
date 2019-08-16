@@ -74,6 +74,7 @@
     </ApplicationDefinition>
     <Compile Include="Extensions\AutoMapperContainerRegistryExtension.cs" />
     <Compile Include="Extensions\ContainerRegistryExtensions.cs" />
+    <Compile Include="Extensions\LoggerContainerRegistryExtension.cs" />
     <Compile Include="Helpers\AuthNavViewModelBase.cs" />
     <Compile Include="Helpers\NavViewModelBase.cs" />
     <Compile Include="Helpers\ViewModelBase.cs" />

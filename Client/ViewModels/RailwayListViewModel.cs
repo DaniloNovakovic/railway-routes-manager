@@ -18,7 +18,11 @@ namespace Client.ViewModels
         private BindableBase _formViewModel;
         private bool _isDialogOpen;
 
-        public RailwayListViewModel(IRouteService routeService, IRailwayStationService stationService, ICommandManager commandManager)
+        public RailwayListViewModel(
+            IRouteService routeService,
+            IRailwayStationService stationService,
+            ICommandManager commandManager,
+            ILogger logger) : base(logger)
         {
             _routeService = routeService;
             _stationService = stationService;
@@ -143,14 +147,14 @@ namespace Client.ViewModels
 
         private void ShowAddRouteForm()
         {
-            FormViewModel = new AddRouteFormViewModel(_routeService, _stationService, _commandManager, OnRouteSubmited);
+            FormViewModel = new AddRouteFormViewModel(_routeService, _stationService, _commandManager, Logger, OnRouteSubmited);
             IsDialogOpen = true;
         }
 
         private void ShowEditRouteForm(RouteModel route)
         {
             var routeCopy = route.Clone() as RouteModel ?? new RouteModel();
-            FormViewModel = new EditRouteFormViewModel(_routeService, _stationService, _commandManager, routeCopy, OnRouteSubmited);
+            FormViewModel = new EditRouteFormViewModel(_routeService, _stationService, _commandManager, Logger, routeCopy, OnRouteSubmited);
             IsDialogOpen = true;
         }
     }

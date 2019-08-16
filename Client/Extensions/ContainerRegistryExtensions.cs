@@ -10,8 +10,11 @@ namespace Client.Extensions
         public static void RegisterServices(this IContainerRegistry containerRegistry)
         {
             containerRegistry.RegisterAutoMapper();
+            containerRegistry.RegisterLogger();
+
             containerRegistry.RegisterSingleton<ICommandManager, CommandManager>();
             containerRegistry.RegisterSingleton<IAuthChannelFactory, AuthChannelFactory>();
+
             containerRegistry.Register<IAuthenticationService, AuthenticationService>();
             containerRegistry.Register<IUserService, UserService>();
             containerRegistry.Register<IRouteService, RouteService>();

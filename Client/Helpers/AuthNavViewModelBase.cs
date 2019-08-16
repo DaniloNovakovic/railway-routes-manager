@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Client.Core;
@@ -16,13 +15,16 @@ namespace Client.Helpers
         {
         }
 
-        public AuthNavViewModelBase(IRegionManager regionManager, IAuthenticationService authService) : base(regionManager)
+        public AuthNavViewModelBase(IRegionManager regionManager, IAuthenticationService authService, ILogger logger) : base(regionManager)
         {
             _authService = authService;
+            _logger = logger;
+
             LogoutCommand = new DelegateCommand(async () => await LogoutClick());
         }
 
         private bool _canLogOut = true;
+        private readonly ILogger _logger;
 
         public bool CanLogOut
         {
@@ -42,7 +44,7 @@ namespace Client.Helpers
             }
             catch (Exception ex)
             {
-                Trace.TraceError(ex.InnerException?.Message ?? ex.Message);
+                _logger.Exception(ex.InnerException?.Message ?? ex.Message);
             }
             finally
             {

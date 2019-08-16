@@ -16,11 +16,11 @@ namespace Client.Helpers
 
         #region ctors
 
-        protected RouteFormViewModel(IRailwayStationService stationService) : this(stationService, new RouteModel())
+        protected RouteFormViewModel(IRailwayStationService stationService, ILogger logger) : this(stationService, logger, new RouteModel())
         {
         }
 
-        protected RouteFormViewModel(IRailwayStationService stationService, RouteModel route)
+        protected RouteFormViewModel(IRailwayStationService stationService, ILogger logger, RouteModel route) : base(logger)
         {
             _stationService = stationService;
 

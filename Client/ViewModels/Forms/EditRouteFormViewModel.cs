@@ -11,7 +11,13 @@ namespace Client.ViewModels
         private readonly Action _onRouteUpdated;
         private readonly IRouteService _routeService;
 
-        public EditRouteFormViewModel(IRouteService routeService, IRailwayStationService stationService, ICommandManager commandManager, RouteModel route, Action onRouteUpdated = null) : base(stationService, route)
+        public EditRouteFormViewModel(
+            IRouteService routeService,
+            IRailwayStationService stationService,
+            ICommandManager commandManager,
+            ILogger logger,
+            RouteModel route,
+            Action onRouteUpdated = null) : base(stationService, logger, route)
         {
             _routeService = routeService;
             _onRouteUpdated = onRouteUpdated;

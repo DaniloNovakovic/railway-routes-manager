@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Client.Core;
@@ -14,9 +13,10 @@ namespace Client.ViewModels
         private bool _canSaveChanges = true;
         private UserModel _userModel;
 
-        public ProfileViewModel(IUserService userService)
+        public ProfileViewModel(IUserService userService, ILogger logger) : base(logger)
         {
             _userService = userService;
+
             SaveChangesCommand = new DelegateCommand(async () => await SaveChangesAsync());
         }
 
@@ -63,7 +63,7 @@ namespace Client.ViewModels
         private void HandleUserModelErrors()
         {
             var list = DictionaryFlattener.Flatten(UserModel.GetAllErrors());
-            Trace.TraceWarning(string.Join(Environment.NewLine, list));
+            Logger.Warn(string.Join(Environment.NewLine, list));
         }
     }
 }

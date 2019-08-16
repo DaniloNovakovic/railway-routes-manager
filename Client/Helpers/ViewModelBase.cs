@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Client.Core;
 using Prism.Commands;
 using Prism.Mvvm;
 
@@ -9,8 +10,12 @@ namespace Client.Helpers
 {
     public abstract class ViewModelBase : BindableBase
     {
-        protected ViewModelBase()
+        protected readonly ILogger Logger;
+
+        protected ViewModelBase(ILogger logger = null)
         {
+            Logger = logger;
+
             OnLoadedCommand = new DelegateCommand(async () => await OnLoadedAsync());
         }
 
@@ -39,7 +44,16 @@ namespace Client.Helpers
             }
             catch (Exception ex)
             {
-                Trace.TraceError(ex.InnerException?.Message ?? ex.Message);
+                string message = ex.InnerException?.Message ?? ex.Message;
+
+                if (Logger != null)
+                {
+                    Logger.Exception(message);
+                }
+                else
+                {
+                    Trace.TraceError(message);
+                }
             }
             finally
             {

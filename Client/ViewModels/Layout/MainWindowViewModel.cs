@@ -9,7 +9,7 @@ namespace Client.ViewModels
     {
         private readonly IRegionManager _regionManager;
 
-        public MainWindowViewModel(IRegionManager regionManager)
+        public MainWindowViewModel(IRegionManager regionManager, ILogger logger) : base(logger)
         {
             _regionManager = regionManager;
         }
