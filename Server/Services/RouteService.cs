@@ -21,23 +21,12 @@ namespace Server
 
         public int Add(RouteDto entity)
         {
-            var dbRoute = _unitOfWork.Routes.Get(entity.Id);
+            var dbRoute = _unitOfWork.Routes.GetDeleted(entity.Id);
             if (dbRoute != null)
             {
-                // If Exists
-                return AddNew(entity);
-            }
-
-            Resurrect(entity.Id);
-            dbRoute = _unitOfWork.Routes.Get(entity.Id);
-            if (dbRoute != null)
-            {
-                // If Logically deleted
                 OverwriteExisting(entity, dbRoute);
                 return entity.Id;
             }
-
-            // If phisically deleted
             return AddNew(entity);
         }
 
@@ -110,6 +99,8 @@ namespace Server
         {
             _mapper.Map(entity, dbRoute);
             dbRoute.DeletionDate = null;
+
+            _unitOfWork.SaveChanges();
         }
     }
 }

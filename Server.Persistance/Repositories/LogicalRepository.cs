@@ -42,6 +42,22 @@ namespace Server.Persistance
             return GetEntities().Where(filter).ToList();
         }
 
+        public virtual IEnumerable<TEntity> GetAllDeleted(Expression<Func<TEntity, bool>> filter = null)
+        {
+            return GetDeletedEntities().Where(filter).ToList();
+        }
+
+        public virtual TEntity GetDeleted(params object[] keyValues)
+        {
+            var entity = _context.Set<TEntity>().Find(keyValues);
+            return entity?.DeletionDate != null ? entity : null;
+        }
+
+        public virtual TEntity GetDeleted(Expression<Func<TEntity, bool>> filter)
+        {
+            return GetDeletedEntities().FirstOrDefault(filter);
+        }
+
         public virtual void Remove(TEntity entity)
         {
             entity.DeletionDate = DateTime.Now;
@@ -63,6 +79,11 @@ namespace Server.Persistance
             {
                 entity.DeletionDate = null;
             }
+        }
+
+        private IQueryable<TEntity> GetDeletedEntities()
+        {
+            return _context.Set<TEntity>().AsQueryable().Where(e => e.DeletionDate != null);
         }
 
         private IQueryable<TEntity> GetEntities()
