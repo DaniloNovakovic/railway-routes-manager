@@ -8,10 +8,12 @@ namespace Client.Infrastructure
     public class AuthenticationService : IAuthenticationService
     {
         private readonly IAuthChannelFactory _factory;
+        private readonly ILogger _logger;
 
-        public AuthenticationService(IAuthChannelFactory factory)
+        public AuthenticationService(IAuthChannelFactory factory, ILogger logger)
         {
             _factory = factory;
+            _logger = logger;
         }
 
         public Task<bool> IsLoggedInAsync(string username)
@@ -32,7 +34,7 @@ namespace Client.Infrastructure
             {
                 var proxy = GetProxy();
                 string roleName = proxy.Login(username, password);
-                Trace.TraceInformation($"{username}'s role: {roleName}");
+                _logger.Info($"{username}'s role: {roleName}");
                 return roleName;
             });
         }
