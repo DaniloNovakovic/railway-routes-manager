@@ -71,6 +71,10 @@
     <Compile Include="Migrations\201908141004314_AddRouteConfiguration.Designer.cs">
       <DependentUpon>201908141004314_AddRouteConfiguration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201908160816397_AddDeletionDateColumnToRouteStationAndPlatformTables.cs" />
+    <Compile Include="Migrations\201908160816397_AddDeletionDateColumnToRouteStationAndPlatformTables.Designer.cs">
+      <DependentUpon>201908160816397_AddDeletionDateColumnToRouteStationAndPlatformTables.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\Repository.cs" />
@@ -106,6 +110,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201908141004314_AddRouteConfiguration.resx">
       <DependentUpon>201908141004314_AddRouteConfiguration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908160816397_AddDeletionDateColumnToRouteStationAndPlatformTables.resx">
+      <DependentUpon>201908160816397_AddDeletionDateColumnToRouteStationAndPlatformTables.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

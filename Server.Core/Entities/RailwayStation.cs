@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Server.Core
 {
-    public class RailwayStation
+    public class RailwayStation : ILogical
     {
         public RailwayStation()
         {
@@ -10,6 +11,7 @@ namespace Server.Core
             RailwayPlatforms = new HashSet<RailwayPlatform>();
         }
 
+        public DateTime? DeletionDate { get; set; }
         public int Id { get; set; }
         public Location Location { get; set; }
         public int? LocationId { get; set; }
