@@ -55,9 +55,16 @@ namespace Server
             _unitOfWork.SaveChanges();
         }
 
+        public void Resurrect(int key)
+        {
+            _unitOfWork.Routes.Resurrect(key);
+            _unitOfWork.SaveChanges();
+        }
+
         public void Update(int key, RouteDto entity)
         {
             var route = _unitOfWork.Routes.Get(key);
+
             route.Mark = entity.Mark ?? route.Mark;
             route.Name = entity.Name ?? route.Name;
 

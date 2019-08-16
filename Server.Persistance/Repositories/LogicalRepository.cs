@@ -55,9 +55,9 @@ namespace Server.Persistance
             }
         }
 
-        public virtual void Resurrect(object key)
+        public virtual void Resurrect(params object[] keyValues)
         {
-            var entity = _context.Set<TEntity>().Find(key);
+            var entity = _context.Set<TEntity>().Find(keyValues);
             entity.DeletionDate = null;
         }
 
