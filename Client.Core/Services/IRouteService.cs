@@ -17,5 +17,7 @@ namespace Client.Core
         Task RemoveRouteAsync(int key);
 
         Task UpdateRouteAsync(RouteModel route);
+
+        Task ResurrectAsync(RouteModel route);
     }
 }

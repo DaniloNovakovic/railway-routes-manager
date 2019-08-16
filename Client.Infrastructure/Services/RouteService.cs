@@ -58,6 +58,15 @@ namespace Client.Infrastructure
             });
         }
 
+        public Task ResurrectAsync(RouteModel route)
+        {
+            return Task.Run(() =>
+            {
+                var proxy = GetProxy();
+                proxy.Resurrect(route.Id);
+            });
+        }
+
         public Task UpdateRouteAsync(RouteModel route)
         {
             var routeDto = _mapper.Map<Common.RouteDto>(route);

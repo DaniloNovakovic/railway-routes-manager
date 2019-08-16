@@ -21,13 +21,24 @@ namespace Server
 
         public int Add(RouteDto entity)
         {
-            var route = _mapper.Map<Route>(entity);
-            route.RailwayStations = GetStations(entity);
+            var dbRoute = _unitOfWork.Routes.Get(entity.Id);
+            if (dbRoute != null)
+            {
+                // If Exists
+                return AddNew(entity);
+            }
 
-            var addedRoute = _unitOfWork.Routes.Add(route);
-            _unitOfWork.SaveChanges();
+            Resurrect(entity.Id);
+            dbRoute = _unitOfWork.Routes.Get(entity.Id);
+            if (dbRoute != null)
+            {
+                // If Logically deleted
+                OverwriteExisting(entity, dbRoute);
+                return entity.Id;
+            }
 
-            return addedRoute.Id;
+            // If phisically deleted
+            return AddNew(entity);
         }
 
         public RouteDto Get(int key)
@@ -63,6 +74,8 @@ namespace Server
 
         public void Update(int key, RouteDto entity)
         {
+            Resurrect(key);
+
             var route = _unitOfWork.Routes.Get(key);
 
             route.Mark = entity.Mark ?? route.Mark;
@@ -76,10 +89,27 @@ namespace Server
             _unitOfWork.SaveChanges();
         }
 
+        private int AddNew(RouteDto entity)
+        {
+            var route = _mapper.Map<Route>(entity);
+            route.RailwayStations = GetStations(entity);
+
+            var addedRoute = _unitOfWork.Routes.Add(route);
+            _unitOfWork.SaveChanges();
+
+            return addedRoute.Id;
+        }
+
         private List<RailwayStation> GetStations(RouteDto entity)
         {
             int[] ids = entity.RailwayStations.Select(s => s.Id).ToArray();
             return _unitOfWork.RailwayStations.GetAll(station => ids.Contains(station.Id)).ToList();
+        }
+
+        private void OverwriteExisting(RouteDto entity, Route dbRoute)
+        {
+            _mapper.Map(entity, dbRoute);
+            dbRoute.DeletionDate = null;
         }
     }
 }

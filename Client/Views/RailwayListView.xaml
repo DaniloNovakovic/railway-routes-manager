@@ -28,14 +28,12 @@
             <ContentControl Content="{Binding FormViewModel}" />
         </materialDesign:DialogHost.DialogContent>
 
-        
-        
         <Grid Margin="5">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            
+
             <StackPanel  Grid.Column="0" Orientation="Vertical" Margin="5">
                 <Button Command="{Binding AddCommand}">Add Route</Button>
                 <Button Command="{Binding RefreshCommand}">Refresh</Button>
@@ -43,7 +41,7 @@
                 <Button Command="{Binding RedoCommand}" IsEnabled="{Binding CanRedo}">Redo</Button>
             </StackPanel>
             <ScrollViewer  Grid.Column="1" Margin="5">
-                <ItemsControl ItemsSource="{Binding Routes}" >
+                <ItemsControl ItemsSource="{Binding Routes}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <Border BorderBrush="LightGray" BorderThickness="2">
@@ -64,7 +62,7 @@
                                                         Margin="15,15,0,0"
                                                         Width="100">Edit</Button>
                                                 <Button Command="{Binding RelativeSource={RelativeSource AncestorType=UserControl}, Path=DataContext.RemoveRouteCommand}"
-                                                        CommandParameter="{Binding Path=Id}"
+                                                        CommandParameter="{Binding}"
                                                         HorizontalAlignment="Left"
                                                         Margin="15,15,0,0"
                                                         Width="100">Remove</Button>

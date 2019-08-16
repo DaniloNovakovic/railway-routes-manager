@@ -31,7 +31,7 @@ namespace Client.ViewModels
             DuplicateRouteCommand = new DelegateCommand<RouteModel>(async (route) => await DuplicateRouteAsync(route));
             EditRouteCommand = new DelegateCommand<RouteModel>(ShowEditRouteForm);
             RefreshCommand = new DelegateCommand(async () => await RefreshRoutesAsync());
-            RemoveRouteCommand = new DelegateCommand<int?>(async (id) => await RemoveRouteAsync(id));
+            RemoveRouteCommand = new DelegateCommand<RouteModel>(async (route) => await RemoveRouteAsync(route));
             UndoCommand = new DelegateCommand(async () => await UndoAsync());
             RedoCommand = new DelegateCommand(async () => await RedoAsync());
         }
@@ -110,16 +110,11 @@ namespace Client.ViewModels
             });
         }
 
-        public Task RemoveRouteAsync(int? id)
+        public Task RemoveRouteAsync(RouteModel route)
         {
-            if (id is null)
-            {
-                return Task.CompletedTask;
-            }
-
             return SafeExecuteAsync(async () =>
             {
-                var command = new RemoveRouteCommand(_routeService, id.Value);
+                var command = new RemoveRouteCommand(_routeService, route);
                 await _commandManager.ExecuteAsync(command);
                 await RefreshRoutesAsync();
             });

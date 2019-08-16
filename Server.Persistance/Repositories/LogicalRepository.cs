@@ -58,7 +58,11 @@ namespace Server.Persistance
         public virtual void Resurrect(params object[] keyValues)
         {
             var entity = _context.Set<TEntity>().Find(keyValues);
-            entity.DeletionDate = null;
+
+            if (entity != null)
+            {
+                entity.DeletionDate = null;
+            }
         }
 
         private IQueryable<TEntity> GetEntities()
