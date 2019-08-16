@@ -1,30 +1,31 @@
-﻿using log4net;
+﻿using System.Reflection;
+using log4net;
 using Prism.Logging;
 
 namespace Client.Core
 {
     public class Log4NetLogger : ILogger, ILoggerFacade
     {
-        private readonly ILog _logger = LogManager.GetLogger(typeof(Log4NetLogger));
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
         public void Debug(string message)
         {
-            _logger.Debug(message);
+            Logger.Debug(message);
         }
 
         public void Exception(string message)
         {
-            _logger.Error(message);
+            Logger.Error(message);
         }
 
         public void Info(string message)
         {
-            _logger.Info(message);
+            Logger.Info(message);
         }
 
         public void Warn(string message)
         {
-            _logger.Warn(message);
+            Logger.Warn(message);
         }
 
         #region ILoggerFacade Members
@@ -34,19 +35,19 @@ namespace Client.Core
             switch (category)
             {
                 case Category.Debug:
-                    _logger.Debug(message);
+                    Logger.Debug(message);
                     break;
 
                 case Category.Warn:
-                    _logger.Warn(message);
+                    Logger.Warn(message);
                     break;
 
                 case Category.Exception:
-                    _logger.Error(message);
+                    Logger.Error(message);
                     break;
 
                 case Category.Info:
-                    _logger.Info(message);
+                    Logger.Info(message);
                     break;
             }
         }
