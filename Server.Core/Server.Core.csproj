@@ -50,6 +50,7 @@
     <Compile Include="ILogical.cs" />
     <Compile Include="IUnitOfWork.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\ILogicalRepository.cs" />
     <Compile Include="Repositories\IRouteRepository.cs" />
     <Compile Include="Repositories\IRepository.cs" />
   </ItemGroup>

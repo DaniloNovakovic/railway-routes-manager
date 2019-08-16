@@ -7,7 +7,7 @@ using Server.Core;
 
 namespace Server.Persistance.Repositories
 {
-    public class RouteRepository : Repository<Route>, IRouteRepository
+    public class RouteRepository : LogicalRepository<Route>, IRouteRepository
     {
         private readonly ApplicationDbContext _context;
 
@@ -42,7 +42,9 @@ namespace Server.Persistance.Repositories
 
         private IQueryable<Route> GetRoutes()
         {
-            return _context.Routes.Include(route => route.RailwayStations);
+            return _context.Routes
+                .Include(route => route.RailwayStations)
+                .Where(route => route.DeletionDate == null);
         }
     }
 }
