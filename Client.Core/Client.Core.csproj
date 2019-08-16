@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Win32.Primitives, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Win32.Primitives.4.3.0\lib\net46\Microsoft.Win32.Primitives.dll</HintPath>
       <Private>True</Private>
@@ -192,6 +195,8 @@
     <Compile Include="Events\RouteUpdatedEvent.cs" />
     <Compile Include="Events\UserAddedEvent.cs" />
     <Compile Include="ICommandManager.cs" />
+    <Compile Include="Loggers\ILogger.cs" />
+    <Compile Include="Loggers\Log4NetLogger.cs" />
     <Compile Include="Models\CountryModel.cs" />
     <Compile Include="Models\LocationModel.cs" />
     <Compile Include="Models\LoginModel.cs" />
