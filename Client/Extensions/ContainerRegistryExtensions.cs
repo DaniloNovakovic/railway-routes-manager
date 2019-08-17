@@ -26,6 +26,7 @@ namespace Client.Extensions
             containerRegistry.RegisterForNavigation<AdminNavView>(NavigationPaths.AdminNavPath);
             containerRegistry.RegisterForNavigation<AdminView>(NavigationPaths.AdminPath);
             containerRegistry.RegisterForNavigation<LoginView>(NavigationPaths.LoginPath);
+            containerRegistry.RegisterForNavigation<LogView>(NavigationPaths.LogPath);
             containerRegistry.RegisterForNavigation<ProfileView>(NavigationPaths.ProfilePath);
             containerRegistry.RegisterForNavigation<RailwayListView>(NavigationPaths.RailwayListPath);
             containerRegistry.RegisterForNavigation<RegisterView>(NavigationPaths.RegisterPath);
