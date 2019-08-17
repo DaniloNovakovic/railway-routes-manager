@@ -1,4 +1,5 @@
-﻿using System.Runtime.Serialization;
+﻿using System.Collections.Generic;
+using System.Runtime.Serialization;
 
 namespace Common
 {
@@ -16,5 +17,8 @@ namespace Common
 
         [DataMember]
         public int NumberOfPlatforms { get; set; }
+
+        [DataMember]
+        public List<RailwayPlatformDto> RailwayPlatforms { get; set; }
     }
 }
