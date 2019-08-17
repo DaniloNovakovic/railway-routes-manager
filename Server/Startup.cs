@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ServiceModel;
+using AutoMapper;
 using Common;
 using Server.Core;
 
@@ -27,6 +28,7 @@ namespace Server
 
             provider.Register<ILogger>(logger);
             provider.Register<IUnitOfWork>(unitOfWork);
+            provider.Register<IMapper>(mapper);
             provider.Register<IAuthService>(new AuthService(unitOfWork));
             provider.Register<IRouteService>(new RouteService(unitOfWork, mapper));
             provider.Register<IRailwayStationService>(new RailwayStationService(unitOfWork, mapper));
