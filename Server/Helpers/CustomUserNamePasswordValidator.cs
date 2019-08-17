@@ -8,10 +8,12 @@ namespace Server
     public class CustomUserNamePasswordValidator : UserNamePasswordValidator
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly ILogger _logger;
 
-        public CustomUserNamePasswordValidator(IUnitOfWork unitOfWork)
+        public CustomUserNamePasswordValidator(IUnitOfWork unitOfWork, ILogger logger)
         {
             _unitOfWork = unitOfWork;
+            _logger = logger;
         }
 
         public override void Validate(string userName, string password)
@@ -37,6 +39,8 @@ namespace Server
             {
                 throw new InvalidPasswordException();
             }
+
+            _logger.Debug($"User {userName} successfully authenticated!");
         }
     }
 }

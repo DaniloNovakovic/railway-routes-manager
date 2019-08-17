@@ -12,15 +12,19 @@ namespace Server
     {
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly ILogger _logger;
 
-        public RouteService(IUnitOfWork unitOfWork, IMapper mapper)
+        public RouteService(IUnitOfWork unitOfWork, IMapper mapper, ILogger logger)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
+            _logger = logger;
         }
 
         public int Add(RouteDto entity)
         {
+            _logger.Info($"Add route {entity.Id} request...");
+
             var dbRoute = _unitOfWork.Routes.GetDeleted(entity.Id);
             if (dbRoute != null)
             {
@@ -32,22 +36,29 @@ namespace Server
 
         public RouteDto Get(int key)
         {
+            _logger.Info($"Getting Route {key}...");
+
             var route = _unitOfWork.Routes.Get(key);
             return _mapper.Map<RouteDto>(route);
         }
 
         public IEnumerable<RouteDto> GetAll()
         {
+            _logger.Info($"Getting list of all routes...");
+
             var routes = _unitOfWork.Routes.GetAll();
             return routes.Select(route => _mapper.Map<RouteDto>(route));
         }
 
         public void Remove(int key)
         {
+            _logger.Info($"Attempting to remove route {key}...");
+
             var route = _unitOfWork.Routes.Get(key);
 
             if (route is null)
             {
+                _logger.Warn($"Route {key} not found!");
                 throw new NotFoundException();
             }
 
@@ -57,12 +68,16 @@ namespace Server
 
         public void Resurrect(int key)
         {
+            _logger.Info($"Resurrecting Route {key} if it is logically deleted...");
+
             _unitOfWork.Routes.Resurrect(key);
             _unitOfWork.SaveChanges();
         }
 
         public void Update(int key, RouteDto entity)
         {
+            _logger.Info($"Updating Route {key}...");
+
             Resurrect(key);
 
             var route = _unitOfWork.Routes.Get(key);
@@ -80,23 +95,31 @@ namespace Server
 
         private int AddNew(RouteDto entity)
         {
+            _logger.Debug("Adding new route...");
+
             var route = _mapper.Map<Route>(entity);
             route.RailwayStations = GetStations(entity);
 
             var addedRoute = _unitOfWork.Routes.Add(route);
             _unitOfWork.SaveChanges();
 
+            _logger.Debug($"New route {entity.Id} added!");
+
             return addedRoute.Id;
         }
 
         private List<RailwayStation> GetStations(RouteDto entity)
         {
+            _logger.Debug($"Getting list of all stations...");
+
             int[] ids = entity.RailwayStations.Select(s => s.Id).ToArray();
             return _unitOfWork.RailwayStations.GetAll(station => ids.Contains(station.Id)).ToList();
         }
 
         private void OverwriteExisting(RouteDto entity, Route dbRoute)
         {
+            _logger.Debug($"Overwriting existing (logically deleted) route {dbRoute.Id}...");
+
             _mapper.Map(entity, dbRoute);
             dbRoute.DeletionDate = null;
 

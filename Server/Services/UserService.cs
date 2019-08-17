@@ -12,15 +12,19 @@ namespace Server
     {
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly ILogger _logger;
 
-        public UserService(IUnitOfWork unitOfWork, IMapper mapper)
+        public UserService(IUnitOfWork unitOfWork, IMapper mapper, ILogger logger)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
+            _logger = logger;
         }
 
         public int Add(UserDto entity)
         {
+            _logger.Info($"Adding new user...");
+
             var user = _mapper.Map<User>(entity);
 
             if (string.IsNullOrWhiteSpace(user.RoleName))
@@ -31,17 +35,23 @@ namespace Server
             var addedUser = _unitOfWork.Users.Add(user);
             _unitOfWork.SaveChanges();
 
+            _logger.Info($"User {addedUser.Id},'{addedUser.Username}' added");
+
             return addedUser.Id;
         }
 
         public UserDto Get(int key)
         {
+            _logger.Info($"Getting user {key}...");
+
             var user = _unitOfWork.Users.Get(key);
             return _mapper.Map<UserDto>(user);
         }
 
         public IEnumerable<UserDto> GetAll()
         {
+            _logger.Info($"Getting all users...");
+
             var users = _unitOfWork.Users.GetAll();
             return users.Select(u =>
             {
@@ -53,12 +63,16 @@ namespace Server
 
         public UserDto GetByUsername(string username)
         {
+            _logger.Info($"Getting user by username '{username}'...");
+
             var user = _unitOfWork.Users.Get(u => u.Username == username);
             return _mapper.Map<UserDto>(user);
         }
 
         public void Remove(int key)
         {
+            _logger.Info($"Removing user {key}...");
+
             var user = _unitOfWork.Users.Get(key);
             _unitOfWork.Users.Remove(user);
             _unitOfWork.SaveChanges();
@@ -66,6 +80,8 @@ namespace Server
 
         public void Update(int key, UserDto entity)
         {
+            _logger.Info($"Updating user {key}...");
+
             var user = _unitOfWork.Users.Get(key);
             _mapper.Map(source: entity, destination: user);
             _unitOfWork.SaveChanges();

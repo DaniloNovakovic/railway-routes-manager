@@ -29,10 +29,10 @@ namespace Server
             provider.Register<ILogger>(logger);
             provider.Register<IUnitOfWork>(unitOfWork);
             provider.Register<IMapper>(mapper);
-            provider.Register<IAuthService>(new AuthService(unitOfWork));
-            provider.Register<IRouteService>(new RouteService(unitOfWork, mapper));
-            provider.Register<IRailwayStationService>(new RailwayStationService(unitOfWork, mapper));
-            provider.Register<IUserService>(new UserService(unitOfWork, mapper));
+            provider.Register<IAuthService>(new AuthService(unitOfWork, logger));
+            provider.Register<IRouteService>(new RouteService(unitOfWork, mapper, logger));
+            provider.Register<IRailwayStationService>(new RailwayStationService(unitOfWork, mapper, logger));
+            provider.Register<IUserService>(new UserService(unitOfWork, mapper, logger));
 
             return provider;
         }
@@ -40,7 +40,8 @@ namespace Server
         private static IAuthServiceHostFactoryFacade GetServiceHostFactory(IServiceProvider provider)
         {
             var unitOfWork = provider.Resolve<IUnitOfWork>();
-            var validator = new CustomUserNamePasswordValidator(unitOfWork);
+            var logger = provider.Resolve<ILogger>();
+            var validator = new CustomUserNamePasswordValidator(unitOfWork, logger);
             return new AuthServiceHostFactoryFacade(new AuthServiceHostFactory(validator), provider);
         }
     }
