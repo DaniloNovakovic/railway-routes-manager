@@ -78,6 +78,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\LogicalRepository.cs" />
+    <Compile Include="Repositories\RailwayStationRepository.cs" />
     <Compile Include="Repositories\Repository.cs" />
     <Compile Include="Repositories\RouteRepository.cs" />
     <Compile Include="UnitOfWork.cs" />

@@ -50,6 +50,7 @@
     <Compile Include="Interfaces\ILogger.cs" />
     <Compile Include="Interfaces\ILogical.cs" />
     <Compile Include="Interfaces\IUnitOfWork.cs" />
+    <Compile Include="Interfaces\Repositories\IRailwayStationRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Interfaces\Repositories\ILogicalRepository.cs" />
     <Compile Include="Interfaces\Repositories\IRouteRepository.cs" />

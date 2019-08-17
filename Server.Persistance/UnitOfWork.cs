@@ -14,7 +14,7 @@ namespace Server.Persistance
             Countries = new Repository<Country>(context);
             Locations = new Repository<Location>(context);
             RailwayPlatforms = new Repository<RailwayPlatform>(context);
-            RailwayStations = new Repository<RailwayStation>(context);
+            RailwayStations = new RailwayStationRepository(context);
             Routes = new RouteRepository(context);
             Users = new Repository<User>(context);
         }
@@ -22,7 +22,7 @@ namespace Server.Persistance
         public IRepository<Country> Countries { get; }
         public IRepository<Location> Locations { get; }
         public IRepository<RailwayPlatform> RailwayPlatforms { get; }
-        public IRepository<RailwayStation> RailwayStations { get; }
+        public IRailwayStationRepository RailwayStations { get; }
         public IRouteRepository Routes { get; }
         public IRepository<User> Users { get; set; }
 

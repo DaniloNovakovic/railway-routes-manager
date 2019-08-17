@@ -43,7 +43,7 @@ namespace Server.Persistance.Repositories
         private IQueryable<Route> GetRoutes()
         {
             return _context.Routes
-                .Include(route => route.RailwayStations)
+                .Include(route => route.RailwayStations.Select(rs => rs.Location.Country))
                 .Where(route => route.DeletionDate == null);
         }
     }
