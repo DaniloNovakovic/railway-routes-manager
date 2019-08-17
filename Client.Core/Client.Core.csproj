@@ -200,6 +200,7 @@
     <Compile Include="Models\LocationModel.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\LogModel.cs" />
+    <Compile Include="Models\RailwayPlatformModel.cs" />
     <Compile Include="Models\RailwayStationModel.cs" />
     <Compile Include="Models\RouteModel.cs" />
     <Compile Include="Models\UserModel.cs" />
@@ -214,6 +215,12 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{844846D4-52B6-4A6B-9D28-4887438DF295}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

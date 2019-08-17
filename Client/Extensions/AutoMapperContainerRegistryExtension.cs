@@ -31,6 +31,9 @@ namespace Client.Extensions
             cfg.CreateMap<RailwayStationModel, RailwayStationDto>(MemberList.Destination);
             cfg.CreateMap<RailwayStationDto, RailwayStationModel>(MemberList.Source);
 
+            cfg.CreateMap<RailwayPlatformModel, RailwayPlatformDto>(MemberList.Destination);
+            cfg.CreateMap<RailwayPlatformDto, RailwayPlatformModel>(MemberList.Source);
+
             cfg.CreateMap<RouteModel, RouteDto>(MemberList.Destination);
             cfg.CreateMap<RouteDto, RouteModel>(MemberList.Source);
         }

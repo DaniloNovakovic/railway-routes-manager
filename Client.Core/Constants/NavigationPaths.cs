@@ -9,6 +9,7 @@
         public const string LogPath = "LogPath";
         public const string ProfilePath = "ProfilePath";
         public const string RailwayListPath = "RailwayListPath";
+        public const string RailwayStationsPath = "RailwayStationsPath";
         public const string RegisterPath = "Register";
         public const string RegularUserNavPath = "RegularUserNavPath";
         public const string RegularUserPath = "RegularUserPath";

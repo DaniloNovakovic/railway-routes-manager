@@ -6,7 +6,8 @@
              prism:ViewModelLocator.AutoWireViewModel="True">
 
     <StackPanel Orientation="Horizontal"  Margin="5">
-        <Button Command="{Binding NavigateCommand}" CommandParameter="{x:Static core:NavigationPaths.RailwayListPath}" Margin="5">Railways</Button>
+        <Button Command="{Binding NavigateCommand}" CommandParameter="{x:Static core:NavigationPaths.RailwayListPath}" Margin="5">Routes</Button>
+        <Button Command="{Binding NavigateCommand}" CommandParameter="{x:Static core:NavigationPaths.RailwayStationsPath}" Margin="5">Stations</Button>
         <Button Command="{Binding NavigateCommand}" CommandParameter="{x:Static core:NavigationPaths.LogPath}" Margin="5">Log</Button>
         <Button Command="{Binding NavigateCommand}" CommandParameter="{x:Static core:NavigationPaths.UserListPath}" Margin="5">Users</Button>
         <Button Command="{Binding NavigateCommand}" CommandParameter="{x:Static core:NavigationPaths.ProfilePath}" Margin="5">Profile</Button>

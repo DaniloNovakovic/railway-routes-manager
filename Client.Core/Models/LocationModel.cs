@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text;
 using Prism.Validation;
 
 namespace Client.Core
@@ -26,6 +27,20 @@ namespace Client.Core
         {
             get { return _name; }
             set { SetProperty(ref _name, value); }
+        }
+
+        public override string ToString()
+        {
+            var builder = new StringBuilder().Append(Name);
+
+            if (Country != null)
+            {
+                builder
+                    .Append(',').Append(Country.Code)
+                    .Append(',').Append(Country.Name);
+            }
+
+            return builder.ToString();
         }
     }
 }

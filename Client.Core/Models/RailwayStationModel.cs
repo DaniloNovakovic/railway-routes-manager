@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations;
 using Prism.Validation;
 
 namespace Client.Core
@@ -9,6 +10,11 @@ namespace Client.Core
         private LocationModel _location;
         private string _name;
         private int _numberOfPlatforms;
+
+        public RailwayStationModel()
+        {
+            RailwayPlatforms = new ObservableCollection<RailwayPlatformModel>();
+        }
 
         public int Id
         {
@@ -35,6 +41,8 @@ namespace Client.Core
             get { return _numberOfPlatforms; }
             set { SetProperty(ref _numberOfPlatforms, value); }
         }
+
+        public ObservableCollection<RailwayPlatformModel> RailwayPlatforms { get; set; }
 
         public override string ToString()
         {
