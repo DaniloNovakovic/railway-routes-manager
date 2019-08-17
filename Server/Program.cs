@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Security.Principal;
-using System.Threading.Tasks;
+using Server.Core;
 using Server.Persistance;
 
 namespace Server
@@ -16,7 +15,7 @@ namespace Server
 
             logger.Info($"Running as {WindowsIdentity.GetCurrent().Name}");
 
-            var dbContext = GetDbContext(logger, DefaultConnectionName);
+            var dbContext = GetDbContext(DefaultConnectionName, logger);
 
             using (var unitOfWork = new UnitOfWork(dbContext))
             {
@@ -32,7 +31,7 @@ namespace Server
             }
         }
 
-        private static ApplicationDbContext GetDbContext(Log4NetLogger logger, string nameOrConnectionString)
+        private static ApplicationDbContext GetDbContext(string nameOrConnectionString, ILogger logger)
         {
             logger.Info("Starting up database...");
             var dbContext = new ApplicationDbContext(nameOrConnectionString);
