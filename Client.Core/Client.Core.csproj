@@ -187,15 +187,15 @@
     <Compile Include="CommandManager.cs" />
     <Compile Include="Commands\AddRouteCommand.cs" />
     <Compile Include="Commands\EditRouteCommand.cs" />
-    <Compile Include="Commands\IUndoableCommand.cs" />
+    <Compile Include="Interfaces\IUndoableCommand.cs" />
     <Compile Include="Commands\RemoveRouteCommand.cs" />
     <Compile Include="Commands\UndoableCommand.cs" />
     <Compile Include="Constants\NavigationPaths.cs" />
     <Compile Include="Constants\RegionNames.cs" />
     <Compile Include="Events\RouteUpdatedEvent.cs" />
     <Compile Include="Events\UserAddedEvent.cs" />
-    <Compile Include="ICommandManager.cs" />
-    <Compile Include="Loggers\ILogger.cs" />
+    <Compile Include="Interfaces\ICommandManager.cs" />
+    <Compile Include="Interfaces\ILogger.cs" />
     <Compile Include="Loggers\Log4NetLogger.cs" />
     <Compile Include="Models\CountryModel.cs" />
     <Compile Include="Models\LocationModel.cs" />
@@ -204,10 +204,10 @@
     <Compile Include="Models\RouteModel.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\IAuthenticationService.cs" />
-    <Compile Include="Services\IRailwayStationsService.cs" />
-    <Compile Include="Services\IRouteService.cs" />
-    <Compile Include="Services\IUserService.cs" />
+    <Compile Include="Interfaces\Services\IAuthenticationService.cs" />
+    <Compile Include="Interfaces\Services\IRailwayStationsService.cs" />
+    <Compile Include="Interfaces\Services\IRouteService.cs" />
+    <Compile Include="Interfaces\Services\IUserService.cs" />
     <Compile Include="Utils\DictionaryFlattener.cs" />
   </ItemGroup>
   <ItemGroup>
