@@ -11,11 +11,15 @@
         </i:EventTrigger>
     </i:Interaction.Triggers>
 
-    <Grid>
-        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-        <TextBlock
-                VerticalAlignment="Top"
-                Text="{Binding LogText}"/>
-        </ScrollViewer>
+    <Grid Margin="5">
+        <DataGrid ItemsSource="{Binding LogModels}" Margin="5"
+                  AutoGenerateColumns="False" IsReadOnly="True" BorderThickness="2"
+                  BorderBrush="LightGray">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Date" Binding="{Binding Date}" />
+                <DataGridTextColumn Header="Level" Binding="{Binding Level}" />
+                <DataGridTextColumn Header="Message" Binding="{Binding Message}" />
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </UserControl>

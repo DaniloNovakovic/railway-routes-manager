@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -9,45 +10,60 @@ namespace Client.ViewModels
 {
     public class LogViewModel : ViewModelBase
     {
-        private string _logText;
-
         public LogViewModel(ILogger logger) : base(logger)
         {
+            LogModels = new ObservableCollection<LogModel>();
         }
 
-        public string LogText
+        public ObservableCollection<LogModel> LogModels { get; }
+
+        public override async Task OnLoadedAsync()
         {
-            get { return _logText; }
-            set { SetProperty(ref _logText, value); }
+            string logText = await SafelyReadTextFromLogAsync();
+
+            if (string.IsNullOrWhiteSpace(logText))
+            {
+                return;
+            }
+
+            LogModels.Clear();
+
+            foreach (string line in SplitByNewline(logText))
+            {
+                if (LogModelParser.TryParse(line, out var logModel))
+                {
+                    LogModels.Add(logModel);
+                }
+            }
         }
 
-        public override Task OnLoadedAsync()
+        private static string[] SplitByNewline(string logText)
+        {
+            return logText.Split(
+                new[] { "\r\n", "\r", "\n" },
+                StringSplitOptions.RemoveEmptyEntries
+            );
+        }
+
+        private async Task<string> SafelyReadTextFromLogAsync()
         {
             string directory = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
             string path = Path.GetFullPath(Path.Combine(directory, "logs/client.log"));
 
             if (!File.Exists(path))
             {
-                LogText = $"Could not find log file on path '{path}'";
-                Logger.Warn(LogText);
-                return Task.CompletedTask;
+                Logger.Warn($"Could not find log file on path '{path}'");
+                return string.Empty;
             }
 
-            ReadAllText(path);
-
-            return Task.CompletedTask;
-        }
-
-        private void ReadAllText(string path)
-        {
             try
             {
-                LogText = File.ReadAllText(path);
+                return await Task.Run(() => File.ReadAllText(path));
             }
             catch (Exception ex)
             {
-                LogText = ex.Message;
-                Logger.Exception(LogText);
+                Logger.Exception(ex.Message);
+                return string.Empty;
             }
         }
     }

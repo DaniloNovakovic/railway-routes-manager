@@ -1,4 +1,5 @@
-﻿using Xunit;
+﻿using System;
+using Xunit;
 
 namespace Client.Core.Tests
 {
@@ -7,7 +8,7 @@ namespace Client.Core.Tests
         [Fact]
         public void ParseTest()
         {
-            const string line = "2019-08-17 15:56:00,282 INFO - admin's role: Administrator";
+            string line = "2019-08-17 15:56:00,282 INFO - admin's role: Administrator" + Environment.NewLine;
 
             var result = LogModelParser.Parse(line);
 
