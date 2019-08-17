@@ -199,6 +199,7 @@
     <Compile Include="Models\CountryModel.cs" />
     <Compile Include="Models\LocationModel.cs" />
     <Compile Include="Models\LoginModel.cs" />
+    <Compile Include="Models\LogModel.cs" />
     <Compile Include="Models\RailwayStationModel.cs" />
     <Compile Include="Models\RouteModel.cs" />
     <Compile Include="Models\UserModel.cs" />
@@ -208,6 +209,7 @@
     <Compile Include="Interfaces\Services\IRouteService.cs" />
     <Compile Include="Interfaces\Services\IUserService.cs" />
     <Compile Include="Utils\DictionaryFlattener.cs" />
+    <Compile Include="Utils\LogModelParser.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
