@@ -20,11 +20,12 @@ namespace Server
             };
         }
 
-        public static IServiceProvider GetServiceProvider(IUnitOfWork unitOfWork)
+        public static IServiceProvider GetServiceProvider(IUnitOfWork unitOfWork, ILogger logger)
         {
             var mapper = AutoMapperFactory.GetAutoMapper();
             var provider = new ServiceProvider();
 
+            provider.Register<ILogger>(logger);
             provider.Register<IUnitOfWork>(unitOfWork);
             provider.Register<IAuthService>(new AuthService(unitOfWork));
             provider.Register<IRouteService>(new RouteService(unitOfWork, mapper));
