@@ -1,8 +1,9 @@
 ﻿using System.Reflection;
+using Client.Core;
 using log4net;
 using Prism.Logging;
 
-namespace Client.Core
+namespace Client
 {
     public class Log4NetLogger : ILogger, ILoggerFacade
     {

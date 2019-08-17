@@ -1,5 +1,4 @@
-﻿using Client.Core;
-using DryIoc;
+﻿using DryIoc;
 using Prism.DryIoc;
 using Prism.Ioc;
 

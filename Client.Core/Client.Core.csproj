@@ -196,7 +196,6 @@
     <Compile Include="Events\UserAddedEvent.cs" />
     <Compile Include="Interfaces\ICommandManager.cs" />
     <Compile Include="Interfaces\ILogger.cs" />
-    <Compile Include="Loggers\Log4NetLogger.cs" />
     <Compile Include="Models\CountryModel.cs" />
     <Compile Include="Models\LocationModel.cs" />
     <Compile Include="Models\LoginModel.cs" />
@@ -212,9 +211,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="log4net.config">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
