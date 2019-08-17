@@ -19,27 +19,21 @@
             <views:AddUserForm />
         </materialDesign:DialogHost.DialogContent>
 
-        <Grid>
+        <Grid Margin="5">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1*" />
-                <ColumnDefinition Width="1*" />
-                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
 
-            <Button Command="{Binding ShowDialogCommand}" Content="Add User"
-                     Grid.Row="0" Grid.Column="0" />
-
-            <Button Command="{Binding RefreshListCommand}" Content="Refresh"
-                    Grid.Row="0" Grid.Column="1" />
-
-            <DataGrid Grid.Row="1" Grid.ColumnSpan="3" Grid.Column="0"
+            <StackPanel Grid.Column="0" Orientation="Vertical" Margin="5">
+                <Button Command="{Binding ShowDialogCommand}" Content="Add User"/>
+                <Button Command="{Binding RefreshListCommand}" Content="Refresh"/>
+            </StackPanel>
+            
+            <DataGrid Grid.Column="1" Margin="5"
                   ItemsSource="{Binding UserList}" SelectedItem="{Binding SelectedUser, Mode=TwoWay}"
                   AutoGenerateColumns="False" IsReadOnly="True" BorderThickness="2"
-                  BorderBrush="LightGray" Margin="0,0,0,10">
+                  BorderBrush="LightGray">
                 <DataGrid.Columns>
                     <DataGridTextColumn Width="*" Header="Id"  Binding="{Binding Id}" />
                     <DataGridTextColumn Width="*" Header="Username"  Binding="{Binding Username}" />
