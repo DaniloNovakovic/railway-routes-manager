@@ -18,6 +18,11 @@ namespace Client.Infrastructure
             _mapper = mapper;
         }
 
+        public Task<int> AddStationAsync(RailwayStationModel station)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public Task<IEnumerable<RailwayStationModel>> GetAllStationsAsync()
         {
             return Task.Run(() =>
@@ -26,6 +31,25 @@ namespace Client.Infrastructure
                 var stationDtos = proxy.GetAll();
                 return stationDtos.Select(dto => _mapper.Map<RailwayStationModel>(dto));
             });
+        }
+
+        public Task<RailwayStationModel> GetStationAsync(int key)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public Task RemoveStationAsync(int key)
+        {
+            return Task.Run(() =>
+            {
+                var proxy = GetProxy();
+                proxy.Remove(key);
+            });
+        }
+
+        public Task UpdateStationAsync(RailwayStationModel station)
+        {
+            throw new System.NotImplementedException();
         }
 
         private Common.IRailwayStationService GetProxy()

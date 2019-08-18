@@ -61,6 +61,7 @@
                                                 <DataGridTextColumn MinWidth="50" Header="Platform Id"  Binding="{Binding Path=Id}" />
                                                 <DataGridTextColumn MinWidth="100" Header="Platform Name"  Binding="{Binding Path=Name}" />
                                                 <DataGridTextColumn MinWidth="80" Header="Mark"  Binding="{Binding Path=Mark}" />
+                                                <DataGridTextColumn MinWidth="80" Header="Entrance Type" Binding="{Binding Path=EntranceType}"/>
                                             </DataGrid.Columns>
                                         </DataGrid>
                                     </StackPanel>

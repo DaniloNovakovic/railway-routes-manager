@@ -22,14 +22,14 @@ namespace Client.ViewModels
 
             RailwayStations = new ObservableCollection<RailwayStationModel>();
             AddCommand = new DelegateCommand(ShowAddStationForm);
-            EditRouteCommand = new DelegateCommand<RailwayStationModel>(ShowEditStationForm);
+            EditStationCommand = new DelegateCommand<RailwayStationModel>(ShowEditStationForm);
             RefreshCommand = new DelegateCommand(async () => await RefreshStationsAsync());
-            RemoveRouteCommand = new DelegateCommand<RailwayStationModel>(async (route) => await RemoveStationAsync(route));
+            RemoveStationCommand = new DelegateCommand<RailwayStationModel>(async (route) => await RemoveStationAsync(route));
         }
 
         public ICommand AddCommand { get; }
 
-        public ICommand EditRouteCommand { get; }
+        public ICommand EditStationCommand { get; }
 
         public BindableBase FormViewModel
         {
@@ -46,7 +46,7 @@ namespace Client.ViewModels
         public ObservableCollection<RailwayStationModel> RailwayStations { get; set; }
         public ICommand RefreshCommand { get; }
 
-        public ICommand RemoveRouteCommand { get; }
+        public ICommand RemoveStationCommand { get; }
 
         public override Task OnLoadedAsync()
         {
@@ -67,7 +67,7 @@ namespace Client.ViewModels
         {
             return SafeExecuteAsync(async () =>
             {
-                // todo...
+                await _stationService.RemoveStationAsync(station.Id);
                 await RefreshStationsAsync();
             });
         }
