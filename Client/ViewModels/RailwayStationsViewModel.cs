@@ -11,10 +11,10 @@ namespace Client.ViewModels
     public class RailwayStationsViewModel : ViewModelBase
     {
         private readonly ILocationService _locationService;
+        private readonly ILogger _logger;
         private readonly IRailwayStationService _stationService;
         private BindableBase _formViewModel;
         private bool _isDialogOpen;
-        private readonly ILogger _logger;
 
         public RailwayStationsViewModel(
             IRailwayStationService stationService,
@@ -91,7 +91,7 @@ namespace Client.ViewModels
 
         private void ShowEditStationForm(RailwayStationModel station)
         {
-            // TODO...
+            FormViewModel = new EditStationFormViewModel(_stationService, _locationService, _logger, station, OnStationSubmited);
             IsDialogOpen = true;
         }
     }

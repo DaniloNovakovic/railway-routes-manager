@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Client.Core;
@@ -9,6 +10,7 @@ namespace Client.Helpers
     public abstract class StationFormViewModel : ViewModelBase
     {
         private readonly ILocationService _locationService;
+        private readonly RailwayStationModel _originalStation;
         private bool _canSubmit;
         private RailwayStationModel _stationModel;
 
@@ -23,6 +25,7 @@ namespace Client.Helpers
             _locationService = locationService;
 
             Locations = new ObservableCollection<LocationModel>();
+            _originalStation = station;
             RailwayStationModel = station.Clone() as RailwayStationModel;
             RailwayStationModel.ErrorsChanged += RailwayStationModel_ErrorsChanged;
 
@@ -56,6 +59,11 @@ namespace Client.Helpers
                 var locations = await _locationService.GetAllLocationsAsync();
                 Locations.Clear();
                 Locations.AddRange(locations);
+
+                if (_originalStation.Location != null)
+                {
+                    RailwayStationModel.Location = Locations.FirstOrDefault(model => model.Id == _originalStation.Location.Id);
+                }
             });
         }
 
