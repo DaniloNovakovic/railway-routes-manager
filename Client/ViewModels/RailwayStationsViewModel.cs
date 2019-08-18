@@ -10,15 +10,20 @@ namespace Client.ViewModels
 {
     public class RailwayStationsViewModel : ViewModelBase
     {
+        private readonly ILocationService _locationService;
         private readonly IRailwayStationService _stationService;
         private BindableBase _formViewModel;
         private bool _isDialogOpen;
+        private readonly ILogger _logger;
 
         public RailwayStationsViewModel(
             IRailwayStationService stationService,
+            ILocationService locationService,
             ILogger logger) : base(logger)
         {
             _stationService = stationService;
+            _locationService = locationService;
+            _logger = logger;
 
             RailwayStations = new ObservableCollection<RailwayStationModel>();
             AddCommand = new DelegateCommand(ShowAddStationForm);
@@ -80,7 +85,7 @@ namespace Client.ViewModels
 
         private void ShowAddStationForm()
         {
-            // TODO...
+            FormViewModel = new AddStationFormViewModel(_stationService, _locationService, _logger, OnStationSubmited);
             IsDialogOpen = true;
         }
 

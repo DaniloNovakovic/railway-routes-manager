@@ -18,6 +18,7 @@ namespace Server
                 factory.GetServiceHost<IRouteService>(Ports.RouteServicePort),
                 factory.GetServiceHost<IRailwayStationService>(Ports.RailwayStationServicePort),
                 factory.GetServiceHost<IUserService>(Ports.UserServicePort),
+                factory.GetServiceHost<ILocationService>(Ports.LocationServicePort),
             };
         }
 
@@ -33,6 +34,7 @@ namespace Server
             provider.Register<IRouteService>(new RouteService(unitOfWork, mapper, logger));
             provider.Register<IRailwayStationService>(new RailwayStationService(unitOfWork, mapper, logger));
             provider.Register<IUserService>(new UserService(unitOfWork, mapper, logger));
+            provider.Register<ILocationService>(new LocationService(unitOfWork, mapper, logger));
 
             return provider;
         }

@@ -27,15 +27,16 @@ namespace Server
 
         private static void ConfigureMapper(IMapperConfigurationExpression cfg)
         {
-            cfg.CreateMap<User, UserDto>();
-            cfg.CreateMap<UserDto, User>()
+            cfg.CreateMap<User, UserDto>(MemberList.Destination);
+            cfg.CreateMap<UserDto, User>(MemberList.Source)
                 .ForAllMembers(ApplyIgnoreNullOrEmptyConfiguration);
 
-            cfg.CreateMap<Country, CountryDto>();
-            cfg.CreateMap<CountryDto, Country>();
+            cfg.CreateMap<Country, CountryDto>(MemberList.Destination);
+            cfg.CreateMap<CountryDto, Country>(MemberList.Source)
+                .ForAllMembers(ApplyIgnoreNullOrEmptyConfiguration);
 
             cfg.CreateMap<Location, LocationDto>(MemberList.Destination);
-            cfg.CreateMap<LocationDto, Location>()
+            cfg.CreateMap<LocationDto, Location>(MemberList.Source)
                 .ForAllMembers(ApplyIgnoreNullOrEmptyConfiguration);
 
             cfg.CreateMap<RailwayPlatform, RailwayPlatformDto>(MemberList.Destination);

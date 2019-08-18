@@ -36,7 +36,7 @@ namespace Client.Core
             {
                 Id = Id,
                 Name = Name,
-                Country = Country.Clone() as CountryModel
+                Country = Country?.Clone() as CountryModel
             };
         }
 

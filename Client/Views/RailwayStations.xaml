@@ -10,10 +10,10 @@
 
     <UserControl.Resources>
         <DataTemplate DataType="{x:Type viewModel:AddStationFormViewModel}">
-            <views:RouteForm />
+            <views:RailwayStationForm />
         </DataTemplate>
         <DataTemplate DataType="{x:Type viewModel:EditStationFormViewModel}">
-            <views:RouteForm />
+            <views:RailwayStationForm />
         </DataTemplate>
     </UserControl.Resources>
 

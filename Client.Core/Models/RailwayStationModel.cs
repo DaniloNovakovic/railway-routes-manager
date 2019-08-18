@@ -23,6 +23,7 @@ namespace Client.Core
             set { SetProperty(ref _id, value); }
         }
 
+        [Required]
         public LocationModel Location
         {
             get { return _location; }
@@ -50,7 +51,7 @@ namespace Client.Core
             {
                 Id = Id,
                 Name = Name,
-                Location = Location.Clone() as LocationModel,
+                Location = Location?.Clone() as LocationModel,
                 NumberOfPlatforms = NumberOfPlatforms
             };
             station.RailwayPlatforms = new ObservableCollection<RailwayPlatformModel>(RailwayPlatforms);

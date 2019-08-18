@@ -16,7 +16,7 @@
                          Text="{Binding RailwayStationModel.Name,Mode=TwoWay,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}"
                          Style="{StaticResource ValidationTextBox}" />
 
-            <ComboBox materialDesign:HintAssist.Hint="Location" ItemsSource="{Binding Locations}">
+            <ComboBox materialDesign:HintAssist.Hint="Location" ItemsSource="{Binding Locations}" Margin="0,15,0,15">
                 <ComboBox.ItemsPanel>
                     <ItemsPanelTemplate>
                         <VirtualizingStackPanel />
