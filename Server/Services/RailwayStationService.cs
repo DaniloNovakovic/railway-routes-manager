@@ -10,9 +10,9 @@ namespace Server
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single, ConcurrencyMode = ConcurrencyMode.Multiple)]
     public class RailwayStationService : IRailwayStationService
     {
+        private readonly ILogger _logger;
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
-        private readonly ILogger _logger;
 
         public RailwayStationService(IUnitOfWork unitOfWork, IMapper mapper, ILogger logger)
         {
@@ -42,7 +42,18 @@ namespace Server
 
         public void Remove(int key)
         {
-            throw new System.NotImplementedException();
+            _logger.Info($"Attempting to remove station {key}...");
+
+            var station = _unitOfWork.RailwayStations.Get(key);
+
+            if (station is null)
+            {
+                _logger.Warn($"Route {key} not found!");
+                throw new NotFoundException();
+            }
+
+            _unitOfWork.RailwayStations.Remove(station);
+            _unitOfWork.SaveChanges();
         }
 
         public void Update(int key, RailwayStationDto entity)
