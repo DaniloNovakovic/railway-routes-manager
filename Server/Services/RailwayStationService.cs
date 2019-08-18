@@ -68,7 +68,32 @@ namespace Server
 
         public void Update(int key, RailwayStationDto entity)
         {
-            throw new System.NotImplementedException();
+            _logger.Info($"Updating station {key}...");
+
+            var dtoStation = _unitOfWork.RailwayStations.Get(key);
+
+            if (dtoStation == null)
+            {
+                _logger.Warn($"Requested station {key} does not exist!");
+                entity.Id = key;
+                Add(entity);
+                return;
+            }
+
+            dtoStation.Name = entity.Name;
+
+            if (entity.Location != null)
+            {
+                dtoStation.Location = GetLocation(entity);
+            }
+
+            if (entity.RailwayPlatforms != null && entity.RailwayPlatforms.Count > 0)
+            {
+                dtoStation.RailwayPlatforms = GetPlatforms(entity);
+                dtoStation.NumberOfPlatforms = dtoStation.RailwayPlatforms.Count;
+            }
+
+            _unitOfWork.SaveChanges();
         }
 
         private Location GetLocation(RailwayStationDto entity)
