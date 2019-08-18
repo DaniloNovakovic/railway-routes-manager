@@ -5,9 +5,9 @@ namespace Client.Views
     /// <summary>
     /// Interaction logic for RailwayListView
     /// </summary>
-    public partial class RailwayListView : UserControl
+    public partial class RailwayRoutes : UserControl
     {
-        public RailwayListView()
+        public RailwayRoutes()
         {
             InitializeComponent();
         }

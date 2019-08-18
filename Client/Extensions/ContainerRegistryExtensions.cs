@@ -30,7 +30,7 @@ namespace Client.Extensions
             containerRegistry.RegisterForNavigation<LoginView>(NavigationPaths.LoginPath);
             containerRegistry.RegisterForNavigation<LogView>(NavigationPaths.LogPath);
             containerRegistry.RegisterForNavigation<ProfileView>(NavigationPaths.ProfilePath);
-            containerRegistry.RegisterForNavigation<RailwayListView>(NavigationPaths.RailwayListPath);
+            containerRegistry.RegisterForNavigation<RailwayRoutes>(NavigationPaths.RailwayListPath);
             containerRegistry.RegisterForNavigation<RailwayStations>(NavigationPaths.RailwayStationsPath);
             containerRegistry.RegisterForNavigation<RegisterView>(NavigationPaths.RegisterPath);
             containerRegistry.RegisterForNavigation<RegularUserNavView>(NavigationPaths.RegularUserNavPath);

@@ -8,7 +8,7 @@ using Prism.Mvvm;
 
 namespace Client.ViewModels
 {
-    public class RailwayListViewModel : ViewModelBase
+    public class RailwayRoutesViewModel : ViewModelBase
     {
         private readonly ICommandManager _commandManager;
         private readonly IRouteService _routeService;
@@ -18,7 +18,7 @@ namespace Client.ViewModels
         private BindableBase _formViewModel;
         private bool _isDialogOpen;
 
-        public RailwayListViewModel(
+        public RailwayRoutesViewModel(
             IRouteService routeService,
             IRailwayStationService stationService,
             ICommandManager commandManager,
