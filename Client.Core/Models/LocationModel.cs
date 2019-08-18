@@ -46,9 +46,7 @@ namespace Client.Core
 
             if (Country != null)
             {
-                builder
-                    .Append(',').Append(Country.Code)
-                    .Append(',').Append(Country.Name);
+                builder.Append(',').Append(Country.Name);
             }
 
             return builder.ToString();
