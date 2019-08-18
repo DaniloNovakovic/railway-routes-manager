@@ -36,7 +36,7 @@
 
             <StackPanel  Grid.Column="0" Orientation="Vertical" Margin="5">
                 <Button Command="{Binding AddCommand}" ToolTip="Add Railway Station" Margin="2">
-                    <materialDesign:PackIcon Kind="Add"/>
+                    <materialDesign:PackIcon Kind="Add" />
                 </Button>
                 <Button Command="{Binding RefreshCommand}" Margin="2" ToolTip="Refresh">
                     <materialDesign:PackIcon Kind="Refresh" />
@@ -56,19 +56,19 @@
                                                 <Button Command="{Binding RelativeSource={RelativeSource AncestorType=UserControl}, Path=DataContext.EditStationCommand}"
                                                         CommandParameter="{Binding}"
                                                         HorizontalAlignment="Left" ToolTip="Edit Station"
-                                                        Margin="0,15,0,0" >
+                                                        Margin="0,15,0,0">
                                                     <materialDesign:PackIcon Kind="Edit" />
                                                 </Button>
                                                 <Button Command="{Binding RelativeSource={RelativeSource AncestorType=UserControl}, Path=DataContext.RemoveStationCommand}"
                                                         CommandParameter="{Binding}"
                                                         HorizontalAlignment="Left" ToolTip="Delete Station"
-                                                        Margin="15,15,0,0" >
+                                                        Margin="15,15,0,0">
                                                     <materialDesign:PackIcon Kind="Delete" />
                                                 </Button>
                                                 <Button Command="{Binding RelativeSource={RelativeSource AncestorType=UserControl}, Path=DataContext.AddPlatformCommand}"
                                                         CommandParameter="{Binding}"
                                                         HorizontalAlignment="Left" ToolTip="Add Railway Platform"
-                                                        Margin="15,15,0,0" >
+                                                        Margin="15,15,0,0">
                                                     <materialDesign:PackIcon Kind="Add" />
                                                 </Button>
                                             </StackPanel>
@@ -91,9 +91,9 @@
                                                                     CommandParameter="{Binding}" ToolTip="Edit Platform">
                                                                     <materialDesign:PackIcon Kind="Edit" />
                                                                 </Button>
-                                                                <Button Command="{Binding RelativeSource={RelativeSource AncestorType=UserControl}, Path=DataContext.DeletePlatformCommand}"
+                                                                <Button Command="{Binding RelativeSource={RelativeSource AncestorType=UserControl}, Path=DataContext.RemovePlatformCommand}"
                                                                     CommandParameter="{Binding}" Margin="5,0,0,0" ToolTip="Delete Platform">
-                                                                    <materialDesign:PackIcon Kind="Delete"  />
+                                                                    <materialDesign:PackIcon Kind="Delete" />
                                                                 </Button>
                                                             </StackPanel>
                                                         </DataTemplate>

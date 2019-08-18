@@ -1,11 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.ServiceModel;
 using AutoMapper;
 using Common;
 using Server.Core;
 
-namespace Server.Services
+namespace Server
 {
+    [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single, ConcurrencyMode = ConcurrencyMode.Multiple)]
     public class RailwayPlatformService : IRailwayPlatformService
     {
         private readonly ILogger _logger;

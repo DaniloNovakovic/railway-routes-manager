@@ -12,12 +12,14 @@ namespace Client.ViewModels
     {
         private readonly ILocationService _locationService;
         private readonly ILogger _logger;
+        private readonly IRailwayPlatformService _platformService;
         private readonly IRailwayStationService _stationService;
         private BindableBase _formViewModel;
         private bool _isDialogOpen;
 
         public RailwayStationsViewModel(
             IRailwayStationService stationService,
+            IRailwayPlatformService platformService,
             ILocationService locationService,
             ILogger logger) : base(logger)
         {
@@ -30,9 +32,15 @@ namespace Client.ViewModels
             EditStationCommand = new DelegateCommand<RailwayStationModel>(ShowEditStationForm);
             RefreshCommand = new DelegateCommand(async () => await RefreshStationsAsync());
             RemoveStationCommand = new DelegateCommand<RailwayStationModel>(async (route) => await RemoveStationAsync(route));
+            RemovePlatformCommand = new DelegateCommand<RailwayPlatformModel>(async (platform) => await RemovePlatformAsync(platform));
+            _platformService = platformService;
         }
 
         public ICommand AddCommand { get; }
+
+        public ICommand AddPlatformCommand { get; }
+
+        public ICommand EditPlatformCommand { get; }
 
         public ICommand EditStationCommand { get; }
 
@@ -49,7 +57,10 @@ namespace Client.ViewModels
         }
 
         public ObservableCollection<RailwayStationModel> RailwayStations { get; set; }
+
         public ICommand RefreshCommand { get; }
+
+        public ICommand RemovePlatformCommand { get; }
 
         public ICommand RemoveStationCommand { get; }
 
@@ -65,6 +76,15 @@ namespace Client.ViewModels
                 var routes = await _stationService.GetAllStationsAsync();
                 RailwayStations.Clear();
                 RailwayStations.AddRange(routes);
+            });
+        }
+
+        public Task RemovePlatformAsync(RailwayPlatformModel platform)
+        {
+            return SafeExecuteAsync(async () =>
+            {
+                await _platformService.RemovePlatformAsync(platform.Id);
+                await RefreshStationsAsync();
             });
         }
 
