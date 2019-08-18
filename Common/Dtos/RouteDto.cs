@@ -6,6 +6,11 @@ namespace Common
     [DataContract]
     public class RouteDto
     {
+        public RouteDto()
+        {
+            RailwayStations = new List<RailwayStationDto>();
+        }
+
         [DataMember]
         public int Id { get; set; }
 

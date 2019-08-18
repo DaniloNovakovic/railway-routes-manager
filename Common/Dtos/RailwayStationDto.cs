@@ -6,6 +6,11 @@ namespace Common
     [DataContract]
     public class RailwayStationDto
     {
+        public RailwayStationDto()
+        {
+            RailwayPlatforms = new List<RailwayPlatformDto>();
+        }
+
         [DataMember]
         public int Id { get; set; }
 
