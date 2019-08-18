@@ -23,17 +23,17 @@ namespace Server
 
         public int Add(RailwayStationDto entity)
         {
-            _logger.Info("Adding new route...");
+            _logger.Info("Adding new station...");
 
-            var dbStation = _mapper.Map<RailwayStation>(entity);
-            dbStation.RailwayPlatforms = GetPlatforms(entity);
-            dbStation.Location = GetLocation(entity);
+            var station = _mapper.Map<RailwayStation>(entity);
+            station.RailwayPlatforms = GetPlatforms(entity);
+            station.Location = GetLocation(entity);
 
-            var addedRoute = _unitOfWork.RailwayStations.Add(dbStation);
+            var addedStation = _unitOfWork.RailwayStations.Add(station);
             _unitOfWork.SaveChanges();
 
-            _logger.Info($"New route {addedRoute.Id} added!");
-            return addedRoute.Id;
+            _logger.Info($"New station {addedStation.Id} added!");
+            return addedStation.Id;
         }
 
         public RailwayStationDto Get(int key)
@@ -70,9 +70,9 @@ namespace Server
         {
             _logger.Info($"Updating station {key}...");
 
-            var dtoStation = _unitOfWork.RailwayStations.Get(key);
+            var station = _unitOfWork.RailwayStations.Get(key);
 
-            if (dtoStation == null)
+            if (station == null)
             {
                 _logger.Warn($"Requested station {key} does not exist!");
                 entity.Id = key;
@@ -80,17 +80,17 @@ namespace Server
                 return;
             }
 
-            dtoStation.Name = entity.Name;
+            station.Name = entity.Name;
 
             if (entity.Location != null)
             {
-                dtoStation.Location = GetLocation(entity);
+                station.Location = GetLocation(entity);
             }
 
             if (entity.RailwayPlatforms != null && entity.RailwayPlatforms.Count > 0)
             {
-                dtoStation.RailwayPlatforms = GetPlatforms(entity);
-                dtoStation.NumberOfPlatforms = dtoStation.RailwayPlatforms.Count;
+                station.RailwayPlatforms = GetPlatforms(entity);
+                station.NumberOfPlatforms = station.RailwayPlatforms.Count;
             }
 
             _unitOfWork.SaveChanges();
