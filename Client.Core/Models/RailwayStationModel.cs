@@ -1,10 +1,11 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using Prism.Validation;
 
 namespace Client.Core
 {
-    public class RailwayStationModel : ValidatableBindableBase
+    public class RailwayStationModel : ValidatableBindableBase, ICloneable
     {
         private int _id;
         private LocationModel _location;
@@ -35,7 +36,6 @@ namespace Client.Core
             set { SetProperty(ref _name, value); }
         }
 
-        [Range(1, int.MaxValue)]
         public int NumberOfPlatforms
         {
             get { return _numberOfPlatforms; }
@@ -43,6 +43,19 @@ namespace Client.Core
         }
 
         public ObservableCollection<RailwayPlatformModel> RailwayPlatforms { get; set; }
+
+        public object Clone()
+        {
+            var station = new RailwayStationModel()
+            {
+                Id = Id,
+                Name = Name,
+                Location = Location.Clone() as LocationModel,
+                NumberOfPlatforms = NumberOfPlatforms
+            };
+            station.RailwayPlatforms = new ObservableCollection<RailwayPlatformModel>(RailwayPlatforms);
+            return station;
+        }
 
         public override string ToString()
         {

@@ -1,9 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using Prism.Validation;
 
 namespace Client.Core
 {
-    public class CountryModel : ValidatableBindableBase
+    public class CountryModel : ValidatableBindableBase, ICloneable
     {
         private string _code;
         private int _id;
@@ -27,6 +28,16 @@ namespace Client.Core
         {
             get { return _name; }
             set { SetProperty(ref _name, value); }
+        }
+
+        public object Clone()
+        {
+            return new CountryModel()
+            {
+                Id = Id,
+                Code = Code,
+                Name = Name
+            };
         }
     }
 }
