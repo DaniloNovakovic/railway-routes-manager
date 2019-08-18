@@ -40,7 +40,12 @@ namespace Client.Infrastructure
 
         public Task<RailwayStationModel> GetStationAsync(int key)
         {
-            throw new System.NotImplementedException();
+            return Task.Run(() =>
+            {
+                var proxy = GetProxy();
+                var stationDto = proxy.Get(key);
+                return _mapper.Map<RailwayStationModel>(stationDto);
+            });
         }
 
         public Task RemoveStationAsync(int key)
@@ -54,7 +59,12 @@ namespace Client.Infrastructure
 
         public Task UpdateStationAsync(RailwayStationModel station)
         {
-            throw new System.NotImplementedException();
+            return Task.Run(() =>
+            {
+                var proxy = GetProxy();
+                var dto = _mapper.Map<Common.RailwayStationDto>(station);
+                proxy.Update(station.Id, dto);
+            });
         }
 
         private Common.IRailwayStationService GetProxy()
