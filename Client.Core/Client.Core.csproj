@@ -196,6 +196,8 @@
     <Compile Include="Events\UserAddedEvent.cs" />
     <Compile Include="Interfaces\ICommandManager.cs" />
     <Compile Include="Interfaces\ILogger.cs" />
+    <Compile Include="Interfaces\Services\ILocationService.cs" />
+    <Compile Include="Interfaces\Services\IRailwayPlatformService.cs" />
     <Compile Include="Models\CountryModel.cs" />
     <Compile Include="Models\LocationModel.cs" />
     <Compile Include="Models\LoginModel.cs" />

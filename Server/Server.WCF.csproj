@@ -63,6 +63,7 @@
     <Compile Include="Helpers\AuthServiceHostFactoryFacade.cs" />
     <Compile Include="Helpers\Interfaces\IAuthServiceHostFactoryFacade.cs" />
     <Compile Include="Logging\Log4NetLogger.cs" />
+    <Compile Include="Services\LocationService.cs" />
     <Compile Include="Services\RailwayStationService.cs" />
     <Compile Include="Services\RouteService.cs" />
     <Compile Include="Startup.cs" />

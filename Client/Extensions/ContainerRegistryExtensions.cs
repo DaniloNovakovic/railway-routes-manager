@@ -19,6 +19,8 @@ namespace Client.Extensions
             containerRegistry.Register<IUserService, UserService>();
             containerRegistry.Register<IRouteService, RouteService>();
             containerRegistry.Register<IRailwayStationService, RailwayStationService>();
+            containerRegistry.Register<IRailwayPlatformService, RailwayPlatformService>();
+            containerRegistry.Register<ILocationService, LocationService>();
         }
 
         public static void RegisterViewsForNavigation(this IContainerRegistry containerRegistry)
