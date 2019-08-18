@@ -20,7 +20,12 @@ namespace Client.Infrastructure
 
         public Task<int> AddStationAsync(RailwayStationModel station)
         {
-            throw new System.NotImplementedException();
+            return Task.Run(() =>
+            {
+                var proxy = GetProxy();
+                var dto = _mapper.Map<Common.RailwayStationDto>(station);
+                return proxy.Add(dto);
+            });
         }
 
         public Task<IEnumerable<RailwayStationModel>> GetAllStationsAsync()
