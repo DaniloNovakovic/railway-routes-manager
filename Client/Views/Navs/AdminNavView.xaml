@@ -3,14 +3,33 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:core="clr-namespace:Client.Core;assembly=Client.Core"
              xmlns:prism="http://prismlibrary.com/"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              prism:ViewModelLocator.AutoWireViewModel="True">
 
     <StackPanel Orientation="Horizontal"  Margin="5">
-        <Button Command="{Binding NavigateCommand}" CommandParameter="{x:Static core:NavigationPaths.RailwayListPath}" Margin="5">Routes</Button>
-        <Button Command="{Binding NavigateCommand}" CommandParameter="{x:Static core:NavigationPaths.RailwayStationsPath}" Margin="5">Stations</Button>
-        <Button Command="{Binding NavigateCommand}" CommandParameter="{x:Static core:NavigationPaths.LogPath}" Margin="5">Log</Button>
-        <Button Command="{Binding NavigateCommand}" CommandParameter="{x:Static core:NavigationPaths.UserListPath}" Margin="5">Users</Button>
-        <Button Command="{Binding NavigateCommand}" CommandParameter="{x:Static core:NavigationPaths.ProfilePath}" Margin="5">Profile</Button>
-        <Button Command="{Binding LogoutCommand}"  Margin="5">Sign Out</Button>
+        <Button Command="{Binding NavigateCommand}" CommandParameter="{x:Static core:NavigationPaths.RailwayListPath}" 
+                ToolTip="Railway Routes" Margin="5">
+            <materialDesign:PackIcon Kind="Routes" />
+        </Button>
+        <Button Command="{Binding NavigateCommand}" CommandParameter="{x:Static core:NavigationPaths.RailwayStationsPath}" 
+                ToolTip="Railway Stations" Margin="5">
+            <materialDesign:PackIcon Kind="Train" />
+        </Button>
+        <Button Command="{Binding NavigateCommand}" CommandParameter="{x:Static core:NavigationPaths.LogPath}" 
+                ToolTip="Log" Margin="5">
+            <materialDesign:PackIcon Kind="Book" />
+        </Button>
+        <Button Command="{Binding NavigateCommand}" CommandParameter="{x:Static core:NavigationPaths.UserListPath}" 
+                ToolTip="Users" Margin="5">
+            <materialDesign:PackIcon Kind="Users" />
+        </Button>
+        <Button Command="{Binding NavigateCommand}" CommandParameter="{x:Static core:NavigationPaths.ProfilePath}" 
+                ToolTip="Profile" Margin="5">
+            <materialDesign:PackIcon Kind="Account" />
+        </Button>
+        <Button Command="{Binding LogoutCommand}"  
+                ToolTip="Sign Out" Margin="5">
+            <materialDesign:PackIcon Kind="SignOut" />
+        </Button>
     </StackPanel>
 </UserControl>

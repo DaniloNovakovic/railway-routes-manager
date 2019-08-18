@@ -35,10 +35,18 @@
             </Grid.ColumnDefinitions>
 
             <StackPanel  Grid.Column="0" Orientation="Vertical" Margin="5">
-                <Button Command="{Binding AddCommand}">Add Route</Button>
-                <Button Command="{Binding RefreshCommand}">Refresh</Button>
-                <Button Command="{Binding UndoCommand}" IsEnabled="{Binding CanUndo}">Undo</Button>
-                <Button Command="{Binding RedoCommand}" IsEnabled="{Binding CanRedo}">Redo</Button>
+                <Button Command="{Binding AddCommand}" ToolTip="Add Railway Route" Margin="2">
+                    <materialDesign:PackIcon Kind="Add" />
+                </Button>
+                <Button Command="{Binding RefreshCommand}" ToolTip="Refresh" Margin="2">
+                    <materialDesign:PackIcon Kind="Refresh" />
+                </Button>
+                <Button Command="{Binding UndoCommand}" IsEnabled="{Binding CanUndo}" ToolTip="Undo" Margin="2">
+                    <materialDesign:PackIcon Kind="Undo" />
+                </Button>
+                <Button Command="{Binding RedoCommand}" IsEnabled="{Binding CanRedo}" ToolTip="Redo" Margin="2">
+                    <materialDesign:PackIcon Kind="Redo" />
+                </Button>
             </StackPanel>
             <ScrollViewer  Grid.Column="1" Margin="5">
                 <ItemsControl ItemsSource="{Binding Routes}">
@@ -53,19 +61,22 @@
                                             <StackPanel Orientation="Horizontal">
                                                 <Button Command="{Binding RelativeSource={RelativeSource AncestorType=UserControl}, Path=DataContext.DuplicateRouteCommand}"
                                                         CommandParameter="{Binding}"
-                                                        HorizontalAlignment="Left"
-                                                        Margin="0,15,0,0"
-                                                        Width="100">Duplicate</Button>
+                                                        HorizontalAlignment="Left" ToolTip="Duplicate Route"
+                                                        Margin="0,15,0,0" >
+                                                    <materialDesign:PackIcon Kind="ContentCopy" />
+                                                </Button>
                                                 <Button Command="{Binding RelativeSource={RelativeSource AncestorType=UserControl}, Path=DataContext.EditRouteCommand}"
                                                         CommandParameter="{Binding}"
-                                                        HorizontalAlignment="Left"
-                                                        Margin="15,15,0,0"
-                                                        Width="100">Edit</Button>
+                                                        HorizontalAlignment="Left" ToolTip="Edit Route"
+                                                        Margin="15,15,0,0" >
+                                                    <materialDesign:PackIcon Kind="Edit" />
+                                                </Button>
                                                 <Button Command="{Binding RelativeSource={RelativeSource AncestorType=UserControl}, Path=DataContext.RemoveRouteCommand}"
                                                         CommandParameter="{Binding}"
-                                                        HorizontalAlignment="Left"
-                                                        Margin="15,15,0,0"
-                                                        Width="100">Remove</Button>
+                                                        HorizontalAlignment="Left" ToolTip="Remove Route"
+                                                        Margin="15,15,0,0">
+                                                    <materialDesign:PackIcon Kind="Delete" />
+                                                </Button>
                                             </StackPanel>
                                         </StackPanel>
                                     </Expander.Header>

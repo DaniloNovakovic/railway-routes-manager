@@ -35,8 +35,12 @@
             </Grid.ColumnDefinitions>
 
             <StackPanel  Grid.Column="0" Orientation="Vertical" Margin="5">
-                <Button Command="{Binding AddCommand}">Add Station</Button>
-                <Button Command="{Binding RefreshCommand}">Refresh</Button>
+                <Button Command="{Binding AddCommand}" ToolTip="Add Railway Station" Margin="2">
+                    <materialDesign:PackIcon Kind="Add"/>
+                </Button>
+                <Button Command="{Binding RefreshCommand}" Margin="2" ToolTip="Refresh">
+                    <materialDesign:PackIcon Kind="Refresh" />
+                </Button>
             </StackPanel>
             <ScrollViewer  Grid.Column="1" Margin="5">
                 <ItemsControl ItemsSource="{Binding RailwayStations}">
@@ -51,14 +55,22 @@
                                             <StackPanel Orientation="Horizontal">
                                                 <Button Command="{Binding RelativeSource={RelativeSource AncestorType=UserControl}, Path=DataContext.EditStationCommand}"
                                                         CommandParameter="{Binding}"
-                                                        HorizontalAlignment="Left"
-                                                        Margin="0,15,0,0"
-                                                        Width="100">Edit</Button>
+                                                        HorizontalAlignment="Left" ToolTip="Edit Station"
+                                                        Margin="0,15,0,0" >
+                                                    <materialDesign:PackIcon Kind="Edit" />
+                                                </Button>
                                                 <Button Command="{Binding RelativeSource={RelativeSource AncestorType=UserControl}, Path=DataContext.RemoveStationCommand}"
                                                         CommandParameter="{Binding}"
-                                                        HorizontalAlignment="Left"
-                                                        Margin="15,15,0,0"
-                                                        Width="100">Remove</Button>
+                                                        HorizontalAlignment="Left" ToolTip="Delete Station"
+                                                        Margin="15,15,0,0" >
+                                                    <materialDesign:PackIcon Kind="Delete" />
+                                                </Button>
+                                                <Button Command="{Binding RelativeSource={RelativeSource AncestorType=UserControl}, Path=DataContext.AddPlatformCommand}"
+                                                        CommandParameter="{Binding}"
+                                                        HorizontalAlignment="Left" ToolTip="Add Railway Platform"
+                                                        Margin="15,15,0,0" >
+                                                    <materialDesign:PackIcon Kind="Add" />
+                                                </Button>
                                             </StackPanel>
                                         </StackPanel>
                                     </Expander.Header>
@@ -71,6 +83,22 @@
                                                 <DataGridTextColumn MinWidth="100" Header="Platform Name"  Binding="{Binding Path=Name}" />
                                                 <DataGridTextColumn MinWidth="80" Header="Mark"  Binding="{Binding Path=Mark}" />
                                                 <DataGridTextColumn MinWidth="80" Header="Entrance Type" Binding="{Binding Path=EntranceType}" />
+                                                <DataGridTemplateColumn MinWidth="50">
+                                                    <DataGridTemplateColumn.CellTemplate>
+                                                        <DataTemplate>
+                                                            <StackPanel Orientation="Horizontal">
+                                                                <Button Command="{Binding RelativeSource={RelativeSource AncestorType=UserControl}, Path=DataContext.EditPlatformCommand}"
+                                                                    CommandParameter="{Binding}" ToolTip="Edit Platform">
+                                                                    <materialDesign:PackIcon Kind="Edit" />
+                                                                </Button>
+                                                                <Button Command="{Binding RelativeSource={RelativeSource AncestorType=UserControl}, Path=DataContext.DeletePlatformCommand}"
+                                                                    CommandParameter="{Binding}" Margin="5,0,0,0" ToolTip="Delete Platform">
+                                                                    <materialDesign:PackIcon Kind="Delete"  />
+                                                                </Button>
+                                                            </StackPanel>
+                                                        </DataTemplate>
+                                                    </DataGridTemplateColumn.CellTemplate>
+                                                </DataGridTemplateColumn>
                                             </DataGrid.Columns>
                                         </DataGrid>
                                     </StackPanel>

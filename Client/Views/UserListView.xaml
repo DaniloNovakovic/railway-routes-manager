@@ -26,8 +26,12 @@
             </Grid.ColumnDefinitions>
 
             <StackPanel Grid.Column="0" Orientation="Vertical" Margin="5">
-                <Button Command="{Binding ShowDialogCommand}" Content="Add User"/>
-                <Button Command="{Binding RefreshListCommand}" Content="Refresh"/>
+                <Button Command="{Binding ShowDialogCommand}" ToolTip="Add User" Margin="2">
+                    <materialDesign:PackIcon Kind="Add" />
+                </Button>
+                <Button Command="{Binding RefreshListCommand}" ToolTip="Refresh" Margin="2">
+                    <materialDesign:PackIcon Kind="Refresh" />
+                </Button>
             </StackPanel>
             
             <DataGrid Grid.Column="1" Margin="5"
