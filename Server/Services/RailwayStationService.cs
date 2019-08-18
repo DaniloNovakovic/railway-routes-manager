@@ -23,7 +23,17 @@ namespace Server
 
         public int Add(RailwayStationDto entity)
         {
-            throw new System.NotImplementedException();
+            _logger.Info("Adding new route...");
+
+            var dbStation = _mapper.Map<RailwayStation>(entity);
+            dbStation.RailwayPlatforms = GetPlatforms(entity);
+            dbStation.Location = GetLocation(entity);
+
+            var addedRoute = _unitOfWork.RailwayStations.Add(dbStation);
+            _unitOfWork.SaveChanges();
+
+            _logger.Info($"New route {addedRoute.Id} added!");
+            return addedRoute.Id;
         }
 
         public RailwayStationDto Get(int key)
@@ -59,6 +69,17 @@ namespace Server
         public void Update(int key, RailwayStationDto entity)
         {
             throw new System.NotImplementedException();
+        }
+
+        private Location GetLocation(RailwayStationDto entity)
+        {
+            return _unitOfWork.Locations.Get(entity.Location.Id);
+        }
+
+        private ICollection<RailwayPlatform> GetPlatforms(RailwayStationDto entity)
+        {
+            int[] ids = entity.RailwayPlatforms.Select(rp => rp.Id).ToArray();
+            return _unitOfWork.RailwayPlatforms.GetAll(rp => ids.Contains(rp.Id)).ToList();
         }
     }
 }
