@@ -23,7 +23,7 @@ namespace Server
 
         public int Add(RailwayPlatformDto entity)
         {
-            _logger.Info("Adding new platform...");
+            _logger.Debug("Adding new platform...");
 
             var platform = _mapper.Map<RailwayPlatform>(entity);
 
@@ -37,7 +37,7 @@ namespace Server
 
         public RailwayPlatformDto Get(int key)
         {
-            _logger.Info($"Getting platform {key}");
+            _logger.Debug($"Getting platform {key}");
 
             var platform = _unitOfWork.RailwayPlatforms.Get(key);
             return _mapper.Map<RailwayPlatformDto>(platform);
@@ -45,7 +45,7 @@ namespace Server
 
         public IEnumerable<RailwayPlatformDto> GetAll()
         {
-            _logger.Info("Getting all platforms...");
+            _logger.Debug("Getting all platforms...");
 
             var platforms = _unitOfWork.RailwayPlatforms.GetAll();
             return platforms.Select(platform => _mapper.Map<RailwayPlatformDto>(platform));
@@ -53,7 +53,7 @@ namespace Server
 
         public void Remove(int key)
         {
-            _logger.Info($"Removing platform {key}...");
+            _logger.Debug($"Removing platform {key}...");
 
             var platform = _unitOfWork.RailwayPlatforms.Get(key);
             if (platform is null)
@@ -64,11 +64,13 @@ namespace Server
 
             _unitOfWork.RailwayPlatforms.Remove(platform);
             _unitOfWork.SaveChanges();
+
+            _logger.Info($"Removed platform {key}");
         }
 
         public void Update(int key, RailwayPlatformDto entity)
         {
-            _logger.Info($"Updating platform {key}...");
+            _logger.Debug($"Updating platform {key}...");
 
             var platform = _unitOfWork.RailwayPlatforms.Get(key);
 
@@ -86,6 +88,8 @@ namespace Server
             platform.EntranceType = entity.EntranceType;
 
             _unitOfWork.SaveChanges();
+
+            _logger.Info($"Updated platform {key}");
         }
     }
 }

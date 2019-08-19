@@ -10,9 +10,9 @@ namespace Server
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single, ConcurrencyMode = ConcurrencyMode.Multiple)]
     public class UserService : IUserService
     {
+        private readonly ILogger _logger;
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
-        private readonly ILogger _logger;
 
         public UserService(IUnitOfWork unitOfWork, IMapper mapper, ILogger logger)
         {
@@ -23,7 +23,7 @@ namespace Server
 
         public int Add(UserDto entity)
         {
-            _logger.Info($"Adding new user...");
+            _logger.Debug($"Adding new user...");
 
             var user = _mapper.Map<User>(entity);
 
@@ -42,7 +42,7 @@ namespace Server
 
         public UserDto Get(int key)
         {
-            _logger.Info($"Getting user {key}...");
+            _logger.Debug($"Getting user {key}...");
 
             var user = _unitOfWork.Users.Get(key);
             return _mapper.Map<UserDto>(user);
@@ -50,7 +50,7 @@ namespace Server
 
         public IEnumerable<UserDto> GetAll()
         {
-            _logger.Info($"Getting all users...");
+            _logger.Debug($"Getting all users...");
 
             var users = _unitOfWork.Users.GetAll();
             return users.Select(u =>
@@ -63,7 +63,7 @@ namespace Server
 
         public UserDto GetByUsername(string username)
         {
-            _logger.Info($"Getting user by username '{username}'...");
+            _logger.Debug($"Getting user by username '{username}'...");
 
             var user = _unitOfWork.Users.Get(u => u.Username == username);
             return _mapper.Map<UserDto>(user);
@@ -71,20 +71,24 @@ namespace Server
 
         public void Remove(int key)
         {
-            _logger.Info($"Removing user {key}...");
+            _logger.Debug($"Removing user {key}...");
 
             var user = _unitOfWork.Users.Get(key);
             _unitOfWork.Users.Remove(user);
             _unitOfWork.SaveChanges();
+
+            _logger.Info($"Removed user {key}!");
         }
 
         public void Update(int key, UserDto entity)
         {
-            _logger.Info($"Updating user {key}...");
+            _logger.Debug($"Updating user {key}...");
 
             var user = _unitOfWork.Users.Get(key);
             _mapper.Map(source: entity, destination: user);
             _unitOfWork.SaveChanges();
+
+            _logger.Info($"Updated user {key}!");
         }
     }
 }

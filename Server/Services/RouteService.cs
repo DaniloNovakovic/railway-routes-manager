@@ -23,7 +23,7 @@ namespace Server
 
         public int Add(RouteDto entity)
         {
-            _logger.Info($"Add route {entity.Id} request...");
+            _logger.Debug($"Add route {entity.Id} request...");
 
             var dbRoute = _unitOfWork.Routes.GetDeleted(entity.Id);
             if (dbRoute != null)
@@ -36,7 +36,7 @@ namespace Server
 
         public RouteDto Get(int key)
         {
-            _logger.Info($"Getting Route {key}...");
+            _logger.Debug($"Getting Route {key}...");
 
             var route = _unitOfWork.Routes.Get(key);
             return _mapper.Map<RouteDto>(route);
@@ -44,7 +44,7 @@ namespace Server
 
         public IEnumerable<RouteDto> GetAll()
         {
-            _logger.Info($"Getting list of all routes...");
+            _logger.Debug($"Getting list of all routes...");
 
             var routes = _unitOfWork.Routes.GetAll();
             return routes.Select(route => _mapper.Map<RouteDto>(route));
@@ -52,7 +52,7 @@ namespace Server
 
         public void Remove(int key)
         {
-            _logger.Info($"Attempting to remove route {key}...");
+            _logger.Debug($"Attempting to remove route {key}...");
 
             var route = _unitOfWork.Routes.Get(key);
 
@@ -64,19 +64,26 @@ namespace Server
 
             _unitOfWork.Routes.Remove(route);
             _unitOfWork.SaveChanges();
+
+            _logger.Info($"Removed route {key}");
         }
 
         public void Resurrect(int key)
         {
-            _logger.Info($"Resurrecting Route {key} if it is logically deleted...");
+            _logger.Debug($"Resurrecting Route {key} if it is logically deleted...");
 
-            _unitOfWork.Routes.Resurrect(key);
+            bool resurrected = _unitOfWork.Routes.Resurrect(key);
             _unitOfWork.SaveChanges();
+
+            if (resurrected)
+            {
+                _logger.Info($"Resurrected route {key}");
+            }
         }
 
         public void Update(int key, RouteDto entity)
         {
-            _logger.Info($"Updating Route {key}...");
+            _logger.Debug($"Updating Route {key}...");
 
             Resurrect(key);
 
@@ -91,6 +98,8 @@ namespace Server
             }
 
             _unitOfWork.SaveChanges();
+
+            _logger.Info($"Updated Route {key}");
         }
 
         private int AddNew(RouteDto entity)
@@ -103,7 +112,7 @@ namespace Server
             var addedRoute = _unitOfWork.Routes.Add(route);
             _unitOfWork.SaveChanges();
 
-            _logger.Debug($"New route {entity.Id} added!");
+            _logger.Info($"New route {entity.Id} added!");
 
             return addedRoute.Id;
         }
@@ -124,6 +133,8 @@ namespace Server
             dbRoute.DeletionDate = null;
 
             _unitOfWork.SaveChanges();
+
+            _logger.Info($"Overwrote route {dbRoute.Id}!");
         }
     }
 }

@@ -23,7 +23,7 @@ namespace Server
 
         public int Add(RailwayStationDto entity)
         {
-            _logger.Info("Adding new station...");
+            _logger.Debug("Adding new station...");
 
             var station = _mapper.Map<RailwayStation>(entity);
             station.RailwayPlatforms = GetPlatforms(entity);
@@ -38,21 +38,21 @@ namespace Server
 
         public RailwayStationDto Get(int key)
         {
-            _logger.Info($"Getting station {key}...");
+            _logger.Debug($"Getting station {key}...");
             var station = _unitOfWork.RailwayStations.Get(key);
             return _mapper.Map<RailwayStationDto>(station);
         }
 
         public IEnumerable<RailwayStationDto> GetAll()
         {
-            _logger.Info("Getting list of all stations...");
+            _logger.Debug("Getting list of all stations...");
             var stations = _unitOfWork.RailwayStations.GetAll();
             return stations.Select(station => _mapper.Map<RailwayStationDto>(station));
         }
 
         public void Remove(int key)
         {
-            _logger.Info($"Attempting to remove station {key}...");
+            _logger.Debug($"Attempting to remove station {key}...");
 
             var station = _unitOfWork.RailwayStations.Get(key);
 
@@ -64,11 +64,13 @@ namespace Server
 
             _unitOfWork.RailwayStations.Remove(station);
             _unitOfWork.SaveChanges();
+
+            _logger.Info($"Removed station {key}");
         }
 
         public void Update(int key, RailwayStationDto entity)
         {
-            _logger.Info($"Updating station {key}...");
+            _logger.Debug($"Updating station {key}...");
 
             var station = _unitOfWork.RailwayStations.Get(key);
 
@@ -94,6 +96,8 @@ namespace Server
             }
 
             _unitOfWork.SaveChanges();
+
+            _logger.Info($"Updated station {key}");
         }
 
         private Location GetLocation(RailwayStationDto entity)

@@ -23,7 +23,7 @@ namespace Server
 
         public int Add(LocationDto entity)
         {
-            _logger.Info("Adding new location...");
+            _logger.Debug("Adding new location...");
 
             var location = _mapper.Map<Location>(entity);
 
@@ -36,7 +36,7 @@ namespace Server
 
         public LocationDto Get(int key)
         {
-            _logger.Info($"Getting location {key}...");
+            _logger.Debug($"Getting location {key}...");
 
             var location = _unitOfWork.Locations.Get(key);
             return _mapper.Map<LocationDto>(location);
@@ -44,7 +44,7 @@ namespace Server
 
         public IEnumerable<LocationDto> GetAll()
         {
-            _logger.Info("Getting all locations...");
+            _logger.Debug("Getting all locations...");
 
             var locations = _unitOfWork.Locations.GetAll();
             return locations.Select(location => _mapper.Map<LocationDto>(location)).ToList();
@@ -52,7 +52,7 @@ namespace Server
 
         public void Remove(int key)
         {
-            _logger.Info($"Removing Location {key}...");
+            _logger.Debug($"Removing Location {key}...");
 
             var location = _unitOfWork.Locations.Get(key);
 
@@ -64,11 +64,13 @@ namespace Server
 
             _unitOfWork.Locations.Remove(location);
             _unitOfWork.SaveChanges();
+
+            _logger.Info($"Removed Location {key}");
         }
 
         public void Update(int key, LocationDto entity)
         {
-            _logger.Info($"Updating location {key}...");
+            _logger.Debug($"Updating location {key}...");
 
             var location = _unitOfWork.Locations.Get(key);
 
@@ -82,6 +84,8 @@ namespace Server
 
             _mapper.Map(entity, location);
             _unitOfWork.SaveChanges();
+
+            _logger.Info($"Updated location {key}");
         }
     }
 }
