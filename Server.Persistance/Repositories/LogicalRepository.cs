@@ -71,14 +71,18 @@ namespace Server.Persistance
             }
         }
 
-        public virtual void Resurrect(params object[] keyValues)
+        public virtual bool Resurrect(params object[] keyValues)
         {
             var entity = _context.Set<TEntity>().Find(keyValues);
 
-            if (entity != null)
+            bool shouldResurrect = entity?.DeletionDate != null;
+
+            if (shouldResurrect)
             {
                 entity.DeletionDate = null;
             }
+
+            return shouldResurrect;
         }
 
         private IQueryable<TEntity> GetDeletedEntities()

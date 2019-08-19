@@ -13,6 +13,6 @@ namespace Server.Core
 
         IEnumerable<TEntity> GetAllDeleted(Expression<Func<TEntity, bool>> filter = null);
 
-        void Resurrect(params object[] keyValues);
+        bool Resurrect(params object[] keyValues);
     }
 }
