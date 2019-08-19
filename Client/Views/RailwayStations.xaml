@@ -15,6 +15,9 @@
         <DataTemplate DataType="{x:Type viewModel:EditStationFormViewModel}">
             <views:RailwayStationForm />
         </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModel:AddPlatformFormViewModel}">
+            <views:RailwayPlatformForm />
+        </DataTemplate>
     </UserControl.Resources>
 
     <i:Interaction.Triggers>

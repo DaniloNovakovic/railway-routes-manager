@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Client.Core;
@@ -32,6 +33,7 @@ namespace Client.ViewModels
             EditStationCommand = new DelegateCommand<RailwayStationModel>(ShowEditStationForm);
             RefreshCommand = new DelegateCommand(async () => await RefreshStationsAsync());
             RemoveStationCommand = new DelegateCommand<RailwayStationModel>(async (route) => await RemoveStationAsync(route));
+            AddPlatformCommand = new DelegateCommand(ShowAddPlatformForm);
             RemovePlatformCommand = new DelegateCommand<RailwayPlatformModel>(async (platform) => await RemovePlatformAsync(platform));
             _platformService = platformService;
         }
@@ -97,21 +99,27 @@ namespace Client.ViewModels
             });
         }
 
-        private async void OnStationSubmited()
+        private async void OnFormSubmitted()
         {
             IsDialogOpen = false;
             await RefreshStationsAsync();
         }
 
+        private void ShowAddPlatformForm()
+        {
+            FormViewModel = new AddPlatformFormViewModel(_platformService, _logger, OnFormSubmitted);
+            IsDialogOpen = true;
+        }
+
         private void ShowAddStationForm()
         {
-            FormViewModel = new AddStationFormViewModel(_stationService, _locationService, _logger, OnStationSubmited);
+            FormViewModel = new AddStationFormViewModel(_stationService, _locationService, _logger, OnFormSubmitted);
             IsDialogOpen = true;
         }
 
         private void ShowEditStationForm(RailwayStationModel station)
         {
-            FormViewModel = new EditStationFormViewModel(_stationService, _locationService, _logger, station, OnStationSubmited);
+            FormViewModel = new EditStationFormViewModel(_stationService, _locationService, _logger, station, OnFormSubmitted);
             IsDialogOpen = true;
         }
     }

@@ -1,10 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using Common;
 using Prism.Validation;
 
 namespace Client.Core
 {
-    public class RailwayPlatformModel : ValidatableBindableBase
+    public class RailwayPlatformModel : ValidatableBindableBase, ICloneable
     {
         private EntranceType _entranceType;
 
@@ -41,6 +42,17 @@ namespace Client.Core
         }
 
         public int? RailwayStationId { get; set; }
+
+        public object Clone()
+        {
+            return new RailwayPlatformModel()
+            {
+                Id = Id,
+                Name = Name,
+                Mark = Mark,
+                EntranceType = EntranceType
+            };
+        }
 
         public override string ToString()
         {

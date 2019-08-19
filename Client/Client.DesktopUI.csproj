@@ -77,9 +77,11 @@
     <Compile Include="Extensions\LoggerContainerRegistryExtension.cs" />
     <Compile Include="Helpers\AuthNavViewModelBase.cs" />
     <Compile Include="Helpers\NavViewModelBase.cs" />
+    <Compile Include="Helpers\PlatformFormViewModel.cs" />
     <Compile Include="Helpers\StationFormViewModel.cs" />
     <Compile Include="Helpers\ViewModelBase.cs" />
     <Compile Include="Logging\Log4NetLogger.cs" />
+    <Compile Include="ViewModels\Forms\AddPlatformFormViewModel.cs" />
     <Compile Include="ViewModels\Forms\AddRouteFormViewModel.cs" />
     <Compile Include="ViewModels\Forms\AddStationFormViewModel.cs" />
     <Compile Include="ViewModels\Forms\AddUserFormViewModel.cs" />
@@ -99,6 +101,9 @@
     <Compile Include="ViewModels\UserListViewModel.cs" />
     <Compile Include="Views\Forms\AddUserForm.xaml.cs">
       <DependentUpon>AddUserForm.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Forms\RailwayPlatformForm.xaml.cs">
+      <DependentUpon>RailwayPlatformForm.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Forms\RailwayStationForm.xaml.cs">
       <DependentUpon>RailwayStationForm.xaml</DependentUpon>
@@ -148,6 +153,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Forms\AddUserForm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Forms\RailwayPlatformForm.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

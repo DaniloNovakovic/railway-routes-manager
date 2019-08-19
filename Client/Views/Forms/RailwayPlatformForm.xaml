@@ -1,0 +1,32 @@
+﻿<UserControl x:Class="Client.Views.RailwayPlatformForm"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity">
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding OnLoadedCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto" Padding="35" Margin="10" MinWidth="320">
+        <StackPanel>
+            <TextBox materialDesign:HintAssist.Hint="Name"
+                         Text="{Binding RailwayPlatformModel.Name,Mode=TwoWay,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}"
+                         Style="{StaticResource ValidationTextBox}" />
+            <TextBox materialDesign:HintAssist.Hint="Mark"
+                         Text="{Binding RailwayPlatformModel.Mark,Mode=TwoWay,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}"
+                         Style="{StaticResource ValidationTextBox}" />
+            <ComboBox materialDesign:HintAssist.Hint="Entrance Type" ItemsSource="{Binding EntranceTypes}"
+                      SelectedItem="{Binding RailwayPlatformModel.EntranceType}" Margin="0,15,0,15">
+                <ComboBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <VirtualizingStackPanel />
+                    </ItemsPanelTemplate>
+                </ComboBox.ItemsPanel>
+            </ComboBox>
+            <Button Margin="0,20,0,0" IsEnabled="{Binding CanSubmit}" Command="{Binding SubmitCommand}">Submit</Button>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>
