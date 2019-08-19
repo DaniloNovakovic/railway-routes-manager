@@ -3,34 +3,51 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:prism="http://prismlibrary.com/"
-             xmlns:core="clr-namespace:Client.Core;assembly=Client.Core"
              prism:ViewModelLocator.AutoWireViewModel="True">
 
     <Grid>
-        <DockPanel>
-            <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" Margin="5">
-                <Button Command="{Binding NavigateCommand}" CommandParameter="{x:Static core:NavigationPaths.RegisterPath}" Margin="5">Sign Up</Button>
-            </StackPanel>
-            <materialDesign:Card Padding="32" Margin="10" MinHeight="230" MinWidth="320"  MaxWidth="500">
-                <ScrollViewer VerticalScrollBarVisibility="Auto">
-                    <StackPanel CanVerticallyScroll="True">
-                        <TextBox x:Name="UsernameTextBox" materialDesign:HintAssist.Hint="Username"  MaxLength="20"
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="5*" />
+        </Grid.RowDefinitions>
+
+        <materialDesign:Card Grid.Row="1" Padding="32" Margin="10" MinHeight="230" MinWidth="320"  MaxWidth="500">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <StackPanel CanVerticallyScroll="True">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="1*" />
+                        </Grid.ColumnDefinitions>
+                        <materialDesign:PackIcon Grid.Column="0" Kind="User" VerticalAlignment="Center" Margin="0,0,5,0" />
+                        <TextBox Grid.Column="1" x:Name="UsernameTextBox" materialDesign:HintAssist.Hint="Username"  MaxLength="20"
                                  Text="{Binding Path=LoginModel.Username,Mode=TwoWay,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}"
                                  materialDesign:ValidationAssist.OnlyShowOnFocus="True"
                                  Style="{StaticResource ValidationTextBox}" />
-
-                        <PasswordBox x:Name="textBoxPassword" materialDesign:HintAssist.Hint="Password"
+                    </Grid>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="1*" />
+                        </Grid.ColumnDefinitions>
+                        <materialDesign:PackIcon Grid.Column="0" Kind="Key" VerticalAlignment="Center" Margin="0,0,5,0" />
+                        <PasswordBox Grid.Column="1" x:Name="textBoxPassword" materialDesign:HintAssist.Hint="Password"
                                      Style="{StaticResource ValidationPasswordBox}" />
+                    </Grid>
 
-                        <Button x:Name="buttonLogin" Content="Login"
+                    <Button x:Name="buttonLogin"
                                 Command="{Binding LoginCommand}"
                                 CommandParameter="{Binding ElementName=textBoxPassword}"
                                 IsEnabled="{Binding CanLogIn}"
-                                Margin="0,15" />
-                        <ItemsControl ItemsSource="{Binding Errors, Mode=TwoWay}" ItemTemplate="{StaticResource ValidationErrors}" Margin="0,15,0,15" />
-                    </StackPanel>
-                </ScrollViewer>
-            </materialDesign:Card>
-        </DockPanel>
+                                Margin="0,15" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Grid.Column="0" Kind="SignIn" VerticalAlignment="Center" Margin="0,0,5,0" />
+                            <TextBlock>Sign In</TextBlock>
+                        </StackPanel>
+                    </Button>
+                    <ItemsControl ItemsSource="{Binding Errors, Mode=TwoWay}" ItemTemplate="{StaticResource ValidationErrors}" Margin="0,15,0,15" />
+                </StackPanel>
+            </ScrollViewer>
+        </materialDesign:Card>
     </Grid>
 </UserControl>
