@@ -11,17 +11,21 @@ namespace Client.Infrastructure
         private readonly IAuthChannelFactory _factory;
         private readonly IMapper _mapper;
         private readonly ushort _port = Common.Ports.LocationServicePort;
+        private readonly ILogger _logger;
 
-        public LocationService(IAuthChannelFactory factory, IMapper mapper)
+        public LocationService(IAuthChannelFactory factory, IMapper mapper, ILogger logger)
         {
             _factory = factory;
             _mapper = mapper;
+            _logger = new AuthLoggerDecorator(logger, _factory.Username);
         }
 
         public Task<IEnumerable<LocationModel>> GetAllLocationsAsync()
         {
             return Task.Run(() =>
             {
+                _logger.Debug("Requesting list of all locations...");
+
                 var proxy = GetProxy();
                 var locationDtos = proxy.GetAll();
                 return locationDtos.Select(dto => _mapper.Map<LocationModel>(dto));

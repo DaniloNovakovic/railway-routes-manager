@@ -63,6 +63,7 @@ namespace Server
             }
 
             _unitOfWork.Locations.Remove(location);
+            _unitOfWork.SaveChanges();
         }
 
         public void Update(int key, LocationDto entity)

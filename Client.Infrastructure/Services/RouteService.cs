@@ -9,13 +9,15 @@ namespace Client.Infrastructure
     public class RouteService : IRouteService
     {
         private readonly IAuthChannelFactory _factory;
+        private readonly ILogger _logger;
         private readonly IMapper _mapper;
         private readonly ushort _port = Common.Ports.RouteServicePort;
 
-        public RouteService(IAuthChannelFactory factory, IMapper mapper)
+        public RouteService(IAuthChannelFactory factory, IMapper mapper, ILogger logger)
         {
             _factory = factory;
             _mapper = mapper;
+            _logger = new AuthLoggerDecorator(logger, _factory.Username);
         }
 
         public Task<int> AddRouteAsync(RouteModel route)
@@ -25,7 +27,9 @@ namespace Client.Infrastructure
             return Task.Run(() =>
             {
                 var proxy = GetProxy();
-                return proxy.Add(routeDto);
+                int id = proxy.Add(routeDto);
+                _logger.Info($"Added route {id}");
+                return id;
             });
         }
 
@@ -33,6 +37,7 @@ namespace Client.Infrastructure
         {
             return Task.Run(() =>
             {
+                _logger.Debug("Getting all routes...");
                 var proxy = GetProxy();
                 var routeDtos = proxy.GetAll();
                 return routeDtos.Select(routeDto => _mapper.Map<RouteModel>(routeDto));
@@ -43,6 +48,7 @@ namespace Client.Infrastructure
         {
             return Task.Run(() =>
             {
+                _logger.Debug($"Getting route {key}");
                 var proxy = GetProxy();
                 var dto = proxy.Get(key);
                 return _mapper.Map<RouteModel>(dto);
@@ -55,6 +61,7 @@ namespace Client.Infrastructure
             {
                 var proxy = GetProxy();
                 proxy.Remove(key);
+                _logger.Info($"Removed route {key}");
             });
         }
 
@@ -64,6 +71,7 @@ namespace Client.Infrastructure
             {
                 var proxy = GetProxy();
                 proxy.Resurrect(route.Id);
+                _logger.Info($"Resurrected route {route.Id}");
             });
         }
 
@@ -75,6 +83,7 @@ namespace Client.Infrastructure
             {
                 var proxy = GetProxy();
                 proxy.Update(route.Id, routeDto);
+                _logger.Info($"Updated route {route.Id}");
             });
         }
 

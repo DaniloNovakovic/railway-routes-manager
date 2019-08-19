@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Client.Core;
 using Common;
 
@@ -34,7 +33,7 @@ namespace Client.Infrastructure
             {
                 var proxy = GetProxy();
                 string roleName = proxy.Login(username, password);
-                _logger.Info($"{username}'s role: {roleName}");
+                _logger.Debug($"'{username}' logged in as {roleName}");
                 return roleName;
             });
         }
@@ -45,6 +44,7 @@ namespace Client.Infrastructure
             {
                 var proxy = GetProxy();
                 proxy.Logout(_factory.Username);
+                _logger.Debug($"'{_factory.Username}' logged out");
                 _factory.Username = "";
                 _factory.Password = "";
             });

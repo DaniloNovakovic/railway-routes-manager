@@ -187,6 +187,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Helpers\AuthChannelFactory.cs" />
+    <Compile Include="Helpers\AuthLoggerDecorator.cs" />
     <Compile Include="Helpers\IAuthChannelFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\AuthenticationService.cs" />
