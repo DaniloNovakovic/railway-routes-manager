@@ -10,6 +10,7 @@ namespace Server
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single, ConcurrencyMode = ConcurrencyMode.Multiple)]
     public class RailwayPlatformService : IRailwayPlatformService
     {
+        private readonly static object Mutex = new object();
         private readonly ILogger _logger;
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
@@ -23,16 +24,10 @@ namespace Server
 
         public int Add(RailwayPlatformDto entity)
         {
-            _logger.Debug("Adding new platform...");
-
-            var platform = _mapper.Map<RailwayPlatform>(entity);
-
-            var addedPlatform = _unitOfWork.RailwayPlatforms.Add(platform);
-            _unitOfWork.SaveChanges();
-
-            _logger.Info($"New platform {addedPlatform.Id} added!");
-
-            return addedPlatform.Id;
+            lock (Mutex)
+            {
+                return AddNew(entity);
+            }
         }
 
         public RailwayPlatformDto Get(int key)
@@ -53,43 +48,63 @@ namespace Server
 
         public void Remove(int key)
         {
-            _logger.Debug($"Removing platform {key}...");
-
-            var platform = _unitOfWork.RailwayPlatforms.Get(key);
-            if (platform is null)
+            lock (Mutex)
             {
-                _logger.Warn($"Requested platform {key} not found!");
-                throw new NotFoundException();
+                _logger.Debug($"Removing platform {key}...");
+
+                var platform = _unitOfWork.RailwayPlatforms.Get(key);
+                if (platform is null)
+                {
+                    _logger.Warn($"Requested platform {key} not found!");
+                    throw new NotFoundException();
+                }
+
+                _unitOfWork.RailwayPlatforms.Remove(platform);
+                _unitOfWork.SaveChanges();
+
+                _logger.Info($"Removed platform {key}");
             }
-
-            _unitOfWork.RailwayPlatforms.Remove(platform);
-            _unitOfWork.SaveChanges();
-
-            _logger.Info($"Removed platform {key}");
         }
 
         public void Update(int key, RailwayPlatformDto entity)
         {
-            _logger.Debug($"Updating platform {key}...");
-
-            var platform = _unitOfWork.RailwayPlatforms.Get(key);
-
-            if (platform is null)
+            lock (Mutex)
             {
-                _logger.Warn($"Requested platform {key} does not exist!");
-                entity.Id = key;
-                Add(entity);
-                return;
+                _logger.Debug($"Updating platform {key}...");
+
+                var platform = _unitOfWork.RailwayPlatforms.Get(key);
+
+                if (platform is null)
+                {
+                    _logger.Warn($"Requested platform {key} does not exist!");
+                    entity.Id = key;
+                    AddNew(entity);
+                    return;
+                }
+
+                platform.Mark = entity.Mark ?? platform.Mark;
+                platform.Name = entity.Name ?? platform.Name;
+                platform.RailwayStationId = entity.RailwayStationId ?? platform.RailwayStationId;
+                platform.EntranceType = entity.EntranceType;
+
+                _unitOfWork.SaveChanges();
+
+                _logger.Info($"Updated platform {key}");
             }
+        }
 
-            platform.Mark = entity.Mark ?? platform.Mark;
-            platform.Name = entity.Name ?? platform.Name;
-            platform.RailwayStationId = entity.RailwayStationId ?? platform.RailwayStationId;
-            platform.EntranceType = entity.EntranceType;
+        private int AddNew(RailwayPlatformDto entity)
+        {
+            _logger.Debug("Adding new platform...");
 
+            var platform = _mapper.Map<RailwayPlatform>(entity);
+
+            var addedPlatform = _unitOfWork.RailwayPlatforms.Add(platform);
             _unitOfWork.SaveChanges();
 
-            _logger.Info($"Updated platform {key}");
+            _logger.Info($"New platform {addedPlatform.Id} added!");
+
+            return addedPlatform.Id;
         }
     }
 }
