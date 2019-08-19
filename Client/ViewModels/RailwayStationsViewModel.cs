@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Client.Core;
@@ -25,17 +24,23 @@ namespace Client.ViewModels
             ILogger logger) : base(logger)
         {
             _stationService = stationService;
+            _platformService = platformService;
             _locationService = locationService;
             _logger = logger;
 
             RailwayStations = new ObservableCollection<RailwayStationModel>();
+
+            // Station commands
             AddCommand = new DelegateCommand(ShowAddStationForm);
             EditStationCommand = new DelegateCommand<RailwayStationModel>(ShowEditStationForm);
-            RefreshCommand = new DelegateCommand(async () => await RefreshStationsAsync());
             RemoveStationCommand = new DelegateCommand<RailwayStationModel>(async (route) => await RemoveStationAsync(route));
+
+            RefreshCommand = new DelegateCommand(async () => await RefreshStationsAsync());
+
+            // Platform commands
             AddPlatformCommand = new DelegateCommand<RailwayStationModel>(ShowAddPlatformForm);
+            EditPlatformCommand = new DelegateCommand<RailwayPlatformModel>(ShowEditPlatformForm);
             RemovePlatformCommand = new DelegateCommand<RailwayPlatformModel>(async (platform) => await RemovePlatformAsync(platform));
-            _platformService = platformService;
         }
 
         public ICommand AddCommand { get; }
@@ -115,6 +120,12 @@ namespace Client.ViewModels
         private void ShowAddStationForm()
         {
             FormViewModel = new AddStationFormViewModel(_stationService, _locationService, _logger, OnFormSubmitted);
+            IsDialogOpen = true;
+        }
+
+        private void ShowEditPlatformForm(RailwayPlatformModel platform)
+        {
+            FormViewModel = new EditPlatformFormViewModel(_platformService, _logger, platform, OnFormSubmitted);
             IsDialogOpen = true;
         }
 

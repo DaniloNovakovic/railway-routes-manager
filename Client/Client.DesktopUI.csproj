@@ -85,6 +85,7 @@
     <Compile Include="ViewModels\Forms\AddRouteFormViewModel.cs" />
     <Compile Include="ViewModels\Forms\AddStationFormViewModel.cs" />
     <Compile Include="ViewModels\Forms\AddUserFormViewModel.cs" />
+    <Compile Include="ViewModels\Forms\EditPlatformFormViewModel.cs" />
     <Compile Include="ViewModels\Forms\EditRouteFormViewModel.cs" />
     <Compile Include="ViewModels\Forms\EditStationFormViewModel.cs" />
     <Compile Include="ViewModels\LogViewModel.cs" />
