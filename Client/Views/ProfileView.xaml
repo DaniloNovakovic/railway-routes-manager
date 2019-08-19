@@ -68,7 +68,10 @@
 
         <Button Grid.Row="4" Grid.Column="2" MaxWidth="150"
                 Command="{Binding Path=SaveChangesCommand}" IsEnabled="{Binding Path=CanSaveChanges}">
-            Save Changes
+            <StackPanel Orientation="Horizontal">
+                <materialDesign:PackIcon Kind="ContentSave" VerticalAlignment="Center" />
+                <TextBlock Margin="5,0,0,0">Save Changes</TextBlock>
+            </StackPanel>
         </Button>
     </Grid>
 </UserControl>
