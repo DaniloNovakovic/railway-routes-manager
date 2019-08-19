@@ -32,17 +32,27 @@ namespace Server
 
         public LocationDto Get(int key)
         {
-            _logger.Debug($"Getting location {key}...");
+            Location location;
 
-            var location = _unitOfWork.Locations.Get(key);
+            lock (Mutex)
+            {
+                _logger.Debug($"Getting location {key}...");
+                location = _unitOfWork.Locations.Get(key);
+            }
+
             return _mapper.Map<LocationDto>(location);
         }
 
         public IEnumerable<LocationDto> GetAll()
         {
-            _logger.Debug("Getting all locations...");
+            IEnumerable<Location> locations;
 
-            var locations = _unitOfWork.Locations.GetAll();
+            lock (Mutex)
+            {
+                _logger.Debug("Getting all locations...");
+                locations = _unitOfWork.Locations.GetAll();
+            }
+
             return locations.Select(location => _mapper.Map<LocationDto>(location)).ToList();
         }
 

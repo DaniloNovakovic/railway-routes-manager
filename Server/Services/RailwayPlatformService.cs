@@ -32,17 +32,27 @@ namespace Server
 
         public RailwayPlatformDto Get(int key)
         {
-            _logger.Debug($"Getting platform {key}");
+            RailwayPlatform platform;
 
-            var platform = _unitOfWork.RailwayPlatforms.Get(key);
+            lock (Mutex)
+            {
+                _logger.Debug($"Getting platform {key}");
+                platform = _unitOfWork.RailwayPlatforms.Get(key);
+            }
+
             return _mapper.Map<RailwayPlatformDto>(platform);
         }
 
         public IEnumerable<RailwayPlatformDto> GetAll()
         {
-            _logger.Debug("Getting all platforms...");
+            IEnumerable<RailwayPlatform> platforms;
 
-            var platforms = _unitOfWork.RailwayPlatforms.GetAll();
+            lock (Mutex)
+            {
+                _logger.Debug("Getting all platforms...");
+                platforms = _unitOfWork.RailwayPlatforms.GetAll();
+            }
+
             return platforms.Select(platform => _mapper.Map<RailwayPlatformDto>(platform));
         }
 
