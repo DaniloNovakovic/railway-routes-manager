@@ -13,7 +13,7 @@ namespace Server
         {
             var logger = new Log4NetLogger();
 
-            logger.Info($"Running as {WindowsIdentity.GetCurrent().Name}");
+            logger.Debug($"Running as {WindowsIdentity.GetCurrent().Name}");
 
             var dbContext = GetDbContext(DefaultConnectionName, logger);
 
@@ -24,7 +24,7 @@ namespace Server
 
                 HostStartup.StartHosts(hosts, logger);
 
-                logger.Info("Press ENTER to close server...");
+                Console.Write("Press ENTER to close server...");
                 Console.ReadLine();
 
                 HostStartup.CloseHosts(hosts, logger);
@@ -33,9 +33,10 @@ namespace Server
 
         private static ApplicationDbContext GetDbContext(string nameOrConnectionString, ILogger logger)
         {
-            logger.Info("Starting up database...");
+            logger.Debug("Starting up database...");
             var dbContext = new ApplicationDbContext(nameOrConnectionString);
             dbContext.Database.CreateIfNotExists();
+            logger.Info("Database started");
             return dbContext;
         }
     }

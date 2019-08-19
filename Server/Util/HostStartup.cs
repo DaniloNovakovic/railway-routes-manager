@@ -9,7 +9,7 @@ namespace Server
     {
         public static void CloseHosts(IEnumerable<System.ServiceModel.ICommunicationObject> hosts, ILogger logger)
         {
-            logger.Info("Closing hosts...");
+            logger.Debug("Closing hosts...");
 
             var tasks = new List<Task>();
 
@@ -35,7 +35,7 @@ namespace Server
 
         public static void StartHosts(IEnumerable<System.ServiceModel.ICommunicationObject> hosts, ILogger logger)
         {
-            logger.Info("Starting hosts...");
+            logger.Debug("Starting hosts...");
 
             var tasks = new List<Task>();
 

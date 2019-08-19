@@ -10,6 +10,7 @@ namespace Server
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single, ConcurrencyMode = ConcurrencyMode.Multiple)]
     public class LocationService : ILocationService
     {
+        private static readonly object Mutex = new object();
         private readonly ILogger _logger;
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
@@ -23,15 +24,10 @@ namespace Server
 
         public int Add(LocationDto entity)
         {
-            _logger.Debug("Adding new location...");
-
-            var location = _mapper.Map<Location>(entity);
-
-            var addedLocation = _unitOfWork.Locations.Add(location);
-            _unitOfWork.SaveChanges();
-
-            _logger.Info($"Added location {addedLocation.Id}!");
-            return addedLocation.Id;
+            lock (Mutex)
+            {
+                return AddNew(entity);
+            }
         }
 
         public LocationDto Get(int key)
@@ -52,40 +48,59 @@ namespace Server
 
         public void Remove(int key)
         {
-            _logger.Debug($"Removing Location {key}...");
-
-            var location = _unitOfWork.Locations.Get(key);
-
-            if (location is null)
+            lock (Mutex)
             {
-                _logger.Warn($"Location {key} not found!");
-                throw new NotFoundException();
+                _logger.Debug($"Removing Location {key}...");
+
+                var location = _unitOfWork.Locations.Get(key);
+
+                if (location is null)
+                {
+                    _logger.Warn($"Location {key} not found!");
+                    throw new NotFoundException();
+                }
+
+                _unitOfWork.Locations.Remove(location);
+                _unitOfWork.SaveChanges();
+
+                _logger.Info($"Removed Location {key}");
             }
-
-            _unitOfWork.Locations.Remove(location);
-            _unitOfWork.SaveChanges();
-
-            _logger.Info($"Removed Location {key}");
         }
 
         public void Update(int key, LocationDto entity)
         {
-            _logger.Debug($"Updating location {key}...");
-
-            var location = _unitOfWork.Locations.Get(key);
-
-            if (location is null)
+            lock (Mutex)
             {
-                _logger.Warn($"Could not find location {key}!");
-                entity.Id = key;
-                Add(entity);
-                return;
-            }
+                _logger.Debug($"Updating location {key}...");
 
-            _mapper.Map(entity, location);
+                var location = _unitOfWork.Locations.Get(key);
+
+                if (location is null)
+                {
+                    _logger.Warn($"Could not find location {key}!");
+                    entity.Id = key;
+                    AddNew(entity);
+                    return;
+                }
+
+                _mapper.Map(entity, location);
+                _unitOfWork.SaveChanges();
+
+                _logger.Info($"Updated location {key}");
+            }
+        }
+
+        private int AddNew(LocationDto entity)
+        {
+            _logger.Debug("Adding new location...");
+
+            var location = _mapper.Map<Location>(entity);
+
+            var addedLocation = _unitOfWork.Locations.Add(location);
             _unitOfWork.SaveChanges();
 
-            _logger.Info($"Updated location {key}");
+            _logger.Info($"Added location {addedLocation.Id}!");
+            return addedLocation.Id;
         }
     }
 }
