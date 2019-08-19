@@ -10,9 +10,10 @@ namespace Server
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single, ConcurrencyMode = ConcurrencyMode.Multiple)]
     public class RouteService : IRouteService
     {
+        private static readonly object Mutex = new object();
+        private readonly ILogger _logger;
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
-        private readonly ILogger _logger;
 
         public RouteService(IUnitOfWork unitOfWork, IMapper mapper, ILogger logger)
         {
@@ -23,83 +24,97 @@ namespace Server
 
         public int Add(RouteDto entity)
         {
-            _logger.Debug($"Add route {entity.Id} request...");
-
-            var dbRoute = _unitOfWork.Routes.GetDeleted(entity.Id);
-            if (dbRoute != null)
+            lock (Mutex)
             {
-                OverwriteExisting(entity, dbRoute);
-                return entity.Id;
+                _logger.Debug($"Add route {entity.Id} request...");
+
+                var dbRoute = _unitOfWork.Routes.GetDeleted(entity.Id);
+                if (dbRoute != null)
+                {
+                    OverwriteExisting(entity, dbRoute);
+                    return entity.Id;
+                }
+                return AddNew(entity);
             }
-            return AddNew(entity);
         }
 
         public RouteDto Get(int key)
         {
-            _logger.Debug($"Getting Route {key}...");
+            Route route;
 
-            var route = _unitOfWork.Routes.Get(key);
+            lock (Mutex)
+            {
+                _logger.Debug($"Getting Route {key}...");
+                route = _unitOfWork.Routes.Get(key);
+            }
+
             return _mapper.Map<RouteDto>(route);
         }
 
         public IEnumerable<RouteDto> GetAll()
         {
-            _logger.Debug($"Getting list of all routes...");
+            IEnumerable<Route> routes;
 
-            var routes = _unitOfWork.Routes.GetAll();
+            lock (Mutex)
+            {
+                _logger.Debug($"Getting list of all routes...");
+                routes = _unitOfWork.Routes.GetAll();
+            }
+
             return routes.Select(route => _mapper.Map<RouteDto>(route));
         }
 
         public void Remove(int key)
         {
-            _logger.Debug($"Attempting to remove route {key}...");
-
-            var route = _unitOfWork.Routes.Get(key);
-
-            if (route is null)
+            lock (Mutex)
             {
-                _logger.Warn($"Route {key} not found!");
-                throw new NotFoundException();
+                _logger.Debug($"Attempting to remove route {key}...");
+
+                var route = _unitOfWork.Routes.Get(key);
+
+                if (route is null)
+                {
+                    _logger.Warn($"Route {key} not found!");
+                    throw new NotFoundException();
+                }
+
+                _unitOfWork.Routes.Remove(route);
+                _unitOfWork.SaveChanges();
+
+                _logger.Info($"Removed route {key}");
             }
-
-            _unitOfWork.Routes.Remove(route);
-            _unitOfWork.SaveChanges();
-
-            _logger.Info($"Removed route {key}");
         }
 
         public void Resurrect(int key)
         {
-            _logger.Debug($"Resurrecting Route {key} if it is logically deleted...");
-
-            bool resurrected = _unitOfWork.Routes.Resurrect(key);
-            _unitOfWork.SaveChanges();
-
-            if (resurrected)
+            lock (Mutex)
             {
-                _logger.Info($"Resurrected route {key}");
+                TryRessurect(key);
             }
         }
 
         public void Update(int key, RouteDto entity)
         {
-            _logger.Debug($"Updating Route {key}...");
-
-            Resurrect(key);
-
-            var route = _unitOfWork.Routes.Get(key);
-
-            route.Mark = entity.Mark ?? route.Mark;
-            route.Name = entity.Name ?? route.Name;
-
-            if (entity.RailwayStations != null)
+            lock (Mutex)
             {
-                route.RailwayStations = GetStations(entity);
+                _logger.Debug($"Updating Route {key}...");
+
+                TryRessurect(key);
+
+                var route = _unitOfWork.Routes.Get(key);
+
+                route.Mark = entity.Mark ?? route.Mark;
+                route.Name = entity.Name ?? route.Name;
+
+                if (entity.RailwayStations != null)
+                {
+                    route.RailwayStations = GetStations(entity);
+                }
+
+                _unitOfWork.SaveChanges();
+
+                _logger.Info($"Updated Route {key}");
             }
-
-            _unitOfWork.SaveChanges();
-
-            _logger.Info($"Updated Route {key}");
         }
 
         private int AddNew(RouteDto entity)
@@ -135,6 +150,19 @@ namespace Server
             _unitOfWork.SaveChanges();
 
             _logger.Info($"Overwrote route {dbRoute.Id}!");
+        }
+
+        private void TryRessurect(int key)
+        {
+            _logger.Debug($"Resurrecting Route {key} if it is logically deleted...");
+
+            bool resurrected = _unitOfWork.Routes.Resurrect(key);
+            _unitOfWork.SaveChanges();
+
+            if (resurrected)
+            {
+                _logger.Info($"Resurrected route {key}");
+            }
         }
     }
 }
