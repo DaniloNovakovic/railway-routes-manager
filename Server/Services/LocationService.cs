@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
 using AutoMapper;
@@ -24,12 +23,23 @@ namespace Server
 
         public int Add(LocationDto entity)
         {
-            throw new NotImplementedException();
+            _logger.Info("Adding new location...");
+
+            var location = _mapper.Map<Location>(entity);
+
+            var addedLocation = _unitOfWork.Locations.Add(location);
+            _unitOfWork.SaveChanges();
+
+            _logger.Info($"Added location {addedLocation.Id}!");
+            return addedLocation.Id;
         }
 
         public LocationDto Get(int key)
         {
-            throw new NotImplementedException();
+            _logger.Info($"Getting location {key}...");
+
+            var location = _unitOfWork.Locations.Get(key);
+            return _mapper.Map<LocationDto>(location);
         }
 
         public IEnumerable<LocationDto> GetAll()
@@ -42,12 +52,35 @@ namespace Server
 
         public void Remove(int key)
         {
-            throw new NotImplementedException();
+            _logger.Info($"Removing Location {key}...");
+
+            var location = _unitOfWork.Locations.Get(key);
+
+            if (location is null)
+            {
+                _logger.Warn($"Location {key} not found!");
+                throw new NotFoundException();
+            }
+
+            _unitOfWork.Locations.Remove(location);
         }
 
         public void Update(int key, LocationDto entity)
         {
-            throw new NotImplementedException();
+            _logger.Info($"Updating location {key}...");
+
+            var location = _unitOfWork.Locations.Get(key);
+
+            if (location is null)
+            {
+                _logger.Warn($"Could not find location {key}!");
+                entity.Id = key;
+                Add(entity);
+                return;
+            }
+
+            _mapper.Map(entity, location);
+            _unitOfWork.SaveChanges();
         }
     }
 }
