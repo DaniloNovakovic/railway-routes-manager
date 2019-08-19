@@ -14,9 +14,11 @@
     </i:Interaction.Triggers>
 
     <Grid>
-        <DockPanel LastChildFill="True">
-            <views:AdminNavView DockPanel.Dock="Top" Margin="5" />
-            <ContentControl prism:RegionManager.RegionName="{x:Static core:RegionNames.AuthContentRegion}"  Margin="5" />
-        </DockPanel>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="1*" />
+        </Grid.RowDefinitions>
+        <views:AdminNavView Grid.Row="0" Margin="5" />
+        <ContentControl Grid.Row="1" Margin="5" prism:RegionManager.RegionName="{x:Static core:RegionNames.AuthContentRegion}" />
     </Grid>
 </UserControl>

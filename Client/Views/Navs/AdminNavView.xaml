@@ -6,30 +6,44 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              prism:ViewModelLocator.AutoWireViewModel="True">
 
-    <StackPanel Orientation="Horizontal"  Margin="5">
-        <Button Command="{Binding NavigateCommand}" CommandParameter="{x:Static core:NavigationPaths.RailwayListPath}" 
-                ToolTip="Railway Routes" Margin="5">
-            <materialDesign:PackIcon Kind="Routes" />
-        </Button>
-        <Button Command="{Binding NavigateCommand}" CommandParameter="{x:Static core:NavigationPaths.RailwayStationsPath}" 
-                ToolTip="Railway Stations" Margin="5">
-            <materialDesign:PackIcon Kind="Train" />
-        </Button>
-        <Button Command="{Binding NavigateCommand}" CommandParameter="{x:Static core:NavigationPaths.LogPath}" 
-                ToolTip="Log" Margin="5">
-            <materialDesign:PackIcon Kind="Book" />
-        </Button>
-        <Button Command="{Binding NavigateCommand}" CommandParameter="{x:Static core:NavigationPaths.UserListPath}" 
-                ToolTip="Users" Margin="5">
-            <materialDesign:PackIcon Kind="Users" />
-        </Button>
-        <Button Command="{Binding NavigateCommand}" CommandParameter="{x:Static core:NavigationPaths.ProfilePath}" 
-                ToolTip="Profile" Margin="5">
-            <materialDesign:PackIcon Kind="Account" />
-        </Button>
-        <Button Command="{Binding LogoutCommand}"  
-                ToolTip="Sign Out" Margin="5">
-            <materialDesign:PackIcon Kind="SignOut" />
-        </Button>
-    </StackPanel>
+    <DockPanel Margin="5">
+        <Menu DockPanel.Dock="Top" IsMainMenu="True">
+            <MenuItem Header="Routes" Command="{Binding NavigateCommand}"
+                      CommandParameter="{x:Static core:NavigationPaths.RailwayListPath}">
+                <MenuItem.Icon>
+                    <materialDesign:PackIcon Kind="Routes" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Command="{Binding NavigateCommand}" CommandParameter="{x:Static core:NavigationPaths.RailwayStationsPath}"
+                Header="Stations">
+                <MenuItem.Icon>
+                    <materialDesign:PackIcon Kind="Train" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Command="{Binding NavigateCommand}" CommandParameter="{x:Static core:NavigationPaths.LogPath}"
+                Header="Log">
+                <MenuItem.Icon>
+                    <materialDesign:PackIcon Kind="Book" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Command="{Binding NavigateCommand}" CommandParameter="{x:Static core:NavigationPaths.UserListPath}"
+                Header="Users">
+                <MenuItem.Icon>
+                    <materialDesign:PackIcon Kind="Users" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Command="{Binding NavigateCommand}" CommandParameter="{x:Static core:NavigationPaths.ProfilePath}"
+                Header="Profile">
+                <MenuItem.Icon>
+                    <materialDesign:PackIcon Kind="Account" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Command="{Binding LogoutCommand}"
+                Header="Sign Out">
+                <MenuItem.Icon>
+                    <materialDesign:PackIcon Kind="SignOut" />
+                </MenuItem.Icon>
+            </MenuItem>
+        </Menu>
+    </DockPanel>
 </UserControl>
