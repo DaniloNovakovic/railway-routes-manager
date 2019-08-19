@@ -19,6 +19,16 @@ namespace Client.ViewModels
             _onPlatformAdded = onPlatformAdded;
         }
 
+        public AddPlatformFormViewModel(
+            IRailwayPlatformService platformService,
+            ILogger logger,
+            RailwayPlatformModel platformModel,
+            Action onPlatformAdded = null) : base(logger, platformModel)
+        {
+            _platformService = platformService;
+            _onPlatformAdded = onPlatformAdded;
+        }
+
         public override Task OnSubmitAsync()
         {
             return SafeExecuteAsync(

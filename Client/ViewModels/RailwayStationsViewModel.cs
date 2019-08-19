@@ -33,7 +33,7 @@ namespace Client.ViewModels
             EditStationCommand = new DelegateCommand<RailwayStationModel>(ShowEditStationForm);
             RefreshCommand = new DelegateCommand(async () => await RefreshStationsAsync());
             RemoveStationCommand = new DelegateCommand<RailwayStationModel>(async (route) => await RemoveStationAsync(route));
-            AddPlatformCommand = new DelegateCommand(ShowAddPlatformForm);
+            AddPlatformCommand = new DelegateCommand<RailwayStationModel>(ShowAddPlatformForm);
             RemovePlatformCommand = new DelegateCommand<RailwayPlatformModel>(async (platform) => await RemovePlatformAsync(platform));
             _platformService = platformService;
         }
@@ -105,9 +105,10 @@ namespace Client.ViewModels
             await RefreshStationsAsync();
         }
 
-        private void ShowAddPlatformForm()
+        private void ShowAddPlatformForm(RailwayStationModel station)
         {
-            FormViewModel = new AddPlatformFormViewModel(_platformService, _logger, OnFormSubmitted);
+            var platform = new RailwayPlatformModel() { RailwayStationId = station.Id };
+            FormViewModel = new AddPlatformFormViewModel(_platformService, _logger, platform, OnFormSubmitted);
             IsDialogOpen = true;
         }
 

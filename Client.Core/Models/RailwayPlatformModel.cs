@@ -50,7 +50,8 @@ namespace Client.Core
                 Id = Id,
                 Name = Name,
                 Mark = Mark,
-                EntranceType = EntranceType
+                EntranceType = EntranceType,
+                RailwayStationId = RailwayStationId
             };
         }
 
