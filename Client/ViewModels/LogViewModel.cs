@@ -5,12 +5,13 @@ using System.Reflection;
 using System.Threading.Tasks;
 using Client.Core;
 using Client.Helpers;
+using Prism.Events;
 
 namespace Client.ViewModels
 {
     public class LogViewModel : ViewModelBase
     {
-        public LogViewModel(ILogger logger) : base(logger)
+        public LogViewModel(ILogger logger, IEventAggregator eventAggregator) : base(logger, eventAggregator)
         {
             LogModels = new ObservableCollection<LogModel>();
         }
@@ -63,6 +64,7 @@ namespace Client.ViewModels
             catch (Exception ex)
             {
                 Logger.Exception(ex.Message);
+                EventAggregator.GetEvent<SnackbarMessageEvent>().Publish(ex.Message);
                 return string.Empty;
             }
         }

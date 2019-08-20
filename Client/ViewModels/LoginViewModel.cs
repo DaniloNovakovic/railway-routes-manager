@@ -6,6 +6,7 @@ using System.Windows.Input;
 using Client.Core;
 using Common;
 using Prism.Commands;
+using Prism.Events;
 using Prism.Mvvm;
 using Prism.Regions;
 
@@ -17,10 +18,11 @@ namespace Client.ViewModels
 
         private readonly ILogger _logger;
         private readonly IRegionManager _regionManager;
+        private readonly IEventAggregator _eventAggregator;
         private bool _canLogIn = true;
         private ICollection<string> _errors = new List<string>();
 
-        public LoginViewModel(IAuthenticationService authService, IRegionManager regionManager, ILogger logger)
+        public LoginViewModel(IAuthenticationService authService, IRegionManager regionManager, ILogger logger, IEventAggregator eventAggregator)
         {
             _authService = authService;
             _regionManager = regionManager;
@@ -29,6 +31,7 @@ namespace Client.ViewModels
             LoginModel.ErrorsChanged += (s, e) => Errors = DictionaryFlattener.Flatten(LoginModel.GetAllErrors());
             LoginCommand = new DelegateCommand<object>(async (obj) => await LoginClickAsync(obj));
             NavigateCommand = new DelegateCommand<string>(Navigate);
+            _eventAggregator = eventAggregator;
         }
 
         public bool CanLogIn
@@ -89,8 +92,10 @@ namespace Client.ViewModels
             }
             catch (Exception ex)
             {
-                Errors = new List<string>() { ex.InnerException?.Message ?? ex.Message };
+                string message = ex.InnerException?.Message ?? ex.Message;
+                Errors = new List<string>() { message };
                 _logger.Exception(ex.ToString());
+                _eventAggregator.GetEvent<SnackbarMessageEvent>().Publish(message);
             }
             finally
             {

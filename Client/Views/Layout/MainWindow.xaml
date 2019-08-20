@@ -4,6 +4,7 @@
         xmlns:prism="http://prismlibrary.com/"
         xmlns:core="clr-namespace:Client.Core;assembly=Client.Core"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         prism:ViewModelLocator.AutoWireViewModel="True"
         MinHeight="500" MinWidth="700" Height="600" Width="800"
         WindowStartupLocation="CenterScreen"
@@ -23,5 +24,8 @@
 
     <Grid>
         <ContentControl prism:RegionManager.RegionName="{x:Static core:RegionNames.WindowRegion}" Margin="5" />
+        <DockPanel VerticalAlignment="Bottom">
+            <materialDesign:Snackbar MessageQueue="{Binding MessageQueue}" />
+        </DockPanel>
     </Grid>
 </Window>

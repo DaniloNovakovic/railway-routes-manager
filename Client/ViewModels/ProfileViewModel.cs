@@ -4,6 +4,7 @@ using System.Windows.Input;
 using Client.Core;
 using Client.Helpers;
 using Prism.Commands;
+using Prism.Events;
 
 namespace Client.ViewModels
 {
@@ -13,7 +14,7 @@ namespace Client.ViewModels
         private bool _canSaveChanges = true;
         private UserModel _userModel;
 
-        public ProfileViewModel(IUserService userService, ILogger logger) : base(logger)
+        public ProfileViewModel(IUserService userService, ILogger logger, IEventAggregator eventAggregator) : base(logger, eventAggregator)
         {
             _userService = userService;
 

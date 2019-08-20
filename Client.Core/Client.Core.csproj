@@ -187,6 +187,7 @@
     <Compile Include="CommandManager.cs" />
     <Compile Include="Commands\AddRouteCommand.cs" />
     <Compile Include="Commands\EditRouteCommand.cs" />
+    <Compile Include="Events\SnackbarMessageEvent.cs" />
     <Compile Include="Interfaces\IUndoableCommand.cs" />
     <Compile Include="Commands\RemoveRouteCommand.cs" />
     <Compile Include="Commands\UndoableCommand.cs" />

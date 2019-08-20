@@ -4,17 +4,20 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Client.Core;
 using Prism.Commands;
+using Prism.Events;
 using Prism.Mvvm;
 
 namespace Client.Helpers
 {
     public abstract class ViewModelBase : BindableBase
     {
+        protected readonly IEventAggregator EventAggregator;
         protected readonly ILogger Logger;
 
-        protected ViewModelBase(ILogger logger = null)
+        protected ViewModelBase(ILogger logger = null, IEventAggregator eventAggregator = null)
         {
             Logger = logger;
+            EventAggregator = eventAggregator;
 
             OnLoadedCommand = new DelegateCommand(async () => await OnLoadedAsync());
         }
@@ -45,19 +48,28 @@ namespace Client.Helpers
             catch (Exception ex)
             {
                 string message = ex.InnerException?.Message ?? ex.Message;
-
-                if (Logger != null)
-                {
-                    Logger.Exception(message);
-                }
-                else
-                {
-                    Trace.TraceError(message);
-                }
+                OnError(message);
             }
             finally
             {
                 @finally?.Invoke();
+            }
+        }
+
+        private void OnError(string message)
+        {
+            if (Logger != null)
+            {
+                Logger.Exception(message);
+            }
+            else
+            {
+                Trace.TraceError(message);
+            }
+
+            if (EventAggregator != null)
+            {
+                EventAggregator.GetEvent<SnackbarMessageEvent>().Publish(message);
             }
         }
     }

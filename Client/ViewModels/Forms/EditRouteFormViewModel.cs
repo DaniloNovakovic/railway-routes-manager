@@ -2,10 +2,11 @@
 using System.Threading.Tasks;
 using Client.Core;
 using Client.Helpers;
+using Prism.Events;
 
 namespace Client.ViewModels
 {
-    public class EditRouteFormViewModel : RouteFormViewModel
+    public class EditRouteFormViewModel : RouteFormViewModelBase
     {
         private readonly ICommandManager _commandManager;
         private readonly Action _onRouteUpdated;
@@ -17,7 +18,8 @@ namespace Client.ViewModels
             ICommandManager commandManager,
             ILogger logger,
             RouteModel route,
-            Action onRouteUpdated = null) : base(stationService, logger, route)
+            Action onRouteUpdated = null,
+            IEventAggregator eventAggregator = null) : base(stationService, logger, route, eventAggregator)
         {
             _routeService = routeService;
             _onRouteUpdated = onRouteUpdated;

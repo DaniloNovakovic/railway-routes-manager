@@ -2,10 +2,11 @@
 using System.Threading.Tasks;
 using Client.Core;
 using Client.Helpers;
+using Prism.Events;
 
 namespace Client.ViewModels
 {
-    public class AddPlatformFormViewModel : PlatformFormViewModel
+    public class AddPlatformFormViewModel : PlatformFormViewModelBase
     {
         private readonly Action _onPlatformAdded;
         private readonly IRailwayPlatformService _platformService;
@@ -13,7 +14,8 @@ namespace Client.ViewModels
         public AddPlatformFormViewModel(
             IRailwayPlatformService platformService,
             ILogger logger,
-            Action onPlatformAdded = null) : base(logger, new RailwayPlatformModel())
+            Action onPlatformAdded = null,
+            IEventAggregator eventAggregator = null) : base(logger, new RailwayPlatformModel(), eventAggregator)
         {
             _platformService = platformService;
             _onPlatformAdded = onPlatformAdded;
@@ -23,7 +25,8 @@ namespace Client.ViewModels
             IRailwayPlatformService platformService,
             ILogger logger,
             RailwayPlatformModel platformModel,
-            Action onPlatformAdded = null) : base(logger, platformModel)
+            Action onPlatformAdded = null,
+            IEventAggregator eventAggregator = null) : base(logger, platformModel, eventAggregator)
         {
             _platformService = platformService;
             _onPlatformAdded = onPlatformAdded;

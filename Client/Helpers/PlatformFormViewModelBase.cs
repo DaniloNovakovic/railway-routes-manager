@@ -6,21 +6,22 @@ using System.Windows.Input;
 using Client.Core;
 using Common;
 using Prism.Commands;
+using Prism.Events;
 
 namespace Client.Helpers
 {
-    public abstract class PlatformFormViewModel : ViewModelBase
+    public abstract class PlatformFormViewModelBase : ViewModelBase
     {
         private bool _canSubmit;
         private RailwayPlatformModel _routeModel;
 
         #region ctors
 
-        protected PlatformFormViewModel(ILogger logger) : this(logger, new RailwayPlatformModel())
+        protected PlatformFormViewModelBase(ILogger logger, IEventAggregator eventAggregator = null) : this(logger, new RailwayPlatformModel(), eventAggregator)
         {
         }
 
-        protected PlatformFormViewModel(ILogger logger, RailwayPlatformModel platform) : base(logger)
+        protected PlatformFormViewModelBase(ILogger logger, RailwayPlatformModel platform, IEventAggregator eventAggregator = null) : base(logger, eventAggregator)
         {
             InitEntranceTypes();
 

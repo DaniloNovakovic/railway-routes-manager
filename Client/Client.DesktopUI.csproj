@@ -77,8 +77,8 @@
     <Compile Include="Extensions\LoggerContainerRegistryExtension.cs" />
     <Compile Include="Helpers\AuthNavViewModelBase.cs" />
     <Compile Include="Helpers\NavViewModelBase.cs" />
-    <Compile Include="Helpers\PlatformFormViewModel.cs" />
-    <Compile Include="Helpers\StationFormViewModel.cs" />
+    <Compile Include="Helpers\PlatformFormViewModelBase.cs" />
+    <Compile Include="Helpers\StationFormViewModelBase.cs" />
     <Compile Include="Helpers\ViewModelBase.cs" />
     <Compile Include="Logging\Log4NetLogger.cs" />
     <Compile Include="ViewModels\Forms\AddPlatformFormViewModel.cs" />
@@ -98,7 +98,7 @@
     <Compile Include="ViewModels\RegisterViewModel.cs" />
     <Compile Include="ViewModels\Navs\RegularUserNavViewModel.cs" />
     <Compile Include="ViewModels\Layout\RegularUserViewModel.cs" />
-    <Compile Include="Helpers\RouteFormViewModel.cs" />
+    <Compile Include="Helpers\RouteFormViewModelBase.cs" />
     <Compile Include="ViewModels\UserListViewModel.cs" />
     <Compile Include="Views\Forms\AddUserForm.xaml.cs">
       <DependentUpon>AddUserForm.xaml</DependentUpon>

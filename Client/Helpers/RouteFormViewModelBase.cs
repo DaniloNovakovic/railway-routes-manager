@@ -4,10 +4,11 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Client.Core;
 using Prism.Commands;
+using Prism.Events;
 
 namespace Client.Helpers
 {
-    public abstract class RouteFormViewModel : ViewModelBase
+    public abstract class RouteFormViewModelBase : ViewModelBase
     {
         protected readonly IRailwayStationService _stationService;
         private readonly RouteModel _originalRoute;
@@ -16,11 +17,11 @@ namespace Client.Helpers
 
         #region ctors
 
-        protected RouteFormViewModel(IRailwayStationService stationService, ILogger logger) : this(stationService, logger, new RouteModel())
+        protected RouteFormViewModelBase(IRailwayStationService stationService, ILogger logger, IEventAggregator eventAggregator = null) : this(stationService, logger, new RouteModel(), eventAggregator)
         {
         }
 
-        protected RouteFormViewModel(IRailwayStationService stationService, ILogger logger, RouteModel route) : base(logger)
+        protected RouteFormViewModelBase(IRailwayStationService stationService, ILogger logger, RouteModel route, IEventAggregator eventAggregator = null) : base(logger, eventAggregator)
         {
             _stationService = stationService;
 

@@ -4,6 +4,7 @@ using System.Windows.Input;
 using Client.Core;
 using Client.Helpers;
 using Prism.Commands;
+using Prism.Events;
 using Prism.Mvvm;
 
 namespace Client.ViewModels
@@ -22,7 +23,8 @@ namespace Client.ViewModels
             IRouteService routeService,
             IRailwayStationService stationService,
             ICommandManager commandManager,
-            ILogger logger) : base(logger)
+            ILogger logger,
+            IEventAggregator eventAggregator) : base(logger, eventAggregator)
         {
             _routeService = routeService;
             _stationService = stationService;
@@ -147,14 +149,14 @@ namespace Client.ViewModels
 
         private void ShowAddRouteForm()
         {
-            FormViewModel = new AddRouteFormViewModel(_routeService, _stationService, _commandManager, Logger, OnRouteSubmited);
+            FormViewModel = new AddRouteFormViewModel(_routeService, _stationService, _commandManager, Logger, OnRouteSubmited, EventAggregator);
             IsDialogOpen = true;
         }
 
         private void ShowEditRouteForm(RouteModel route)
         {
             var routeCopy = route.Clone() as RouteModel ?? new RouteModel();
-            FormViewModel = new EditRouteFormViewModel(_routeService, _stationService, _commandManager, Logger, routeCopy, OnRouteSubmited);
+            FormViewModel = new EditRouteFormViewModel(_routeService, _stationService, _commandManager, Logger, routeCopy, OnRouteSubmited, EventAggregator);
             IsDialogOpen = true;
         }
     }

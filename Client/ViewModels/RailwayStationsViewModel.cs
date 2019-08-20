@@ -4,6 +4,7 @@ using System.Windows.Input;
 using Client.Core;
 using Client.Helpers;
 using Prism.Commands;
+using Prism.Events;
 using Prism.Mvvm;
 
 namespace Client.ViewModels
@@ -21,7 +22,8 @@ namespace Client.ViewModels
             IRailwayStationService stationService,
             IRailwayPlatformService platformService,
             ILocationService locationService,
-            ILogger logger) : base(logger)
+            ILogger logger,
+            IEventAggregator eventAggregator) : base(logger, eventAggregator)
         {
             _stationService = stationService;
             _platformService = platformService;
@@ -113,25 +115,25 @@ namespace Client.ViewModels
         private void ShowAddPlatformForm(RailwayStationModel station)
         {
             var platform = new RailwayPlatformModel() { RailwayStationId = station.Id };
-            FormViewModel = new AddPlatformFormViewModel(_platformService, _logger, platform, OnFormSubmitted);
+            FormViewModel = new AddPlatformFormViewModel(_platformService, _logger, platform, OnFormSubmitted, EventAggregator);
             IsDialogOpen = true;
         }
 
         private void ShowAddStationForm()
         {
-            FormViewModel = new AddStationFormViewModel(_stationService, _locationService, _logger, OnFormSubmitted);
+            FormViewModel = new AddStationFormViewModel(_stationService, _locationService, _logger, OnFormSubmitted, EventAggregator);
             IsDialogOpen = true;
         }
 
         private void ShowEditPlatformForm(RailwayPlatformModel platform)
         {
-            FormViewModel = new EditPlatformFormViewModel(_platformService, _logger, platform, OnFormSubmitted);
+            FormViewModel = new EditPlatformFormViewModel(_platformService, _logger, platform, OnFormSubmitted, EventAggregator);
             IsDialogOpen = true;
         }
 
         private void ShowEditStationForm(RailwayStationModel station)
         {
-            FormViewModel = new EditStationFormViewModel(_stationService, _locationService, _logger, station, OnFormSubmitted);
+            FormViewModel = new EditStationFormViewModel(_stationService, _locationService, _logger, station, OnFormSubmitted, EventAggregator);
             IsDialogOpen = true;
         }
     }

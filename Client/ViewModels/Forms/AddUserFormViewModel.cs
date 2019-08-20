@@ -15,7 +15,7 @@ namespace Client.ViewModels
         private bool _canAddUser;
         private UserModel _userModel;
 
-        public AddUserFormViewModel(IUserService userService, IEventAggregator eventAggregator, ILogger logger) : base(logger)
+        public AddUserFormViewModel(IUserService userService, IEventAggregator eventAggregator, ILogger logger) : base(logger, eventAggregator)
         {
             _userService = userService;
             _eventAggregator = eventAggregator;

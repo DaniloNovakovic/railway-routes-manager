@@ -2,10 +2,11 @@
 using System.Threading.Tasks;
 using Client.Core;
 using Client.Helpers;
+using Prism.Events;
 
 namespace Client.ViewModels
 {
-    public class EditStationFormViewModel : StationFormViewModel
+    public class EditStationFormViewModel : StationFormViewModelBase
     {
         private readonly IRailwayStationService _stationService;
         private readonly Action _onStationAdded;
@@ -15,7 +16,8 @@ namespace Client.ViewModels
             ILocationService locationService,
             ILogger logger,
             RailwayStationModel station,
-            Action onStationAdded = null) : base(locationService, logger, station)
+            Action onStationAdded = null,
+            IEventAggregator eventAggregator = null) : base(locationService, logger, station, eventAggregator)
         {
             _stationService = stationService;
             _onStationAdded = onStationAdded;

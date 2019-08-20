@@ -18,7 +18,7 @@ namespace Client.ViewModels.Tests
             _authServiceMock = new Mock<IAuthenticationService>();
             _regionManagerMock = new Mock<IRegionManager>();
             _loggerMock = new Mock<ILogger>();
-            _sut = new LoginViewModel(_authServiceMock.Object, _regionManagerMock.Object, _loggerMock.Object);
+            _sut = new LoginViewModel(_authServiceMock.Object, _regionManagerMock.Object, _loggerMock.Object, null);
         }
 
         [Theory]
