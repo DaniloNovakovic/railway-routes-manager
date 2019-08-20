@@ -14,8 +14,6 @@ namespace Client.ViewModels
         private readonly ICommandManager _commandManager;
         private readonly IRouteService _routeService;
         private readonly IRailwayStationService _stationService;
-        private bool _canRedo;
-        private bool _canUndo;
         private BindableBase _formViewModel;
         private bool _isDialogOpen;
 
@@ -29,32 +27,24 @@ namespace Client.ViewModels
             _routeService = routeService;
             _stationService = stationService;
             _commandManager = commandManager;
-
             _commandManager.CommandExecuted += OnCommandExecuted;
 
             Routes = new ObservableCollection<RouteModel>();
             AddCommand = new DelegateCommand(ShowAddRouteForm);
             DuplicateRouteCommand = new DelegateCommand<RouteModel>(async (route) => await DuplicateRouteAsync(route));
             EditRouteCommand = new DelegateCommand<RouteModel>(ShowEditRouteForm);
-            RefreshCommand = new DelegateCommand(async () => await RefreshRoutesAsync());
             RemoveRouteCommand = new DelegateCommand<RouteModel>(async (route) => await RemoveRouteAsync(route));
+
+            RefreshCommand = new DelegateCommand(async () => await RefreshRoutesAsync());
             UndoCommand = new DelegateCommand(async () => await UndoAsync());
             RedoCommand = new DelegateCommand(async () => await RedoAsync());
         }
 
         public ICommand AddCommand { get; }
 
-        public bool CanRedo
-        {
-            get { return _canRedo; }
-            set { SetProperty(ref _canRedo, value); }
-        }
+        public bool CanRedo => _commandManager.CanRedo();
 
-        public bool CanUndo
-        {
-            get { return _canUndo; }
-            set { SetProperty(ref _canUndo, value); }
-        }
+        public bool CanUndo => _commandManager.CanUndo();
 
         public ICommand DuplicateRouteCommand { get; }
 
@@ -94,6 +84,8 @@ namespace Client.ViewModels
 
         public override Task OnLoadedAsync()
         {
+            UpdateCanUndoRedo();
+
             return RefreshRoutesAsync();
         }
 
@@ -137,8 +129,7 @@ namespace Client.ViewModels
 
         private void OnCommandExecuted(object sender, System.EventArgs e)
         {
-            CanUndo = _commandManager.CanUndo();
-            CanRedo = _commandManager.CanRedo();
+            UpdateCanUndoRedo();
         }
 
         private async void OnRouteSubmited()
@@ -158,6 +149,12 @@ namespace Client.ViewModels
             var routeCopy = route.Clone() as RouteModel ?? new RouteModel();
             FormViewModel = new EditRouteFormViewModel(_routeService, _stationService, _commandManager, Logger, routeCopy, OnRouteSubmited, EventAggregator);
             IsDialogOpen = true;
+        }
+
+        private void UpdateCanUndoRedo()
+        {
+            RaisePropertyChanged(nameof(CanUndo));
+            RaisePropertyChanged(nameof(CanRedo));
         }
     }
 }
