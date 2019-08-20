@@ -47,10 +47,52 @@ Console Application which hosts `WCF` services. It displays log information whic
 User can close *Server* by pressing `ENTER` on keyboard.
 
 
+### Client
+
+WPF Desktop Application through which User can interract with [Server](#server).
+
+Once the application has been run, user will be greeted with Login screen after which he will have different view options based on his role (*Administrator* or *Regular User*). 
+
+![Login Screen](doc/login-screen.PNG)
+
+Each user has options to view Routes, Stations, Log information, Profile and to Sign Out:
+
+![User Nav](doc/user-nav.PNG)
+
+Administrator has special view dedicated to him which is to see the list of *Users* and to add them:
+
+![User List](doc/user-list.PNG)
+
+
+#### Routes
+
+Displays railway routes as list of expandable elements that (once clicked) themselves display list of stations that are included in that route. 
+
+![Routes View](doc/routes-view.PNG)
+
+User can Add, Duplicate, Edit and Delete routes upon which modal popup window would be shown.
+
+![Edit Route View](doc/edit-route-view.PNG)
+
+Additional available commands are Undo, Redo and Refresh.
+
+#### Stations
+
+Similar to Routes this view presents list of expandable items, but unlike in previous view, user can modify and delete Railway Platforms directly in the expanded table.
+
+![Stations View](doc/stations-view.PNG)
+
+
+#### Log
+
+Displays Log information in table. User can see potential conflicts, information and errors in this view. Just like in [Server](#server) log level can be modified in `App.config` file
+
+![Log View](doc/log-view.PNG)
 
 
 
+#### Profile
 
+Each user can edit their first and last name.
 
-
-
+![Edit Profile View](doc/edit-profile-view.PNG)
