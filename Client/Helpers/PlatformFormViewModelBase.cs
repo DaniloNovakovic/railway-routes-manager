@@ -53,11 +53,7 @@ namespace Client.Helpers
         {
             UpdateCanSubmit();
 
-            return SafeExecuteAsync(async () =>
-            {
-                // TODO..
-                await Task.Delay(10);
-            });
+            return Task.CompletedTask;
         }
 
         public abstract Task OnSubmitAsync();

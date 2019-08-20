@@ -94,7 +94,7 @@ namespace Client.ViewModels
             {
                 string message = ex.InnerException?.Message ?? ex.Message;
                 Errors = new List<string>() { message };
-                _logger.Exception(ex.ToString());
+                _logger.Exception(message);
                 _eventAggregator.GetEvent<SnackbarMessageEvent>().Publish(message);
             }
             finally
