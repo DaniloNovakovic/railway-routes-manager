@@ -24,7 +24,7 @@ namespace Server
 
                 HostStartup.StartHosts(hosts, logger);
 
-                Console.Write("Press ENTER to close server...");
+                Console.WriteLine("Press ENTER to close server...");
                 Console.ReadLine();
 
                 HostStartup.CloseHosts(hosts, logger);
