@@ -145,6 +145,7 @@ namespace Server
             _logger.Debug($"Overwriting existing (logically deleted) route {dbRoute.Id}...");
 
             _mapper.Map(entity, dbRoute);
+            dbRoute.RailwayStations = GetStations(entity);
             dbRoute.DeletionDate = null;
 
             _unitOfWork.SaveChanges();
