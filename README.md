@@ -17,6 +17,11 @@ School Project from Multi-tier applications development class in Faculty of Tech
     - [Stations](#Stations)
     - [Log](#Log)
     - [Profile](#Profile)
+- [Architecture](#Architecture)
+  - [Core](#Core-Layer)
+  - [Infrastructure](#Infrastructure-Layer)
+  - [Persistance](#Persistance-Layer)
+  - [Presentation](#Presentation-Layer)
 
 
 ## Getting Started
@@ -78,7 +83,7 @@ Administrator has special view dedicated to him which is to see the list of *Use
 ![User List](doc/user-list.PNG)
 
 
-#### Routes
+### Routes
 
 Displays railway routes as list of expandable elements that (once clicked) themselves display list of stations that are included in that route. 
 
@@ -90,14 +95,14 @@ User can Add, Duplicate, Edit and Delete routes upon which modal popup window wo
 
 Additional available commands are Undo, Redo and Refresh.
 
-#### Stations
+### Stations
 
 Similar to Routes this view presents list of expandable items, but unlike in previous view, user can modify and delete Railway Platforms directly in the expanded table.
 
 ![Stations View](doc/stations-view.PNG)
 
 
-#### Log
+### Log
 
 Displays Log information in table. User can see potential conflicts, information and errors in this view. Just like in [Server](#server) log level can be modified in `App.config` file
 
@@ -105,8 +110,37 @@ Displays Log information in table. User can see potential conflicts, information
 
 
 
-#### Profile
+### Profile
 
 Each user can edit their first and last name.
 
 ![Edit Profile View](doc/edit-profile-view.PNG)
+
+
+## Architecture
+
+As mentioned previously this application consists of `Client` - Front End and `Server` - Back End. 
+
+Both Front and Back end are then layered individually into sublayers such as `Core`, `Infrastructure`, `Persistance` which share common purpose.
+
+### Core Layer
+
+Represents combination of *Domain* and *Application* layers. 
+
+*Domain layer* - Contains all entities, enums, exceptions, types and logic specific to the domain.
+
+*Application layer* - contains all application/business logic. It is dependent on the domain layer, but has no dependencies on any other layer or project. This layer defines interfaces that are implemented by outside layers. For example, if the application need to access a notification service, a new interface would be added to application and an implementation would be created within infrastructure.
+
+### Infrastructure Layer
+
+This layer contains classes for accessing external resources such as file systems, web services, smtp, and so on. These classes are based on interfaces defined within the [Core](#core-layer) layer.
+
+### Persistance Layer
+
+Represents implementation of interfaces from the [Core](#core-layer) layer related to Database. 
+In this case it represents classes related to Entity Framework like DbContext, Migrations, Fluent API Configurations, Database Initialization (Seed) method, etc.
+
+
+### Presentation Layer
+
+Holds logic related to GUI, which in this case is WPF Desktop Application. It depends on all of the other layers but none of them depend on Presentation layer. Purpose of clean architecture is to abstract this layer as much as possible so that it can be easily switchable.
