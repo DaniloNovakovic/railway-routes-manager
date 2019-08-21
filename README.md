@@ -175,7 +175,7 @@ This pattern creates a decorator class which wraps the original class and provid
 
 Example of decorator can be found in `AuthLoggerDecorator` class which is used to decorate logging messages with `username` attribute.
 
-![Decorator UML](doc/decorator.png)
+![Decorator UML](doc/decorator.PNG)
 
 ### Command
 
@@ -186,7 +186,7 @@ This project introduces two types of commands:
 - `ICommand` - Used by WPF for Binding.
 - `IUndoableCommand` - Used by `CommandManager` for *Undo* / *Redo* functionality.
 
-![Command UML](doc/command.png)
+![Command UML](doc/command.PNG)
 
 ### Factory Method
 
@@ -194,7 +194,7 @@ In class-based programming, the factory method pattern is a creational pattern t
 
 Example of Factory used in this project can be found in `AuthServiceHostFactory` which is used to make `ServiceHost` with customized headers used for authentification.
 
-![Factory Method UML](doc/factory-method.png)
+![Factory Method UML](doc/factory-method.PNG)
 
 ### Facade
 
@@ -204,7 +204,7 @@ This pattern involves a single class which provides simplified methods required 
 
 Example of Facade pattern for this project can be found in `AuthServiceHostFactoryFacade` whose main goal is to simplify usage of `AuthServiceHostFactory`.
 
-![Facade UML](doc/facade.png)
+![Facade UML](doc/facade.PNG)
 
 ### Template Method
 
@@ -212,8 +212,16 @@ Template method pattern is a behavioral design pattern that defines the program 
 
 This project uses Template Method pattern for Form ViewModels where base class would implement all of the required logic but `OnSubmit` behavior would be abstracted away for child classes to implement.
 
+![Template Method UML](doc/template-method.PNG)
+
 ### Prototype
 
 The prototype pattern is a creational design pattern in software development. It is used when the type of objects to create is determined by a prototypical instance, which is cloned to produce new objects.
 
 This project uses Prototype pattern by implementing provided `ICloneable` interface. Example of class objects that use this are Model classes from `Client.Core`. When they are passed to the `Edit` Form View Model they need to be cloned so that passed class is not accidently modified by reference.
+
+![Prototype UML](doc/prototype.PNG)
+
+---
+
+Copyright 2019 © [DaniloNovakovic](https://github.com/DaniloNovakovic)
