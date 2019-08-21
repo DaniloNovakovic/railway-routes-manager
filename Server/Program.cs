@@ -13,7 +13,7 @@ namespace Server
         {
             var logger = new Log4NetLogger();
 
-            logger.Debug($"Running as {WindowsIdentity.GetCurrent().Name}");
+            logger.Info($"Running as {WindowsIdentity.GetCurrent().Name}");
 
             var dbContext = GetDbContext(DefaultConnectionName, logger);
 
@@ -33,10 +33,14 @@ namespace Server
 
         private static ApplicationDbContext GetDbContext(string nameOrConnectionString, ILogger logger)
         {
-            logger.Debug("Starting up database...");
+            logger.Info("Starting up database...");
+
             var dbContext = new ApplicationDbContext(nameOrConnectionString);
-            dbContext.Database.CreateIfNotExists();
+            var bootstrapper = new ApplicationDbBootstrapper(dbContext, logger);
+            bootstrapper.Initialize();
+
             logger.Info("Database started");
+
             return dbContext;
         }
     }
