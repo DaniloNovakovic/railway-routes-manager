@@ -122,7 +122,7 @@ namespace Server.Persistance
                     RailwayStationId = 1,
                     EntranceType = EntranceType.Left,
                     Name = "Kolosek I",
-                    Mark = "1"
+                    Mark = "VKI"
                 },
                 new RailwayPlatform
                 {
@@ -130,7 +130,7 @@ namespace Server.Persistance
                     RailwayStationId = 2,
                     EntranceType = EntranceType.Left,
                     Name = "Kolosek I",
-                    Mark = "1"
+                    Mark = "NK1"
                 },
                 new RailwayPlatform
                 {
@@ -138,7 +138,7 @@ namespace Server.Persistance
                     RailwayStationId = 2,
                     EntranceType = EntranceType.Right,
                     Name = "Kolosek II",
-                    Mark = "2"
+                    Mark = "NK2"
                 }
             };
 

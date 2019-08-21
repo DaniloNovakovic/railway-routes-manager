@@ -28,6 +28,7 @@ namespace Client.Core
         }
 
         [Required]
+        [StringLength(3)]
         public string Mark
         {
             get { return _mark; }
