@@ -173,19 +173,30 @@ In software engineering, a design pattern is a general repeatable solution to a 
 
 ![Repository And Uow](doc/repository-and-uow.png)
 
+`IRepository` and `IUnitOfWork` interfaces can be found under `Server.Core` and their implementation in `Server.Persistance` class library.
+
 ### Decorator
 
 Decorator pattern allows a user to add new functionality to an existing object without altering its structure. This type of design pattern comes under structural pattern as this pattern acts as a wrapper to existing class.
 
 This pattern creates a decorator class which wraps the original class and provides additional functionality keeping class methods signature intact.
 
+Example of decorator can be found in `AuthLoggerDecorator` class which is used to decorate logging messages with `username` attribute.
+
 ### Command
 
 Command pattern is a data driven design pattern and falls under behavioral pattern category. A request is wrapped under an object as command and passed to invoker object. Invoker object looks for the appropriate object which can handle this command and passes the command to the corresponding object which executes the command.
 
+This project introduces two types of commands:
+
+- `ICommand` - Used by WPF for Binding.
+- `IUndoableCommand` - Used by `CommandManager` for *Undo* / *Redo* functionality.
+
 ### Factory Method
 
-In class-based programming, the factory method pattern is a creational pattern that uses factory methods to deal with the problem of creating objects without having to specify the exact class of the object that will be created. This is done by creating objects by calling a factory method—either specified in an interface and implemented by child classes, or implemented in a base class and optionally overridden by derived classes—rather than by calling a constructor.
+In class-based programming, the factory method pattern is a creational pattern that uses factory methods to deal with the problem of creating objects without having to specify the exact class of the object that will be created. This is done by creating objects by calling a factory method either specified in an interface and implemented by child classes, or implemented in a base class and optionally overridden by derived classes rather than by calling a constructor.
+
+Example of Factory used in this project can be found in `AuthServiceHostFactory` which is used to make `ServiceHost` with customized headers used for authentification.
 
 ### Facade
 
@@ -193,10 +204,16 @@ Facade pattern hides the complexities of the system and provides an interface to
 
 This pattern involves a single class which provides simplified methods required by client and delegates calls to methods of existing system classes.
 
+Example of Facade pattern for this project can be found in `AuthServiceHostFactoryFacade` whose main goal is to simplify usage of `AuthServiceHostFactory`.
+
 ### Template Method
 
 Template method pattern is a behavioral design pattern that defines the program skeleton of an algorithm in an operation, deferring some steps to subclasses. It lets one redefine certain steps of an algorithm without changing the algorithm's structure.
 
+This project uses Template Method pattern for Form ViewModels where base class would implement all of the required logic but `OnSubmit` behavior would be abstracted away for child classes to implement.
+
 ### Prototype
 
 The prototype pattern is a creational design pattern in software development. It is used when the type of objects to create is determined by a prototypical instance, which is cloned to produce new objects.
+
+This project uses Prototype pattern by implementing provided `ICloneable` interface. Example of class objects that use this are Model classes from `Client.Core`. When they are passed to the `Edit` Form View Model they need to be cloned so that passed class is not accidently modified by reference.
