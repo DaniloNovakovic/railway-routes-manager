@@ -135,6 +135,8 @@ As mentioned previously this application consists of `Client` - Front End and `S
 
 Both Front and Back end are then layered individually into sublayers such as `Core`, `Infrastructure`, `Persistance` which share common purpose.
 
+![Layers](doc/layers.png)
+
 ### Core Layer
 
 Represents combination of *Domain* and *Application* layers. 
