@@ -194,6 +194,8 @@ In class-based programming, the factory method pattern is a creational pattern t
 
 Example of Factory used in this project can be found in `AuthServiceHostFactory` which is used to make `ServiceHost` with customized headers used for authentification.
 
+![Factory Method UML](doc/factory-method.png)
+
 ### Facade
 
 Facade pattern hides the complexities of the system and provides an interface to the client using which the client can access the system. This type of design pattern comes under structural pattern as this pattern adds an interface to existing system to hide its complexities.
@@ -201,6 +203,8 @@ Facade pattern hides the complexities of the system and provides an interface to
 This pattern involves a single class which provides simplified methods required by client and delegates calls to methods of existing system classes.
 
 Example of Facade pattern for this project can be found in `AuthServiceHostFactoryFacade` whose main goal is to simplify usage of `AuthServiceHostFactory`.
+
+![Facade UML](doc/facade.png)
 
 ### Template Method
 
