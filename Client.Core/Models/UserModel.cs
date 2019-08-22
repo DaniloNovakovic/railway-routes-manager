@@ -40,6 +40,7 @@ namespace Client.Core
             set { SetProperty(ref _password, value); }
         }
 
+        [Required]
         public string RoleName
         {
             get { return _roleName; }

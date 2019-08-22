@@ -19,6 +19,14 @@
                      Text="{Binding UserModel.FirstName,Mode=TwoWay,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}" />
             <TextBox materialDesign:HintAssist.Hint="LastName" Style="{StaticResource ValidationTextBox}"
                      Text="{Binding UserModel.LastName,Mode=TwoWay,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}" />
+            <ComboBox materialDesign:HintAssist.Hint="Role Name" ItemsSource="{Binding RoleNames}"
+                      SelectedItem="{Binding UserModel.RoleName}" Margin="0,15,0,15">
+                <ComboBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <VirtualizingStackPanel />
+                    </ItemsPanelTemplate>
+                </ComboBox.ItemsPanel>
+            </ComboBox>
         </StackPanel>
         <Button Margin="20, 10, 20, 30" Grid.Row="1"
                 Command="{Binding AddUserCommand}" IsEnabled="{Binding CanAddUser}">Submit</Button>

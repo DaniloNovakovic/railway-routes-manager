@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Client.Core;
@@ -20,7 +21,7 @@ namespace Client.ViewModels
             _userService = userService;
             _eventAggregator = eventAggregator;
 
-            UserModel = new UserModel();
+            UserModel = new UserModel { RoleName = Common.RoleNames.RegularUser };
             AddUserCommand = new DelegateCommand(async () => await AddUserAsync());
             UserModel.ErrorsChanged += UserModel_ErrorsChanged;
         }
@@ -32,6 +33,8 @@ namespace Client.ViewModels
             get { return _canAddUser; }
             set { SetProperty(ref _canAddUser, value); }
         }
+
+        public ObservableCollection<string> RoleNames { get; } = new ObservableCollection<string>(Common.RoleNames.AsEnumerable());
 
         public UserModel UserModel
         {
